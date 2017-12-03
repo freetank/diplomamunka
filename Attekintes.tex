@@ -1,0 +1,71 @@
+% Preamble
+% ---
+\documentclass[]{article}
+% \documentclass[11pt,a4paper]{article}
+
+% Packages
+% ---
+\usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{xcolor}
+\usepackage{listings}
+
+\begin{document}
+
+\section*{Áttekintés}
+Ebbe a dokumentumba írom le eddig mit sikerült haladnom diplomamunkámmal, milyen irodalmat néztem át, milyen nyelvi elemeknek sikerült leírom a szemantika definícióját.
+
+\subsection*{Erlang szemantikadefiníció K keretrendszerben}
+Első és legfontosabb lépés volt a 4.0-ás verzióra való áttérés. Itt komoly problémák akadtak a változók parse-olásával, mivel a \#KVariable sorttal ütközött. 4.0-ban a szintaxist a -PARSING végződésű modulba kell definiálni és a szintaxis definíciókat, amiket parse-olás közben el akarunk rejteni (az ütközések elkerülése végett) a -SYNTAX végződésű modulban kell megadnunk, ahogy a tokens.k fájlban látható. Ez magával vonta a modularizálást is. Jelenleg 18 modul van:
+
+\begin{itemize}
+  \item TOKENS-PARSING
+  \item TOKENS-SYNTAX
+  \item TUPLE-PARSING
+  \item TUPLE
+  \item ERL-LIST-PARSING
+  \item ERL-LIST
+  \item EXP-SHARED
+  \item EXP-PARSING
+  \item EXP
+  \item ERL-PARSING
+  \item ERL-SYNTAX
+  \item ERL
+  \item CONCURRENT-PARSING
+  \item CONCURRENT
+  \item VALUE
+  \item CONFIG
+  \item OPERATORS-PARSING
+  \item OPERATORS
+\end{itemize}
+
+A modulnevek magukért beszélnek, azonban négyet ki kell emelnem. Az egyik az EXP-SHARED modul. Mivel minden erlang típus (lista, token stb) önmagában egy kifejezés, emiatt az Exp sortból az erlang típus szintaxisát leíró sortok levezethetőek. Ahhoz hogy ez az Exp sort egyértelműen meghatározott legyen, predeklaráltuk ebben a modulban, és minden Exp sortot használó modul importálja. Ezenkívül ide kerültek a később vezérlési szerkezetekben használatos sortok mint az Exps és a Match0.
+
+A CONFIG, amely a konfigurációt tartalmazza.
+\lstset{language=XML}
+\begin{lstlisting}
+<processes>
+   <process>
+      <k> $PGM:Pgm </k>
+      <env> .Map </env>
+      <pid> !P:Pid </pid>
+      <mailbox> .List </mailbox>
+   </process>
+</processes>
+<defs color="blue"> .Map </defs>
+<store color="red"> .Map </store>
+\end{lstlisting}
+
+A <processes> tag tartalmazza az összes futó process konfigurációját. A <pid> tartalmazza a process egyedi azonosítóját. Jelenleg ez az azonosító egyedi, viszont a K-ban használatos természetes szám generálás miatt (! operátor) biztos hogy a pid <n, n+1, n+2> alakú lesz. A <mailbox> a processek mailboxa, ami a processek által küldött adatokat tartalmazza egy listában, így meg tudjuk őrizni a sorrendiséget is. A processek <env> tage és a globális <store> tag között erős kapcsolat van. Az <env> írja le egy process környezetét, vagyis hogy milyen változókat tartalmaz. Ez egy mapet tartalmaz, ami a "Változónév -> Generált szám" alakú, és a valódi értékét a változónak a <store> tartalmazza "Generált szám -> Változó tartalma" alakban.
+
+Az utolsó kettő a CONCURRENT-PARSING és a CONCURRENT, ami az erlang konkurens részének szintaxisát és szemantika definícióját tartalmazza. A konkurens nyelvi elemek közül a spawn, a self és a ! operátor definíciója van meg. A könnyebb tesztelhetőség érdekében kikommenteztem a processek felszámolásáért felelős szabályt, mivel a program futása végén a konfigurációban a <processes> tag egy processt sem tartalmazna. A ! operátort két szabály írja le. Az egyik a másik processnek való üzenet küldésért felelős, a másik szabály pedig a saját magának való üzenetküldés szemantikáját írja le. A receive a következő, aminek a szemantikáját definiálni fogom, a szintaxisát már tartalmazza a modul.
+
+\subsection*{Ktest}
+A teszteléshez a K keretrendszerhez tartozó ktest nevű programot használom. A kompile pattern kapcsolójával meg lehet adni hogy a konfigurációnak mely részére vagyunk kiváncsiak. Ez jelentheti a végállapotot is, vagy futás közbeni köztes konfigurációt is. A ktest program bemenetként egy config.xml fájlt vár, ahol megadhatjuk hogy mely teszteket futtassa le; külön teszt esetenként megadható, hogy milyen patterneket keressen a konfigurációban; hogy szükséges-e a fordítás tesztelés előtt; illetve pdf-t is generálhatunk vele (jelenleg ez nem működik). A tesztek futtatása párhuzamosan zajlik. A tesztek kimenetét összehasonlítja a <teszt-név>.out fájlban lévő eredménnyel. Jelenleg minden teszthez írtam .out filet, definiáltam patternt és az eredmény két config.xml fájl lett. Egy a szekvenciális tesztekhez, egy pedig a konkurensekhez.
+
+\subsection*{Irodalmak}
+Az erlang nyelvvel való ismerkedés Madridban az Applied Declarative Programming tárgy keretében zajlott, ahol gyakorlatilag többet is vettünk, mint ami ehhez a diplomamunkához szükséges. Illetve nagy segítséget nyújtott még a learnyousomeerlang.com oldal is, ahonnan tesztekhez még jó példákat is tudtam venni. A K keretrendszer használatához a release-ben lévő példák mutattak utat. A 4.0-ra való áttéréshez, a ktest használatához a github.com/kframework/ k/wiki/Manual-(to-be-processed) oldal adott sok hasznos tanácsot. A szemantikával kapcsolatos elméleti anyag esetében pedig a Formális szemantika tárgy diáira támaszkodom.
+
+\end{document}
