@@ -1,0 +1,15 @@
+1. Bevezetés
+2. Matching logic
+    - Leírás, hogy mi
+    - Összehasonlítani más szemantikákkal
+3. Erlang nyelv konkurrens résznyelvének szemantikája K keretrendszerben
+    -Erlang folyamatok (nagyvonalúan)
+    -Szemantika leírások
+    -Összehasonlítás más eddigi Erlang szemantikákkal
+4. Verifikáció
+    -Itt beszélhetek tesztekről
+    -Példák
+        -Fogalmazzak meg vmi követelményt
+        -Verifikáló programot lefuttatni beszélni róla stb
+        -Az eredményt miért tartom jónak
+5. Összefoglaló, tanulság stb
