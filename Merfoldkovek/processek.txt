@@ -1,0 +1,33 @@
+http://erlang.org/doc/reference_manual/processes.html
+
+= mintaillesztés is megy vele az volt a TODO
+
+12.2  Process Creation
+-spawn                      pipa
+
+12.3  Registered Processes
+-register
+-registered
+-whereis
+
+12.4  Process Termination
+-exit
+-erlang:error
+-erlang:error
+
+12.5  Message Sending
+-operator !                 pipa
+-receive
+
+12.6  Links
+-link
+-spawn_link
+-unlink
+
+12.7  Error Handling
+-exit(Pid,Reason)
+-process_flag(trap_exit, true)
+
+(below it's optional)
+12.8  Monitors
+12.9  Process Dictionary
