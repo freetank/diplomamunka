@@ -6,28 +6,25 @@ http://erlang.org/doc/reference_manual/processes.html
 -spawn                      pipa
 
 12.3  Registered Processes
--register
--registered
--whereis
+-register                   pipa
+-registered                 pipa
+-whereis                    pipa
+-unregister                 pipa
 
 12.4  Process Termination
--exit
--erlang:error
--erlang:error
+-exit                       pipa
+-erlang:error               nem lesz
+-erlang:error               nem lesz
 
 12.5  Message Sending
 -operator !                 pipa
--receive
+-receive                    pipa
 
 12.6  Links
--link
--spawn_link
--unlink
+-link                       pipa
+-spawn_link                 pipa
+-unlink                     pipa
 
 12.7  Error Handling
--exit(Pid,Reason)
--process_flag(trap_exit, true)
-
-(below it's optional)
-12.8  Monitors
-12.9  Process Dictionary
+-exit(Pid,Reason)           pipa
+-process_flag(trap_exit, true)pipa

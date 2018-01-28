@@ -5,9 +5,9 @@
 3. Erlang nyelv konkurrens résznyelvének szemantikája K keretrendszerben
     -Erlang folyamatok (nagyvonalúan)
     -Szemantika leírások
+    -Itt beszélhetek tesztekről
     -Összehasonlítás más eddigi Erlang szemantikákkal
 4. Verifikáció
-    -Itt beszélhetek tesztekről
     -Példák
         -Fogalmazzak meg vmi követelményt
         -Verifikáló programot lefuttatni beszélni róla stb
