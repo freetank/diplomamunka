@@ -15,7 +15,7 @@
 \begin{document}
 
 \section*{1. Mérföldkő}
-Az első mérföldkőig az Erlang nyelv párhuzamos programozást támogató résznyelvének K-ban definiált futtatható formális szemantikájának elkészítése volt a cél. Emiatt a már meglévő nyelv definíció bővült egy CONCURRENT-PARSING és egy CONCURRENT modullal, és ennek megfelelően a konfiguráció is bővült. Továbbá 38 darab teszt segítségével a munka során folyamatosan tudtam ellenőrizni szemantika definícióm helyességét.
+Az első mérföldkőig az Erlang nyelv párhuzamos programozást támogató résznyelvének K-ban definiált futtatható formális szemantikájának elkészítése volt a cél. Emiatt a már meglévő szemantika definíció bővült egy CONCURRENT-PARSING és egy CONCURRENT modullal, és ennek megfelelően a konfiguráció is bővült. Továbbá 38 darab teszt segítségével a munka során folyamatosan tudtam ellenőrizni szemantika definícióm helyességét.
 
 \subsection*{A konfiguráció bővülése}
 A jelenlegi konfiguráció alább látható:
@@ -47,45 +47,58 @@ A jelenlegi konfiguráció alább látható:
 A processes tartalmazza, az összes futó folyamat konfigurációját. Itt négy típusértékhalmazzal bővült az állapot tér, ami a párhuzamos résznyelvhez kötődik.
 
 \begin{itemize}
-\item pid: A folyamat azonosítóját tartalmazza. A fő folyamat azonosítója mindig <0.0.0> lesz. Szükséges itt beállítani, mivel nem lehet úgy véletlenszerűen generáltatni, hogy azt a processIds állapot is tudja tartalmazni.
+\item pid: A folyamatazonosítóját tartalmazza. A fő folyamatazonosítója mindig <0.0.0> lesz. Szükséges itt beállítani, mivel nem lehet úgy véletlenszerűen generáltatni, hogy azt a processIds állapot is tudja tartalmazni.
 \item mailbox: Egy lista, amely folyamatnak küldött üzeneteket tartalmazza. Mivel listában van tárolva a sorrendiség megmarad.
-\item processFlag: A process\_flag függvény által beállítható flageket tartalmazza. Csak a trap\_exit flaggel foglalkoztam a szemantika definíálás során.
+\item processFlag: A process\_flag függvény által beállítható flageket tartalmazza. Csak a trap\_exit flaggel foglalkoztam a szemantika definiálás során.
 \item terminatedProcess: Egy logikai értéket tartalmaz, ami jelzi, hogy a folyamat terminált-e vagy sem.
 \end{itemize}
 
 A többi állapot közös az összes folyamatra nézve.
 
 \begin{itemize}
-\item processIds: Az összes futó folyamat azonosítója. Ennek segítségével a jövőben eliminálható a terminatedProcess típusértékhalmaz.
+\item processIds: Az összes futó folyamatazonosítója. Ennek segítségével a jövőben eliminálható a terminatedProcess típusértékhalmaz.
 \item processesCheckMails: Azon folyamatok azonosítója, melyek éppen receive utasításnál vannak, és éppen vizsgálják a mailboxukban lévő üzeneteket.
-\item idleProcesses: Azok a folyamatok azonosítója, melyek receibe utasításnál vannak, és már ellenőrizték az üzeneteiket. Emiatt újabb üzenetekre várnak, illetve ha rendelkeznek after résszel, akkor az ott meghatározott idő letelésére is figyelnek.
-\item processesDuringExit: Azon folyamatok azonosítója, melyek exit signált kaptak, vagy elérték a program végét, és az összelinkelt folyamataiknak jelzik, hogy termináltak.
+\item idleProcesses: Azok a folyamatok azonosítója, melyek receive utasításnál vannak, és már ellenőrizték az üzeneteiket. Emiatt újabb üzenetekre várnak, illetve ha rendelkeznek after résszel, akkor az ott meghatározott idő letelésére is figyelnek.
+\item processesDuringExit: Azon folyamatok azonosítója, melyek exit szignált kaptak, vagy elérték a program végét, és az összelinkelt folyamataiknak jelzik, hogy terminálnak.
 \item registeredProcesses: Névvel regisztrált folyamatok.
-\item linkedProcesses: Az egymással link utasítással összekapcsolt folyamatok.
-\item time: A program elindulásától számított eltelt időt reprezentálja. Mivel a K keretrendszertől nem lehet az adott időt lekérdezni, emiatt minden egyes utasítás egységesen 10-zel növeli az értéket, ami milliszekundumban értendő.
+\item linkedProcesses: Az egymással link függvénnyel összekapcsolt folyamatok.
+\item time: A program elindulásától számított eltelt időt reprezentálja. Mivel a K keretrendszertől nem lehet az adott időt lekérdezni, emiatt minden egyes utasítás egységesen 10-el növeli az értéket, ami milliszekundumban értendő.
 \end{itemize}
 
 
-\subsection*{Utasítások}
-Nem a párhuzamos programozást támogató résznyelvhez tartozik, de a mintaillesztést definícióján is finomítottam. Eddig csak változókhoz lehetett értéket rendelni, most már a pattern matching is működik.
+\subsection*{Szemantika definíció}
+Nem a párhuzamos programozást támogató résznyelvhez tartozik, de a mintaillesztés definícióján is finomítottam. Eddig csak változókhoz lehetett értéket rendelni.
 
 \subsubsection*{Folyamat létrehozása}
-Új folyamatot a spawn utasítással tudunk létrehozni. Az utasítással az állapot tér processes részébe új process kerül, generáltatva magának egy egyedi folyamat azonosítót.
+Új folyamatot a spawn függvénnyel tudunk létrehozni. Az állapottér processes részébe új process állapot kerül, generáltatva magának egy egyedi folyamatazonosítót.
 
 \subsubsection*{Regisztrált folyamatok}
-A register utasítással tudunk nevet adni egy folyamatnak. Ekkor az állapottér registeredProcesses map-be teszi a megadott név és a folyamat azonosítójából készített párt. Ha már egy névhez van regisztrálva név, vagy az adott névhez már regisztráltak nevet, akkor bad\_arg hibával tér vissza az utasítás. Ezenfelül ugyan ezt a működést érjük el, ha a megadott név undefined, vagy egy nem meglévő folyamatot akarunk regisztrálni.
+A register utasítással tudunk nevet adni egy folyamatnak. Ekkor az állapottér registeredProcesses állapotában lévő map-be teszi a megadott név és a folyamatazonosítójából készített párt. Ha már egy névhez van regisztrálva név, vagy az adott névhez már regisztráltak nevet, akkor bad\_arg hibával tér vissza a függvény. Ezenfelül ugyanezt a működést érjük el, ha a megadott név undefined, vagy egy nem meglévő folyamatot akarunk regisztrálni.
 
 A registered és a whereis utasítások ebből a registeredProcesses állapotból tudják lekérni a számukra szükséges adatokat. Az unregiszter pedig törli ebből állapotból a névhez tartozó értéket.
 
+\subsection*{Üzenetküldés}
+A time típusértékhalmaz a receive utasítás after klóza miatt került be. A receive hívás után a folyamat két állapotba kerülhet. Legelőször mintaillesztés fut le a mailbox állapotban lévő üzenetekre. Ekkor a folyamatazonosítója bekerül a processesCheckMails állapotba. Ha nem volt megfelelő illesztés, akkor várakozni kezd, kikerül a processesCheckMails-ből az azonosító és az idleProcessesbe kerül. Itt a legnehezebb rész az volt, amikor minden folyamat várakozik. Ilyenkor egy szabály ellenőrzi, hogy ez az állapot van-e, és folyamatosan növeli az időt. Ha volt after klóz, akkor egy idő után az egyik folyamat tud folytatódni.
+
+A ! operátor egyszerűen csak a jobb oldalán lévő kiértékelt értéket beteszi annak a folyamatnak a mailbox-ába, amelynek az azonosítója az operátor bal oldali operandusa. Külön szabályokat kellett hozni az éppen várakozó folyamatoknak való küldéshez, illetve a regisztrált nevek esetén.
+
+\subsubsection*{Linkek}
+A link függvény összeköti a két folyamatot (a hívót és a paraméterben átadott folyamatazonosítóhoz tartozó folyamatot), amit linkedProcesses állapotban tárol map formájában. Mivel mindegyik folyamathoz több folyamat linkelhető, ezért minden kulcshoz a map-ben egy halmaz tartozik. A linkelés két lépésben történik. Először a link függvény bejegyzi a hívó folyamatazonosítóját, és hozzárendeli az argumentumot, ezután az állapot átmenet a \$link függvényhez vezet, ami pedig az argumentumot jegyzi be a linkedProcess állapotba.
+
+Az unlink ebből az állapotból törli az egyes kulcsokhoz tartozó halmazból a folyamatok azonosítóit, de a kulcsot nem törli, még ha a halmaz üres is lesz.
+
+A spawn\_link első ránézésre egy strukturális átrendezésnek tűnik, ami a link(spawn(...)) lenne. Sajnos a link visszatérési értéke true, a spawn\_link függvényé pedig a létrehozott folyamatazonosítója. A két lépéses link miatt, egy zárt \$spawn\_link nevű környezetbe raktam, ahol a spawn kiértékelése után, nem dobja el a folyamatazonosítót, hanem a link kiértékelése után visszatérési értékként megadja.
+
+\subsubsection*{Folyamat terminálása}
+Ha egy folyamat hiba nélkül lefutott, akkor a linkedProcesses-ben megadott folyamatoknak normal üzenetet küld, hiba esetén viszont az adott hibát küldi el. Ez az üzenet küldés megegyezik az exit függvénnyel. Ez egy \$exit függvényt hív meg, amely egyesével végig megy a folyamatazonosítókon, és attól függően, hogy a trap\_exit flag be van állítva, az alapján cselekszik.
+
+\paragraph*{}
+A definiált formális szemantika egy node-s környezetnek megfelelő működést írja le. Több node-s esetben számolni kéne azzal, hogy az üzenet nem egyből érkezik meg, tehát generálni kéne minden üzenetküldéshez egy időt, ami a hálózat sebességét írja le. Ezenkívül plusz függvények szemantikájának definiálását is megkívánja a több node-os eset, illetve a már meglévők kibővítését is.
+
+Ahogy a match esetén, a receive esetén sem működik kifejezésekre a mintaillesztés, mivel nem értékeli ki, és hiányoznak a guardok is.
 
 
-
-
-
-\subsection*{Ktest}
-A teszteléshez a K keretrendszerhez tartozó ktest nevű programot használom. A kompile pattern kapcsolójával meg lehet adni hogy a konfigurációnak mely részére vagyunk kiváncsiak. Ez jelentheti a végállapotot is, vagy futás közbeni köztes konfigurációt is. A ktest program bemenetként egy config.xml fájlt vár, ahol megadhatjuk hogy mely teszteket futtassa le; külön teszt esetenként megadható, hogy milyen patterneket keressen a konfigurációban; hogy szükséges-e a fordítás tesztelés előtt; illetve pdf-t is generálhatunk vele (jelenleg ez nem működik). A tesztek futtatása párhuzamosan zajlik. A tesztek kimenetét összehasonlítja a <teszt-név>.out fájlban lévő eredménnyel. Jelenleg minden teszthez írtam .out filet, definiáltam patternt és az eredmény két config.xml fájl lett. Egy a szekvenciális tesztekhez, egy pedig a konkurensekhez.
-
-\subsection*{Irodalmak}
-Az erlang nyelvvel való ismerkedés Madridban az Applied Declarative Programming tárgy keretében zajlott, ahol gyakorlatilag többet is vettünk, mint ami ehhez a diplomamunkához szükséges. Illetve nagy segítséget nyújtott még a learnyousomeerlang.com oldal is, ahonnan tesztekhez még jó példákat is tudtam venni. A K keretrendszer használatához a release-ben lévő példák mutattak utat. A 4.0-ra való áttéréshez, a ktest használatához a github.com/kframework/ k/wiki/Manual-(to-be-processed) oldal adott sok hasznos tanácsot. A szemantikával kapcsolatos elméleti anyag esetében pedig a Formális szemantika tárgy diáira támaszkodom.
+\subsection*{Teszt}
+A tesztek egy kis részhalmaza esetén a kimenet függhet az új szemantika definícióktól. Ezek olyan tesztek, amik a regisztrált folyamatazonosítót ellenőrzik, és olyanok melyek az eltelt időt vizsgálják. Sok esetben elég lenne az is, ha illeszkedik a mintára, vagy egy értéknél nagyobb a visszakapott idő. Azonban ilyent KTest segítségével nem lehet megvalósítani.
 
 \end{document}
