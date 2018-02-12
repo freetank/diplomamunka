@@ -1,0 +1,45 @@
+% Preamble
+% ---
+\documentclass[]{article}
+% \documentclass[11pt,a4paper]{article}
+
+% Packages
+% ---
+\usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage[backend=biber, style=trad-alpha]{biblatex}
+\addbibresource{2Merfoldko.bib} % The name of the .bib file (name without .bib)
+
+\begin{document}
+
+\section*{2. Mérföldkő}
+A második mérföldkő alatt a jelenleg ismert formális szemantikadefiníciós módszerek egy szűk részhalmazát ismertem meg (\cite{formSem}, \cite{semEA}, \cite{KAndMatch}), annak előnyeit és hátrányait. Ezenfelül a K keretrendszer által használt matching logicot tanulmányoztam meg részletesebben (\cite{KAndMatch}, \cite{MatchLog}).
+
+\subsection*{Formális szemantikadefiníciós módszerek}
+Több formális szemantikadefiníciós módszerrel ismerkedtem meg, melyek közül négyet ismertetek.
+
+\paragraph*{Axiomatikus szemantika}
+Tanulmányaim során ezzel a módszerrel találkoztam a legtöbbet. Program/programrészletek megfelelő működését elő- és utófeltétellel definiálja. A kifejezések nem tartalmazhatnak mellékhatásokat, ami valós programozási nyelvekben könnyen előfordulhat. Ezenkívül a futtathatósága nehezen megvalósítható, így nem ellenőrizhető, hogy megfelelő tulajdonságokat bizonyítottunk. A kifejező ereje szegényes, emiatt program transzformációkra van szükségünk, hogy a programot olyan formára alakítsuk, amire már axiomatikus szemantika adható.
+
+\paragraph{Denotációs szemantika}
+A programok jelentését matematikai objektumok hozzárendelésével adja meg. A denotációs szemantika meghatároz az állapotok között egy parciális függvényt. Így egy program szemantikája induktívan felépíthető. Ezek miatt a tulajdonságai miatt jó a kifejező ereje, könnyen futtatható, és a monádoknak köszönhetően moduláris is. Bár előfordulhat, hogy szükségünk van monád transzformációra, mely nem triviális művelet. A denotációs szemantika jól használható programok verifikálásához, viszont nehéz megérteni, alkalmazni.
+
+\paragraph*{Strukturális operációs szemantika}
+Az operációs szemantika előnye, hogy könnyű megérteni és definiálni vele szemantikát. A természete miatt könnyen futtatható, alapvetően jó kifejező képessége van, és az MSOS (egyik variánsa) moduláris is. Két fajtája van. A small-step, mellyel minden lépést modellezünk, illetve a big-step, amivel a kezdő- és végállapotok közötti relációkat fejezzük ki. Túlságosan alacsony szintűnek és verifikálásra alkalmatlannak tartják.
+
+\paragraph*{Redukciós szemantika}
+Redukciós szemantikában, az átmenetek átírási szabályok, melyeket redukciónak nevezünk, még akkor is ha ezzel nem redukáltuk a kifejezést. Ezek a kifejezések, amikre a redukciót alkalmazzuk, redexnek nevezzük. Ezek a redexek egy bizonyos kiértékelési környezetben kell lenniük, hogy a redukció végbe menjen. Hátránya hogy behelyettesítést alkalmaz, hogy tudja kezelni a különböző látókörben lévő változó hozzárendelést.
+
+\subsection*{Matching Logic}
+A cél egy olyan szemantika definíciós módszer kifejlesztése, mely futtatható, moduláris, erős a kifejező képessége, és könnyű vele a programok verifikálása. Gyakori az az eset, hogy definiálnak strukturális operációs és denotációs szemantikát is. Az oka, ahogy fentebb említettem, az elsőt könnyebb megérteni, míg a másodikkal könnyű verifikálni a programot. Viszont ilyen esetben szemantikák közötti ekvivalenciát bizonyítani kell, és folyamatosan karban kell tartani. A cél ennek a két szemantikadefiníciós módszer előnyeinek ötvözése.
+
+A programnyelv szintaxisát speciális számítási struktúrákra bontja fel. Szemantika szabályok halmazával definiálja a programnyelv szemantikáját. Tipikusan ez egy utasítás, vagy utasítások közötti kapcsolatára vonatkozó szabály. Ezek átírási szabályok, melyek az adott konfigurációs környezetre tudnak illeszkedni, és alkalmazásához bizonyos feltételeknek is eleget kell tenniük. A szabályoknak két típusa van. A strukturális, amely a konfigurációt rendezi át, nem számít számítási lépésnek, illetve a számítási szabály. A szemantika konfigurációja egymásba ágyazott cellákból épül fel. A szabályokban lévő minták, pedig ilyen cellákból áll, és tartalmazhatnak változókat. A konkrét konfiguráció is egy minta. Az előnye a matching logicnak, hogy ez egy elsőrendű logika, és nem kell kiterjeszteni, így a verifikáció könnyen elvégezhető.
+
+
+\printbibliography[title = {Referencia}]
+\end{document}
