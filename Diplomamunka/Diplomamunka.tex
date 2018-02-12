@@ -1,0 +1,76 @@
+% Preamble
+% ---
+\documentclass[]{book}
+% \documentclass[11pt,a4paper]{article}
+
+% Packages
+% ---
+\usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx} % Add pictures to your document
+\usepackage[export]{adjustbox}
+
+\usepackage[backend=biber, style=trad-alpha]{biblatex}
+%\addbibresource{2Merfoldko.bib} % The name of the .bib file (name without .bib)
+
+\begin{document}
+
+\begin{titlepage}
+   \begin{minipage}{0.3\linewidth}
+      \includegraphics[width=\linewidth]{elte-logo}
+   \end{minipage}
+   \begin{minipage}[c]{0.7\linewidth}
+      \centering
+      \mbox{\bfseries\large EÖTVÖS LORÁND TUDOMÁNYEGYETEM}\par
+      \mbox{\bfseries\large INFORMATIKAI KAR}\par
+      \mbox{\bfseries\large ... TANSZÉK}
+   \end{minipage}
+
+
+
+  {\bfseries\Large EÖTVÖS LORÁND TUDOMÁNYEGYETEM \par}
+  \rule{\linewidth}{0.5mm}\par
+  \vspace{2cm}
+  {\bfseries\large MIHÁLY PALENIK \par}
+  \vspace{1.5cm}
+  \centering
+  {\bfseries\normalsize GRADO EN INGENIERÍA INFORMÁTICA \par
+  FACULTAD DE INFORMÁTICA \par
+  DEPARTAMENTO DE SISTEMAS INFORMÁTICOS Y PROGRAMACIÓN \par}
+  {\scshape\large Universidad Complutense de Madrid\par}
+  {\bfseries\normalsize TRABAJO FIN DE GRADO \par}
+  \vspace{0.5cm}
+  {\large \today\par}
+
+  \vfill
+  Director:\par
+  Rafael Caballero Roldán
+
+  \vfill
+
+% Bottom of the page
+
+\end{titlepage}
+
+\newpage\null
+\pagenumbering{gobble}% Remove page numbers (and reset to 1)
+\tableofcontents
+\newpage
+
+\pagenumbering{roman}% Roman page numbers (and reset to 1)
+
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+In this work we consider the problem of detecting errors in large sets of SQL relations. In order to detect possible bugs the user can introduce assertions using a simple, set-like language indicating properties like inclusion or membership. Then, the system checks these assertions, reporting to the user if any assertion violation is detected.
+The assertions include options that allow the system to consider relations both as sets and as multisets and also to take the tuple order into account. These options can be included by the user at the same time the assertions are defined. We present a working prototype developing these ideas.
+\paragraph{}
+\textbf{Keywords: relational databases, postgresql, assertions, debugging, relational algebra, Java, ANTLR, multisets, testing, SQL views}
+
+\newpage
+
+\printbibliography[title = {Referencia}]
+\end{document}
