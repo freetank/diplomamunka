@@ -1,0 +1,66 @@
+\documentclass[twoside, a4paper, 12pt]{article}
+\usepackage{thesis-style}
+
+\input{tex/adatok}
+
+\title{\CIM}
+\author{\SZERZO}
+\date{\VEDESEVE}
+
+\begin{document}
+\pagestyle{empty}
+
+% belső fedőlap
+\include{tex/fedolap}
+\cleardoublepage
+
+% a belső fedőlap utáni lap a témabejelentő
+
+% tartalomjegyzék
+\tableofcontents
+\cleardoublepage
+
+\pagestyle{plain}
+\setcounter{page}{1}
+
+% tartalom
+\input{tex/tartalom}
+
+\section{Bevezetés}
+dsfsd
+
+\section{K keretrendszer}
+dsfsdf
+
+\section{Erlang nyelv}
+Az Erlang egy általános célra felhasználható funkcionális programozási nyelv. A Java nyelvhez hasonlóan egy szemétgyűjtővel rendelkező virtuális gépen fut a bájt-kódra lefordított program. A nyelv erőssége több pilléren áll.
+\section{Egy funkcionális nyelv}
+
+
+Milyen részei vannak
+Hol használják főleg?
+\section{Erlang nyelv konkurrens résznyelvének szemantikája K keretrendszerben}
+vmi resz
+\subsection{Erlang folyamatok}
+
+    -Szemantika leírások
+    -Itt beszélhetek tesztekről
+    -Összehasonlítás más eddigi Erlang szemantikákkal
+    
+    Nagyvonalúan beszélni az erlang folyamatokról, a saját
+szemantikadefiníció kifejtése. Külön részt szentelni a definíció megfogalmazását segítő, és
+konzisztensen tartásáért felelős tesztekért.
+
+\section{Verifikáció}
+sdfsdfsd
+
+\section{Utószó?}
+fdsfsdfs
+
+
+\newpage
+
+%\printbibliography[title = {Referencia}]
+
+
+\end{document}
