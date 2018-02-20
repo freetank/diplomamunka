@@ -38,6 +38,8 @@ dsfsdf
 \section{Erlang nyelv}
 Az Erlang egy általános célra felhasználható funkcionális programozási nyelv. A Java nyelvhez hasonlóan egy szemétgyűjtővel rendelkező virtuális gépen fut a bájt-kódra lefordított program. A nyelv erőssége több pilléren áll. Ez a fejezet egy rövid betekintést ad az Erlang nyelvhez a reference manual alapján (\cite{RefMan}). A lent található példákhoz nem szükséges fájlba mentett, modularizált kódot használnunk, közvetlenül az Erlang Shell segítségével interaktívan is ki tudjuk értékelni a kifejezéseinket, ezek végét pont jelöli.
 
+A következő alfejezetek az Erlang nyelv alapjait mutatja be, éppen annyit, amennyi elégséges lesz a szemantikadefiníciók megértéséhez. Mielőtt elkezdnénk az adattípusok áttekintését ismerkedjünk meg a term fogalmával. A term a kifejezések legegyszerűbb formája, tehát az adattípusok.
+
 \subsection{Adattípusok}
 Első körben érdemes az egyszerűbb adattípusokat áttekinteni, mielőtt megismernénk a különböző vezérlési szerkezeteket.
 
@@ -45,9 +47,36 @@ Két típusú szám literál létezik: \textit{integer} és \textit{float}. Alap
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/numbers.erl}
 
-A leggyakrabban használt literál az \textit{atom}, gyakorlatilag egy konstans. Az aposztróf nélküli atomoknak kis betűvel kell kezdődniük és alfanumerikus karaktereket, aláhúzást és @ jelet tartalmazhatnak. Az aposztróffal rendelkező atomok bármilyen karaktertből állhatnak.
+A leggyakrabban használt literál az \textit{atom}, gyakorlatilag egy konstans. Az aposztróf nélküli atomoknak kis betűvel kell kezdődniük és alfanumerikus karaktereket, aláhúzást és @ jelet tartalmazhatnak. Az aposztróffal rendelkező atomok Latin-1 karakterkódolású karakterből állhatnak.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/atoms.erl}
+
+A \textit{tuple} egy fix n-es, vagyis előre meghatározott számú \textit{termet} tartalmazhat. A termeket kapcsos zárójelek közé, vesszővel elválasztva adjuk meg. Természetesen egymásba is ágyazhatóak a tuple-ök.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/tuples.erl}
+
+A \textit{lista} is a tuplehöz hasonlóan egy összetett típus ellenben változó hosszúságú. A listákat szögletes zárójelekkel adjuk meg, és szintén egymásba ágyazhatóak. Két féle képpen lehet megadni Erlang nyelvben: a termek vesszővel elválasztott formában, vagy a fej elem, maradék lista formában.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/lists.erl}
+
+Egy érdekes adattípus, ami manapság már sok imperatív nyelvben is megtalálható, a \textit{függvény objektum}. A fun szóval tudunk létrehozni egy ilyen objektumot.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/fun.erl}
+
+A példában egy függvény objektumot hoztunk létre, amely két paramétert vár X és Y, és ezeknek az összegével tér vissza. Láthatjuk is a példában, hogy a visszatérési értéke az objektumra mutató referencia. A nagy betűvel kezdődő szavak Erlangban a változók, később még lesz róluk szó. A Sum változóban tárolt függvényt zárójeles formában meg is tudjuk hívni.
+
+%TODO még a string illetve a bool + pid (ekkor átnézni az egész adattípusos rész szövegét)
+%		utána jöhetnek a változók
+%		Pattern matcing (vagy itt vagy a kifejezések után)
+%		Aztán kifejezések (listás bohóckodás stb)
+%		case, if, stb vezérlési szerkezetek
+%		Pides része, mondani hogy itt nem térünk ki rá, majd a definícióknál lessz magyarázat
+%		Megemlíteni, hogy van modulos felbontás, de nem szükséges ismerni, mert nincs rá még szemantika
+
+%TODO változók
+A különböző eredményeinket eltudjuk menteni változóba is. Erlangban a változók nagy betűvel kezdődnek é
+
+
 
 \subsection{Egy funkcionális nyelv}
 
