@@ -36,9 +36,9 @@ dsfsd
 dsfsdf
 
 \section{Erlang nyelv}
-Az Erlang egy általános célra felhasználható funkcionális programozási nyelv. A Java nyelvhez hasonlóan egy szemétgyűjtővel rendelkező virtuális gépen fut a bájt-kódra lefordított program. A nyelv erőssége több pilléren áll. Ez a fejezet egy rövid betekintést ad az Erlang nyelvhez a reference manual alapján (\cite{RefMan}). A lent található példákhoz nem szükséges fájlba mentett, modularizált kódot használnunk, közvetlenül az Erlang Shell segítségével interaktívan is ki tudjuk értékelni a kifejezéseinket, ezek végét pont jelöli.
+Az \textit{Erlang} egy általános célra felhasználható funkcionális programozási nyelv. A Java nyelvhez hasonlóan egy szemétgyűjtővel rendelkező virtuális gépen fut a bájt-kódra lefordított program. Ez a fejezet egy rövid betekintést ad az Erlang nyelvhez a reference manual alapján (\cite{RefMan}). A lent található példákhoz nem szükséges fájlba mentett, modularizált kódot használnunk, közvetlenül az Erlang Shell segítségével interaktívan is ki tudjuk értékelni kifejezéseinket.
 
-A következő alfejezetek az Erlang nyelv alapjait mutatja be, éppen annyit, amennyi elégséges lesz a szemantikadefiníciók megértéséhez. Mielőtt elkezdnénk az adattípusok áttekintését ismerkedjünk meg a term fogalmával. A term a kifejezések legegyszerűbb formája, tehát az adattípusok.
+A következő alfejezetek az Erlang nyelv alapjait mutatja be, éppen annyit, amennyi elégséges lesz a szemantikadefiníciók megértéséhez. Mielőtt elkezdnénk az adattípusok áttekintését, ismerkedjünk meg a \textit{term} fogalmával. A term a kifejezések legegyszerűbb formája, tehát az adattípusok. Minden kifejezés végét ellenben a megszokott pontosvesszős megoldással, pont jelöli.
 
 \subsection{Adattípusok}
 Első körben érdemes az egyszerűbb adattípusokat áttekinteni, mielőtt megismernénk a különböző vezérlési szerkezeteket.
@@ -51,21 +51,31 @@ A leggyakrabban használt literál az \textit{atom}, gyakorlatilag egy konstans.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/atoms.erl}
 
-A \textit{tuple} egy fix n-es, vagyis előre meghatározott számú \textit{termet} tartalmazhat. A termeket kapcsos zárójelek közé, vesszővel elválasztva adjuk meg. Természetesen egymásba is ágyazhatóak a tuple-ök.
+A \textit{tuple} egy fix n-es, vagyis előre meghatározott számú termet tartalmazhat. A termeket kapcsos zárójelek közé, vesszővel elválasztva adjuk meg. Természetesen egymásba is ágyazhatóak.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/tuples.erl}
 
-A \textit{lista} is a tuplehöz hasonlóan egy összetett típus ellenben változó hosszúságú. A listákat szögletes zárójelekkel adjuk meg, és szintén egymásba ágyazhatóak. Két féle képpen lehet megadni Erlang nyelvben: a termek vesszővel elválasztott formában, vagy a fej elem, maradék lista formában.
+A \textit{lista} is a tuplehöz hasonlóan egy összetett típus ellenben változó hosszúságú. A listákat szögletes zárójelekkel adjuk meg, és szintén egymásba ágyazhatóak. Kétféleképpen lehet megadni Erlang nyelvben: a termek vesszővel elválasztott formában, vagy a fej elem, maradék lista formában.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/lists.erl}
 
-Egy érdekes adattípus, ami manapság már sok imperatív nyelvben is megtalálható, a \textit{függvény objektum}. A fun szóval tudunk létrehozni egy ilyen objektumot.
+Egy érdekes adattípus, ami manapság már sok imperatív nyelvben is megtalálható, a \textit{függvény objektum}. A \textit{fun} szóval tudunk létrehozni ilyen objektumot.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/fun.erl}
 
-A példában egy függvény objektumot hoztunk létre, amely két paramétert vár X és Y, és ezeknek az összegével tér vissza. Láthatjuk is a példában, hogy a visszatérési értéke az objektumra mutató referencia. A nagy betűvel kezdődő szavak Erlangban a változók, később még lesz róluk szó. A Sum változóban tárolt függvényt zárójeles formában meg is tudjuk hívni.
+A példában egy függvény objektumot hoztunk létre, amely két paramétert vár X és Y, és ezeknek az összegével tér vissza. Láthatjuk is a példában, hogy a visszatérési értéke az objektumra mutató referencia. A nagy betűvel kezdődő szavak Erlangban a \textit{változók}, később még lesz róluk szó. A Sum változóban tárolt függvényt zárójeles formában meg is tudjuk hívni.
 
-%TODO még a string illetve a bool + pid (ekkor átnézni az egész adattípusos rész szövegét)
+A \textit{pid} egy folyamatot azonosít három integer számmal.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/pid.erl}
+
+A spawn függvény segítségével egy új folyamatot hozunk létre, és visszatérési értékként egy pidet ad vissza.
+
+Még mielőtt folytatnák érdemes szót ejteni a \textit{sztring} és a \textit{logikai} literálokról. Erlangban mint külön adattípusok nem léteznek. A két logikai literál valójában két atom: a \textit{true} és a \textit{false}. A sztringek pedig listák. Idéző jelek között tudjuk megadni, de valójában az ASCII vagy unicode kódtáblában megfeleltetett számok listájaként van ábrázolva.
+
+\subsection{Válatozok pattern matching vagy vmi}
+
+%TODO (ekkor átnézni az egész adattípusos rész szövegét)
 %		utána jöhetnek a változók
 %		Pattern matcing (vagy itt vagy a kifejezések után)
 %		Aztán kifejezések (listás bohóckodás stb)
