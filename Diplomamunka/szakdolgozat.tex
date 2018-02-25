@@ -71,7 +71,6 @@ A \textit{pid} egy folyamatot azonosít három integer számmal.
 
 A spawn függvény segítségével egy új folyamatot hozunk létre, és visszatérési értékként egy pidet ad vissza.
 
-\paragraph{}
 Még mielőtt folytatnák érdemes szót ejteni a \textit{sztring} és a \textit{logikai} literálokról. Erlangban mint külön adattípusok nem léteznek. A két logikai literál valójában két atom: a \textit{true} és a \textit{false}. A sztringek pedig listák. Idéző jelek között tudjuk megadni, de valójában az ASCII vagy unicode kódtáblában megfeleltetett számok listájaként van ábrázolva.
 
 \subsection{Mintaillesztés}
@@ -111,11 +110,8 @@ A \textit{case} esetén az Expr kifejezés kiértékelődik, ezután sorban vég
 
 A \textit{block} kifejezések sorozata, melyek ugyan ebben a sorrendben értékelődnek ki. A visszatérési értéke az utolsó kifejezés értéke.
 
-
-%TODO
-%		Pides része, mondani hogy itt nem térünk ki rá, majd a definícióknál lessz magyarázat
-%		Megemlíteni, hogy van modulos felbontás, de nem szükséges ismerni, mert nincs rá még szemantika
-
+\paragraph{}
+Ebben a fejezetben egy rövid összefoglalót láthattunk az Erlang nyelvről. Ez az áttekintés megkönnyíti a későbbi szemantikadefiníciók megértését. Természetesen ez csak egy igen apró része a nyelvnek. Az hogy egy valós Erlang program hogy néz ki, nem tettem említést, mivel a szemantika definiálásánál egyelőre kifejezések állnak a központban, a modulokra bontás például nem. Még az Erlang konkurrens részének ismertetése hátra van, de azt később a hozzájuk tartozó szemantikadefiníciók ismertetésénél részletezem.
 
 \section{Erlang nyelv konkurrens résznyelvének szemantikája K keretrendszerben}
 vmi resz
