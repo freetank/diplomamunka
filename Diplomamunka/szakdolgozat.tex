@@ -74,11 +74,11 @@ A spawn függvény segítségével egy új folyamatot hozunk létre, és visszat
 Még mielőtt folytatnák érdemes szót ejteni a \textit{sztring} és a \textit{logikai} literálokról. Erlangban mint külön adattípusok nem léteznek. A két logikai literál valójában két atom: a \textit{true} és a \textit{false}. A sztringek pedig listák. Idéző jelek között tudjuk megadni, de valójában az ASCII vagy unicode kódtáblában megfeleltetett számok listájaként van ábrázolva.
 
 \subsection{Mintaillesztés}
-Az előző részben már volt említés a változókról. A \textit{változó} egy kifejezés. Ha egy literál kötve van a változóhoz, akkor a visszatérési értéke az a literál. Nem kötött változók csak mintákban megengedettek. Minden változóhoz csak egyszer lehetséges literált kötni, ami történhet mintaillesztés során, vagy egyszerű értékadással. A változók nagy betűvel kezdődnek vagy aláhúzással kezdődnek, és alfanumerikus karaktereket, aláhúzást vagy @ jelet tartalmazhatnak. Az aláhúzással kezdődő változóknak speciális jelentésük van. A fordító figyelmen kívül hagyja olyan értelemben, hogy nem generál warningokat a nem használt változók miatt.
+Az előző részben már volt említés a változókról. A \textit{változó} egy kifejezés. Ha egy literál kötve van a változóhoz, akkor a visszatérési értéke az a literál. Minden változóhoz csak egyszer lehetséges literált kötni, ami történhet mintaillesztés során, vagy egyszerű értékadással (ami szintén egy mintaillesztés). A változók nagy betűvel vagy aláhúzással kezdődnek, és alfanumerikus karaktereket, aláhúzást vagy @ jelet tartalmazhatnak. Az aláhúzással kezdődő változóknak speciális jelentésük van. A fordító figyelmen kívül hagyja olyan értelemben, hogy nem generál warningokat a nem használt változók miatt.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/_variables.erl}
 
-A példában kicsit előre ugrottunk a mintaillesztés témájába. A második példa érdekes. A változókhoz csak egyszer köthető érték, és ez alól nem kivétel az aláhúzással kezdődőek sem, attól függetlenül, hogy a fordító figyelmen kívül hagyja.
+A példákban mintaillesztés látható. A \textit{minta} ugyan úgy épül fel mint egy term, ellenben tartalmazhat nem kötött változókat. \textit{Mintaillesztés} során pedig ezekhez a változókhoz kötünk értékeket. Ha a mintaillesztés sikertelen, mint a második példában, akkor \textit{badmatch} futásidejű hiba lép fel. A változókhoz csak egyszer köthető érték, és ez alól nem kivétel az aláhúzással kezdődőek sem, attól függetlenül, hogy a fordító figyelmen kívül hagyja.
 
 Az anonymus változó csak egyetlen egy aláhúzásból áll. Akkor hasznos, ha kötelező változót megadnunk, de a benne lévő érték nem fontos.
 
@@ -86,9 +86,12 @@ Az anonymus változó csak egyetlen egy aláhúzásból áll. Akkor hasznos, ha 
 
 Az első példa jól mutatja, hogy gyakorlatilag figyelmen kívül hagyja az értékeket. A második példában egy lista fejelemére vagyunk kiváncsiak, amit mintaillesztéssel egyszerűen megkaphatunk.
 
-%TODO   pattern
-%		Pattern matcing (A subsection befejeződött, átnézni + helyesírás)
-%		Aztán kifejezések (listás bohóckodás stb)
+Mintaillesztés nem csak az egyenlőség jellel lehetséges, hanem különböző vezérlési szerkezetekben is, mint például a \textit{receive} és a \textit{case}, amire később láthatunk példát.
+
+\subsection {}
+
+%TODO
+%		Aztán kifejezések (listás bohóckodás stb
 %		case, if, stb vezérlési szerkezetek
 %		Pides része, mondani hogy itt nem térünk ki rá, majd a definícióknál lessz magyarázat
 %		Megemlíteni, hogy van modulos felbontás, de nem szükséges ismerni, mert nincs rá még szemantika
