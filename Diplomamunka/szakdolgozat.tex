@@ -114,16 +114,34 @@ A \textit{block} kifejezések sorozata, melyek ugyan ebben a sorrendben értéke
 Ebben a fejezetben egy rövid összefoglalót láthattunk az Erlang nyelvről. Ez az áttekintés megkönnyíti a későbbi szemantikadefiníciók megértését. Természetesen ez csak egy igen apró része a nyelvnek. Az hogy egy valós Erlang program hogy néz ki, nem tettem említést, mivel a szemantika definiálásánál egyelőre kifejezések állnak a központban, a modulokra bontás például nem. Még az Erlang konkurrens részének ismertetése hátra van, de azt később a hozzájuk tartozó szemantikadefiníciók ismertetésénél részletezem.
 
 \section{Erlang nyelv konkurrens résznyelvének szemantikája K keretrendszerben}
-vmi resz
+A K keretrendszernek erős kifejező ereje van, ami megkönnyíti a szemantikadefiníció megadását, még ilyen bonyolult témában is, ahol különböző folyamatok kommunikálnak egymással. A konkurrens résznyelv szemantikájának leírását nem kellett a nulláról kezdeni, már meg volt egy mag, amire lehetett építeni.
+
+\subsection{Meglévő szemantikadefiníciók}
+Az első lépés 3.6-os verzióról 4.0-ra való áttérés, és a modularizálás volt.
+
+\paragraph{tokens modul}
+Ebben a modulban van az Erlang specifikus literáloknak és a változóknak a szintaxisa, mely két modult tartalmaz.
+
+*Kép*
+
+A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} szortokat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alszortja az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a K keretrendszer rendelkezik egy \textit{\#KVariable} szorttal, amelynek a definíciója hasonló a Variable-ével, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
+
+*Kép*
+
+A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő \#KVariable címkékkel rendelkező levelek címkéit lecseréli a saját Variable szorttal.
+
+% Eddig ellenorizve
+
+\paragraph{tuple modul}
+
+
+%TODO
+%	Meglévő szemantikadefiníciók
+%	ha kell külön subsection az erlang folyamatokról
+%	szemantika definíció kidejtése, plusz mindegyiknél mit jelent a kifejezés
+%	milyen tesztek voltak hogy működik mennyire segített, honnan veszem, hogy azok helyesek?
 \subsection{Erlang folyamatok}
 
-    -Szemantika leírások
-    -Itt beszélhetek tesztekről
-    -Összehasonlítás más eddigi Erlang szemantikákkal
-    
-    Nagyvonalúan beszélni az erlang folyamatokról, a saját
-szemantikadefiníció kifejtése. Külön részt szentelni a definíció megfogalmazását segítő, és
-konzisztensen tartásáért felelős tesztekért.
 
 \section{Verifikáció}
 sdfsdfsd
