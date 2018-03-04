@@ -144,19 +144,30 @@ Ezenfelül még definiálva lett az \textit{Exps} szort, ami vesszővel elválas
 Továbbá található egy a szemantikus függvény is, amely egy Exps szortban lévő Exp-ek számát adja vissza.
 
 \paragraph{operators.k}
-Az OPERATORS-PARSING modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
+Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
 
 *Kép*
 
-Az OPERATORS modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a strict attribútumot, az operátorok mind két oldalán literálok lesznek, abban a pillanatban, mikor az operátorhoz tartozó konfiguráció átmenet végbe megy.
+Az \textit{OPERATORS} modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a strict attribútumot, az operátorok mind két oldalán literálok lesznek, abban a pillanatban, mikor az operátorhoz tartozó konfiguráció átmenet végbe megy.
 
 *Kép*
 
 Ahogy a példában látható, az aritmetikai operátorok szemantikájának definiálása esetén nagy segítséget jelent a K keretrendszer beépített operátorai.
 
+\paragraph{tuple.k}
+Ebben a fájlban a tuple típussal kapcsolatos szintaxis és szemantika található. A \textit{TUPLE-PARSING} modul bővíti az Exp szortot a tuple szintaxisával.
+
+*Kép*
+
+A \textit{TUPLE} modul az OPERATORS modul kibővítése tuple specifikus összehasonlító operátorokkal.
+
+*Kép*
+
+Egy strukturális átalakítás látható, ami jó példa arra, hogyan lehet felhasználni, a már meglévő szemantikadefinícióinkat újabbak definiálására.
+
 % Eddig ellenorizve
 
-\paragraph{tuple.k}
+\paragraph{list.k}
 
 %TODO
 %	Meglévő szemantikadefiníciók
