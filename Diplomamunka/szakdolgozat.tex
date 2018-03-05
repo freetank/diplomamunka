@@ -189,9 +189,21 @@ A \textit{VALUE} modul alszortokat rendel a K specifikus \textit{Value} szorthoz
 
 %TODO innentől felfele érdemes lenne a szortot szintaktikus fajtára cserélni. (Ha tényleg ugyan az a kettő) Egészen a \section{Erlang nyelv}-ig
 
+\paragraph{exp.k}
+
+Az \textit{EXP-PARSING} modul tartalmazza azon kifejezések szintaxisát, melyekhez lett szemantika definiálva.
+
+*Kép*
+
+Az \textit{EXP} modul pedig az ezekhez tartozó szemantikadefiníciókat tartalmazza.
+
+*Kép*
+
+A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet vált. A régi környezetet amit az \textit{Rho} változó jelöl, berakja a kiértékelési folyamba. Majd később, mikor a case kiértékelődött és visszaadja a visszatérési értékét, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
+
 % Eddig ellenorizve
 
-\paragraph{value.k}
+\paragraph{exp.k}
 
 %TODO
 %	Meglévő szemantikadefiníciók
