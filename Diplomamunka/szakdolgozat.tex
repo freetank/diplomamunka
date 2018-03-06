@@ -229,6 +229,25 @@ Harmadszorra pedig az általunk definiált függvények hívásának szemantiká
 
 \paragraph{config.k}
 
+Ebben a fájlban a kezdő konfiguráció található.
+
+*Regi kep store nelkul*
+
+A fenti kezdő konfiguráció ezen diplomamunka előtti állapotot mutatja. A \textit{k} cella tartalmazza az adott konfigurációban a hátralévő programot. Az állapot jelenleg két függvényből áll. 
+
+defs: Atom -> Lista ahol Lista {f | f : Exps -> Body}
+
+Ahogy feljebb olvasható a \textit{defs} tartalmazza a függvénydefiníciókat. A függvény nevéhez hozzárendeli a lehetséges függvénydefiníciókat.
+
+env: Variable -> Value
+
+Az \textit{env} függvény pedig a változó nevéhez hozzárendeli a változóhoz kötött értéket.
+
+%TODO először ezeket
+%	függvény definiálás az Erlang bemutatásánál
+%	Rendes matekos jelölésekkel a függvényeket (kérdés hogy a generáláskor pontosan mit kapok, bár nem tűnik ellentmondásosnak vele
+%	Ucsó paragraph szebben fogalmazni, helyesírás stb
+
 %TODO
 %	Meglévő szemantikadefiníciók
 %	ha kell külön subsection az erlang folyamatokról
