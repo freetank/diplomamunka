@@ -209,9 +209,23 @@ Az ERL-PARSING modul egyesíti az összes -PARSING végű modult.
 
 Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva, így egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit --- jel választ el egymástól.
 
-% Eddig ellenorizve
-
 \paragraph{erl.k}
+
+Az \textit{ERL} modul három dologért felelős.
+
+*Kép*
+
+Először is a Value alfajtája lesz a \textit{KResult} K specifikus szintaktikus fajtának.
+
+*Kép*
+
+Másodszor a program fájl feldolgozását definiálja. Az elején a függvénydefiníciós részt a későbbi függvény hívások miatt a \textit{defs} állapotba elmenti.
+
+*Kép*
+
+Harmadszorra pedig az általunk definiált függvények hívásának szemantikáját definiálja. Itt a megszokott módon környezetet vált, és a defs állapotban megkeresi a hozzá tartozó függvénydefiníciót.
+
+% Eddig ellenorizve
 
 \paragraph{config.k}
 
