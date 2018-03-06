@@ -183,7 +183,7 @@ Az \textit{ERRORS} modul a futásidejű hibák szortját tartalmazza.
 
 \paragraph{value.k}
 
-A \textit{VALUE} modul alszortokat rendel a K specifikus \textit{Value} szorthoz. Ez a \textit{strict} attribútum miatt szükséges. Egy szintaxisban, ha megadjuk egy paraméterére, hogy strict, akkor addig értékeli, amíg nem sikerül Value szintaktikus fajtára hozni. Ha sikerült, akkor tovább értékeli a maradék strict attribútumú paramétert, különben pedig megpróbál az adott szintaktikus fajtára szabályt illeszteni.
+A \textit{VALUE} modul alszortokat rendel a \textit{Value} szorthoz, ami a K specifikus \textit{KResult} alszortja (ez az \textit{ERL} modulban van beállítva). Ez a \textit{strict} attribútum miatt szükséges. Egy szintaxisban, ha megadjuk egy paraméterére, hogy strict, akkor addig értékeli, amíg nem sikerül Value szintaktikus fajtára hozni. Ha sikerült, akkor tovább értékeli a maradék strict attribútumú paramétert, különben pedig megpróbál az adott szintaktikus fajtára szabályt illeszteni.
 
 *Kép*
 
@@ -210,6 +210,10 @@ Az ERL-PARSING modul egyesíti az összes -PARSING végű modult.
 Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva, így egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit --- jel választ el egymástól.
 
 % Eddig ellenorizve
+
+\paragraph{erl.k}
+
+\paragraph{config.k}
 
 %TODO
 %	Meglévő szemantikadefiníciók
