@@ -6,31 +6,12 @@ Az első lépés 3.6-os verzióról 4.0-ra való áttérés, és a modularizál�
 
 \paragraph{tokens.k}
 Ebben a fájlban van az Erlang specifikus literáloknak és a változóknak a szintaxisa, mely két modult tartalmaz.
+\newline
+\input{tex/Szabalyok/41TOKENS-PARSING}
 
-\begin{module}{\moduleName{TOKENS-PARSING}}
+A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} szortokat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alfajtája az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a K keretrendszer rendelkezik egy \textit{\#KVariable} fajtával, amelynek a definíciója hasonló a Variable-ével, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
 
-\begin{syntaxBlock}{\nonTerminal{\sort{UnquotedAtom}}}
-	\syntax
-    {frs}%TODO Ezt folytatni
-    {fes}
-\end{syntaxBlock}
-
-\end{module}
-
-%\begin{tcolorbox}
-%\footnotesize \uppercase{module} \large TOKENS-PARSING
-%\begin{align*}
-%    syntax & UnquotedAtom &::= z	     &[token, autoReject, notInRules] \\
-%    syntax & QuotedAtom &::= zzz                   &[token, notInRules]\\
-%    %syntax &Atom &::= UnquotedAtom | Bool &\\
-%    %syntax &Pid &::= "<"Int"."Int"."Int">"                 &[autoReject, strict]\\
-%    %syntax &Joker & &\\
-%    %syntax &Variable &::= Joker &\\
-%\end{align*}
-%\footnotesize \uppercase{endmodule}
-%\end{tcolorbox}
-
-A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} szortokat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alszortja az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a K keretrendszer rendelkezik egy \textit{\#KVariable} szorttal, amelynek a definíciója hasonló a Variable-ével, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
+%TODO Eddig okés
 
 *Kép*
 
