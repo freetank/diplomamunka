@@ -1,0 +1,17 @@
+\begin{module}{\moduleName{TOKENS-SYNTAX}}
+
+\including{TOKENS-PARSING}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Variable}}}
+  \syntax
+    {r"[A-Z][\_a-zA-Z0-9@]*"}
+    {\kattribute{token}, \kattribute{autoReject}}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Joker}}}
+  \syntaxNoEq
+    {"\_"}
+    {\kattribute{token}}
+\end{syntaxBlock}
+
+\end{module}

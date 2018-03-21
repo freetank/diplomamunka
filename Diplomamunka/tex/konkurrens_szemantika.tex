@@ -9,14 +9,12 @@ Ebben a fájlban van az Erlang specifikus literáloknak és a változóknak a sz
 \newline
 \input{tex/Szabalyok/41TOKENS-PARSING}
 
-A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} szortokat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alfajtája az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a K keretrendszer rendelkezik egy \textit{\#KVariable} fajtával, amelynek a definíciója hasonló a Variable-ével, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
+A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} fajtákat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alfajtája az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a K keretrendszer rendelkezik egy \textit{\#KVariable} fajtával, amelynek a definíciójában megadott reguláris kifejezés által meghatározott lehetséges karakterláncok halmaza és a hasonló módon Variable által meghatározott halmaz metszete nem üres, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
+\newline
+\input{tex/Szabalyok/41TOKENS-SYNTAX}
 
+A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő levelek \#KVariable címkéit lecseréli a saját Variable fajtával.
 %TODO Eddig okés
-
-*Kép*
-
-A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő \#KVariable címkékkel rendelkező levelek címkéit lecseréli a saját Variable szorttal.
-
 \paragraph{exp-shared.k}
 Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismertetésre -- leválasztott egység.
 

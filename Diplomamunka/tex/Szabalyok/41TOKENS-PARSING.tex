@@ -1,0 +1,30 @@
+\begin{module}{\moduleName{TOKENS-PARSING}}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{UnquotedAtom}}}
+  \syntax
+    {r"[a-z][\_a-zA-Z0-9@]*"}
+    {\kattribute{token}, \kattribute{autoReject}, \kattribute{notInRules}} %TODO nem fér ki egy sorba
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Atom}}}
+  \syntax
+    {{{\nonTerminal{\sort{UnquotedAtom}}}}}
+    {}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Bool}}}}}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Joker}}}
+  \syntaxNoEq
+    {}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Variable}}}
+  \syntax
+    {{{\nonTerminal{\sort{Joker}}}}}
+    {}
+\end{syntaxBlock}
+
+\end{module}
