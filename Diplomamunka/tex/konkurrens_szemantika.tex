@@ -6,7 +6,7 @@ Az első lépés 3.6-os verzióról 4.0-ra való áttérés, és a modularizál�
 
 \paragraph{tokens.k}
 Ebben a fájlban van az Erlang specifikus literáloknak és a változóknak a szintaxisa, mely két modult tartalmaz.
-\newline
+
 \input{tex/Szabalyok/41TOKENS-PARSING}
 
 A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} fajtákat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alfajtája az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a K keretrendszer rendelkezik egy \textit{\#KVariable} fajtával, amelynek a definíciójában megadott reguláris kifejezés által meghatározott lehetséges karakterláncok halmaza és a hasonló módon Variable által meghatározott halmaz metszete nem üres, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
@@ -14,11 +14,11 @@ A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \te
 \input{tex/Szabalyok/41TOKENS-SYNTAX}
 
 A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő levelek \#KVariable címkéit lecseréli a saját Variable fajtával.
-%TODO Eddig okés
+%TODO Eddig okés Hozzaadtam mar a kövi modult, de nem néztem át a szöveget
 \paragraph{exp-shared.k}
 Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismertetésre -- leválasztott egység.
 
-*Kép*
+\input{tex/Szabalyok/41EXP-SHARED}
 
 Az \textit{Exp} -- a kifejezések szortja -- deklarálása itt található. A kiemelés oka, hogy más-más modulokban az Exp ne legyen újra deklarálva, mivel ekkor a fordító külön szortként is kezelné annak ellenére, hogy ugyan az a nevük. Ez kétértelműséget okozna, vagyis későbbiekben, ha mind a két modul importálva van, amiben Exp lett deklarálva, a fordító nem tudná egyértelműen eldönteni, melyik Exp szortra utalunk a modulban lévő használatakor.
 

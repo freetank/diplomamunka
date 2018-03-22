@@ -1,0 +1,27 @@
+\begin{module}{\moduleName{EXP-SHARED}}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntaxNoEq
+    {}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exps}}}
+  \syntax
+    {List\{{\nonTerminal{\sort{Exp}}}, ","\}}
+    {\kattribute{strict}}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Match0}}}
+  \syntax
+    {{\nonTerminal{\sort{Exp}}} "->" {\nonTerminal{\sort{Exp}}}}
+    {\kattribute{match0}}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Match}}}
+  \syntax
+    {List\{{\nonTerminal{\sort{Match0}}}, ";"\}}
+    {\kattribute{match0}}
+\end{syntaxBlock}
+
+\end{module}
