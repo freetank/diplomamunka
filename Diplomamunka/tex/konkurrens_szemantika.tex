@@ -14,19 +14,16 @@ A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \te
 \input{tex/Szabalyok/41TOKENS-SYNTAX}
 
 A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő levelek \#KVariable címkéit lecseréli a saját Variable fajtával.
-%TODO Eddig okés Hozzaadtam mar a kövi modult, de nem néztem át a szöveget
+
 \paragraph{exp-shared.k}
 Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismertetésre -- leválasztott egység.
 
 \input{tex/Szabalyok/41EXP-SHARED}
 
-Az \textit{Exp} -- a kifejezések szortja -- deklarálása itt található. A kiemelés oka, hogy más-más modulokban az Exp ne legyen újra deklarálva, mivel ekkor a fordító külön szortként is kezelné annak ellenére, hogy ugyan az a nevük. Ez kétértelműséget okozna, vagyis későbbiekben, ha mind a két modul importálva van, amiben Exp lett deklarálva, a fordító nem tudná egyértelműen eldönteni, melyik Exp szortra utalunk a modulban lévő használatakor.
+Az \textit{Exp} -- a kifejezések fajtája -- deklarálása itt található. Szinte az összes modul használja az Exp és az Exps fajtákat, viszont vannak olyanok, ahol szükségtelen az egész Exp-hez tartozó szintaxist importálni. Ha a modulokban újra lenne deklarálva, az névütközéshez vezetne. Az EXP-SHARED modul ezt hivatott elkerülni.
 
-Ezenfelül még definiálva lett az \textit{Exps} szort, ami vesszővel elválasztott Exp-ek sorozata a strict attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a case és az if kifejezések által is használt részkifejezések, amely a mintaillesztés és az utána kiértékelendő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
-
-*Kép?*
-
-Továbbá található egy a szemantikus függvény is, amely egy Exps szortban lévő Exp-ek számát adja vissza.
+Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválasztott Exp-ek sorozata a strict attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a case és az if kifejezések által is használt részkifejezések, amely a mintát és az utána lévő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
+%TODO Eddig okés
 
 \paragraph{operators.k}
 Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
