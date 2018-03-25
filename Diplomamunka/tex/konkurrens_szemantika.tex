@@ -28,22 +28,22 @@ Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválas
 \paragraph{operators.k}
 Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
 
-*Kép*
+\input{tex/Szabalyok/41OPERATORS-PARSING}
 
-Az \textit{OPERATORS} modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a strict attribútumot, az operátorok mind két oldalán literálok lesznek, abban a pillanatban, mikor az operátorhoz tartozó konfiguráció átmenet végbe megy.
+Az \textit{OPERATORS} modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a strict attribútumot, ezért a szabály alkalmazása várat magára egészen addig, amíg az operandusokat ki nem értékelte.
 
-*Kép*
+\input{tex/Szabalyok/41ARITHMETICS-EXAMPLE}
 
 Ahogy a példában látható, az aritmetikai operátorok szemantikájának definiálása esetén nagy segítséget jelent a K keretrendszer beépített operátorai.
 
 \paragraph{tuple.k}
-Ebben a fájlban a tuple típussal kapcsolatos szintaxis és szemantika található. A \textit{TUPLE-PARSING} modul bővíti az Exp szortot a tuple szintaxisával.
+Ebben a fájlban a tuple típussal kapcsolatos szintaxis és szemantika található. A \textit{TUPLE-PARSING} modul bővíti az Exp fajtát a tuple szintaxisával.
 
-*Kép*
+\input{tex/Szabalyok/41TUPLE-PARSING}
 
 A \textit{TUPLE} modul az OPERATORS modul kibővítése tuple specifikus összehasonlító operátorokkal.
 
-*Kép*
+\input{tex/Szabalyok/41TUPLE-EXAMPLE}
 
 Egy strukturális átalakítás látható, ami jó példa arra, hogyan lehet felhasználni, a már meglévő szemantikadefinícióinkat újabbak definiálására.
 

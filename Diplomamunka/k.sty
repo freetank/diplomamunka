@@ -360,6 +360,7 @@
 
 \newlength{\kblock@indent}
 \newenvironment{kblock}[1][\k@style]{%
+\par\ 
 \ifk@tight%
 \small%
 \fi%
@@ -469,6 +470,8 @@ $\mid\;{#2}$ \ifthenelse{\equal{#3}{}}{}{[#3]\;}%
 
 
 \newenvironment{syntaxBlock}[1]{\newcommand{\defSort}{#1}\par\indent\ }{\ignorespacesafterend}
+
+\newenvironment{ruleBlock}{\par\indent\ }{\par}
 
 
 % Non-terminals.
@@ -922,7 +925,7 @@ rectangle,rectangle
 
 \newcommand{\ksentence}[7][]{%
   \par\indent
-  \k@ruleLabel{#3}{#2}\hspace{1em}$%
+  \k@ruleLabel{#3}{#2}$%
   \ifthenelse{\equal{#1}{}}{}{%  
    \left(% 
   }%
@@ -959,7 +962,7 @@ rectangle,rectangle
 \renewcommand{\rulebox}[1]{\parbox[b]{\columnwidth}{#1}}
 \renewcommand{\wrapRules}[1]{\par{\parbox[b]{\columnwidth}{#1}}\par\ \par}
 \renewcommand{\k@ruleLabel}[2]{%
-  \ifthenelse{\equal{#1}{\textbackslash !}}{\mbox{\scshape #2}}{\k@withTooltip{\mbox{\scshape #2 \kattribute{#1}}}{Rule Label: #1}}\\%
+  \ifthenelse{\equal{#1}{\textbackslash !}}{\mbox{\scshape #2}}{\k@withTooltip{\mbox{\scshape #2 \kattribute{#1}}}{Rule Label: #1}}\indent%
 % \global\def\ignoreThisLabel{#1}%
 }
 \newcommand{\myskip}{\smallskip}

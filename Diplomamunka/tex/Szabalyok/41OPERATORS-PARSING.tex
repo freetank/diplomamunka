@@ -1,0 +1,50 @@
+\begin{module}{\moduleName{OPERATORS-PARSING}}
+
+\including{TOKENS-PARSING}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntax
+    {{}\terminal{not}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{*}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{div}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{rem}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{+}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{-}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{<}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{=<}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{>}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{>=}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{==}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{/=}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}, \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{andalso}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}(1), \kattribute{arith}}
+  \syntaxCont
+    {{{\nonTerminal{\sort{Exp}}}}\terminal{orelse}{{\nonTerminal{\sort{Exp}}}}}
+    {\kattribute{strict}(1), \kattribute{arith}}
+\end{syntaxBlock}
+
+\end{module}
