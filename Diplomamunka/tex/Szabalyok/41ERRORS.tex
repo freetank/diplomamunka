@@ -1,0 +1,23 @@
+\begin{module}{\moduleName{ERRORS}}
+
+\including{EXP-SHARED}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Error}}}
+  \syntax
+    {\terminal{\textdollar error\_badmatch}}
+    {}
+  \syntaxCont
+  	{\terminal{\textdollar error\_badarg}}
+  	{}
+  \syntaxCont
+  	{\terminal{\textdollar error\_noproc}}
+  	{}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntax
+    {\nonTerminal{\sort{Error}}}
+    {}
+\end{syntaxBlock}
+
+\end{module}

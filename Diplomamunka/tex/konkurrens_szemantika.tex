@@ -56,13 +56,13 @@ Az \textit{ERL-LIST} modul csak átalakítási szabályokat tartalmaz melyet a \
 
 \input{tex/Szabalyok/41ERL-LIST-EXAMPLE}
 
-%TODO Eddig okés
 \paragraph{errors.k}
 
-Az \textit{ERRORS} modul a futásidejű hibák szortját tartalmazza.
+Az \textit{ERRORS} modul a futásidejű hibák fajtáit tartalmazza.
 
-*Kép*
+\input{tex/Szabalyok/41ERRORS}
 
+%TODO Eddig okés
 \paragraph{value.k}
 
 A \textit{VALUE} modul alszortokat rendel a \textit{Value} szorthoz, ami a K specifikus \textit{KResult} alszortja (ez az \textit{ERL} modulban van beállítva). Ez a \textit{strict} attribútum miatt szükséges. Egy szintaxisban, ha megadjuk egy paraméterére, hogy strict, akkor addig értékeli, amíg nem sikerül Value szintaktikus fajtára hozni. Ha sikerült, akkor tovább értékeli a maradék strict attribútumú paramétert, különben pedig megpróbál az adott szintaktikus fajtára szabályt illeszteni.
