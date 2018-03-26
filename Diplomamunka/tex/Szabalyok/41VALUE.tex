@@ -1,0 +1,55 @@
+\begin{module}{\moduleName{VALUE}}
+
+\including{EXP-SHARED}
+\including{TOKENS-PARSING}
+\including{ERRORS}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{BasicValue}}}
+  \syntax
+    {\nonTerminal{\sort{Atom}}}
+    {\kattribute{value}}
+  \syntaxCont
+    {\nonTerminal{\sort{Int}}}
+    {\kattribute{value}}
+  \syntaxCont
+    {\nonTerminal{\sort{Bool}}}
+    {\kattribute{value}}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{ListValue}}}
+   \syntax
+    {\terminal{[} \nonTerminal{\sort{Values}} \terminal{]}}
+    {}
+  \syntaxCont
+    {\terminal{[} \nonTerminal{\sort{Values}} \terminal{|} \nonTerminal{\sort{Value}} \terminal{]}}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Value}}}
+  \syntax
+    {\nonTerminal{\sort{BasicValue}}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{ListValue}}}
+    {}
+  \syntaxCont
+    {\terminal{$\lbrace$} \nonTerminal{\sort{Values}} \terminal{$\rbrace$}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{Error}}}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Values}}}
+  \syntax
+    {List\lbrace \nonTerminal{\sort{Value}}, ","\rbrace}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntax
+    {\nonTerminal{\sort{Value}}}
+    {}
+\end{syntaxBlock}
+
+\end{module}
