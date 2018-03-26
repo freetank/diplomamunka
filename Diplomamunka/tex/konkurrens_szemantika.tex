@@ -23,7 +23,6 @@ Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismert
 Az \textit{Exp} -- a kifejezések fajtája -- deklarálása itt található. Szinte az összes modul használja az Exp és az Exps fajtákat, viszont vannak olyanok, ahol szükségtelen az egész Exp-hez tartozó szintaxist importálni. Ha a modulokban újra lenne deklarálva, az névütközéshez vezetne. Az EXP-SHARED modul ezt hivatott elkerülni.
 
 Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválasztott Exp-ek sorozata a strict attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a case és az if kifejezések által is használt részkifejezések, amely a mintát és az utána lévő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
-%TODO Eddig okés
 
 \paragraph{operators.k}
 Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
@@ -51,12 +50,13 @@ Egy strukturális átalakítás látható, ami jó példa arra, hogyan lehet fel
 
 Az \textit{ERL-LIST-PARSING} modulban az erlangban használatos lista két fajta szintaxisa található.
 
-*Kép*
+\input{tex/Szabalyok/41ERL-LIST-PARSING}
 
-Az \textit{ERL-LIST} modul csak átalakítási szabályokat tartalmaz, \textit{macro} attribútummal, melyek a legelső számítási lépés előtt végrehajtódnak.
+Az \textit{ERL-LIST} modul csak átalakítási szabályokat tartalmaz melyet a \textit{macro} attribútum jelöl. Ezeket a keretrendszer a legelső számítási lépés előtt elvégzi.
 
-*Kép*
+\input{tex/Szabalyok/41ERL-LIST-EXAMPLE}
 
+%TODO Eddig okés
 \paragraph{errors.k}
 
 Az \textit{ERRORS} modul a futásidejű hibák szortját tartalmazza.

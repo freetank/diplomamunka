@@ -1,0 +1,28 @@
+\begin{module}{\moduleName{ERL-LIST-PARSING}}
+
+\including{ERL-LIST-PARSING}
+\including{OPERATORS}
+\including{CONFIG}
+
+\krule{
+    \reduce
+      {[{\dotCt{Exps}}\terminal{|}{\AnyVar[K]{}}]}
+      {\constant[\#String]{"badlist"}}
+  }
+  {}{}{\kattribute{macro}}{}
+%
+\krule{
+    \reduce
+      {[{{\variable[K]{X}{}}\mathpunct{\terminalNoSpace{,}}{\variable[K]{Y}{}}}]}
+      {[{\variable[K]{X}{}}\terminal{|}{[{\variable[K]{Y}{}}]}]}
+  }
+  {}{}{\kattribute{macro}}{}
+%
+\krule{
+    \reduce
+      {[{{\variable[K]{X}{}}\mathpunct{\terminalNoSpace{,}}{\variable[K]{Xs}{}}}\terminal{|}{\variable[K]{Y}{}}]}
+      {[{\variable[K]{X}{}}\terminal{|}{[{\variable[K]{Xs}{}}\terminal{|}{\variable[K]{Y}{}}]}]}
+  }
+  {{\variable[K]{Xs}{}}\mathrel{\neq_K}{\dotCt{Exps}}}{}{\kattribute{macro}}{}
+    
+\end{module}

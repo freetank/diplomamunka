@@ -1,0 +1,16 @@
+\begin{module}{\moduleName{ERL-LIST-PARSING}}
+
+\including{EXP-SHARED}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntax
+    {\terminal{[} \nonTerminal{\sort{Exps}} \terminal{]}}
+    {\kattribute{strict}, \kattribute{list}}
+  \syntaxCont
+    {\terminal{[} \nonTerminal{\sort{Exps}} \terminal{|} \nonTerminal{\sort{Exp}} \terminal{]}}
+    {\kattribute{strict}, \kattribute{list}}
+\end{syntaxBlock}
+
+\ldots
+
+\end{module}
