@@ -1,0 +1,14 @@
+\begin{kblock}
+
+\krule{
+    \kprefix{green}{k}{
+      \reduce
+        {\terminal{case} \variable[Value]{E}{} \terminal{of} \variable[Match]{M}{} \terminal{end}}
+        {\terminal{matches} ( \variable[K]{E}{}, \variable[K]{M}{} ) ~> \variable[K]{Rho}{}}
+    }
+    \mathrel{}%TODO ???
+    \kall{blue}{env}{\variable[K]{Rho}{}}
+  }
+  {}{}{}{}
+
+\end{kblock}

@@ -1,0 +1,36 @@
+\begin{module}{\moduleName{EXP-PARSING}}
+
+\including{EXP-SHARED}
+\including{TOKENS-PARSING}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntax
+    {\nonTerminal{\sort{Atom}}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{Int}}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{Variable}}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{Atom}} \terminal{(} \nonTerminal{\sort{Exps}} \terminal{)}}
+    {\kattribute{strict}(2), \kattribute{funcall}}
+  \syntaxCont
+    {\terminal{case} \nonTerminal{\sort{Exp}} \terminal{of} \nonTerminal{\sort{Match}} \terminal{end}}
+    {\kattribute{strict}(1), \kattribute{case}}
+  \syntaxCont
+    {\terminal{if} \nonTerminal{\sort{Match}} \terminal{end}}
+    {\kattribute{if}}
+  \syntaxCont
+    {\terminal{begin} \nonTerminal{\sort{Exps}} \terminal{end}}
+    {\kattribute{block}}
+  \syntaxCont
+    {\nonTerminal{\sort{Exp}} \terminal{=} \nonTerminal{\sort{Exp}}}
+    {\kattribute{strict}(2), \kattribute{matchexpr}}
+  \syntaxCont
+    {\terminal{(} \nonTerminal{\sort{Exp}} \terminal{)}}
+    {\kattribute{bracket}}
+\end{syntaxBlock}
+
+\end{module}
