@@ -62,15 +62,13 @@ Az \textit{ERRORS} modul a futásidejű hibák fajtáit tartalmazza.
 
 \input{tex/Szabalyok/41ERRORS}
 
-%TODO Eddig okés Szabalyok lent megvannak szöveget kell már csak hozzáilleszteni
 \paragraph{value.k}
 
-A \textit{VALUE} modul alfajtákat rendel a \textit{Value}-hoz, ami a K specifikus \textit{KResult} alfajtája (ez az \textit{ERL} modulban van beállítva). Ez a \textit{strict} attribútum miatt szükséges. Egy szintaxisban, ha megadjuk egy paraméterére, hogy strict, akkor addig értékeli, amíg nem sikerül Value szintaktikus fajtára hozni. Ha sikerült, akkor tovább értékeli a maradék strict attribútumú paramétert, különben pedig megpróbál az adott szintaktikus fajtára szabályt illeszteni.
+Előző modulokban látható, hogy szintaxis esetén egyes fajtákhoz strict attribútum van rendelve. Ennek a következménye, hogy a szemantikai szabályok esetén, csakis akkor illeszkedik egy minta, ha a keretrendszer a szabály előfeltételében szereplő összes fajtát a K specifikus \textit{KResult} fajtára átalakította. A \textit{VALUE} modulban ezeket gyűjtöttük össze a \textit{Value} fajtába.
 
 \input{tex/Szabalyok/41VALUE}
 
-%TODO innentől felfele érdemes lenne a szortot szintaktikus fajtára cserélni. (Ha tényleg ugyan az a kettő) Egészen a \section{Erlang nyelv}-ig
-
+%TODO Eddig okés
 \paragraph{exp.k}
 
 Az \textit{EXP-PARSING} modul tartalmazza azon kifejezések szintaxisát, melyekhez lett szemantika definiálva.
