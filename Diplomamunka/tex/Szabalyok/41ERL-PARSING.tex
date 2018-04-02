@@ -1,0 +1,48 @@
+\begin{module}{\moduleName{ERL-PARSING}}
+
+\including{TOKENS-PARSING}
+\including{EXP-PARSING}
+\including{OPERATORS-PARSING}
+\including{ERL-LIST-PARSING}
+\including{TUPLE-PARSING}
+\including{CONCURRENT-PARSING}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{FunCl0}}}
+  \syntax
+    {\nonTerminal{\sort{Atom}} ( \nonTerminal{Exps} ) \terminal{$->$} \nonTerminal{Exp} ;}
+    {\kattribute{funcl0}}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{FunCl1}}}
+  \syntax
+    {\nonTerminal{\sort{Atom}} ( \nonTerminal{Exps} ) \terminal{$->$} \nonTerminal{Exp} .}
+    {\kattribute{funcl1}}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{FunCl}}}
+  \syntax
+    {\nonTerminal{\sort{FunCl0}}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{FunCl1}}}
+    {}
+\end{syntaxBlock}
+
+\begin{syntaxBlock}{\nonTerminal{\sort{FunDefs}}}
+  \syntax
+    {\nonTerminal{\sort{FunCl}}}
+    {}
+  \syntaxCont
+    {\nonTerminal{\sort{FunDefs}} \mathrel{} \nonTerminal{\sort{FunDefs}}}
+    {\kattribute{right}}
+\end{syntaxBlock}
+
+\ldots
+
+\begin{syntaxBlock}{\nonTerminal{\sort{Pgm}}}
+  \syntax
+    {\nonTerminal{\sort{FunDefs}} \terminal{$---$} \nonTerminal{\sort{Exp}} .}
+    {}
+\end{syntaxBlock}
+
+\end{module}

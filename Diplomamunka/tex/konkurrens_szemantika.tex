@@ -80,15 +80,15 @@ Az \textit{EXP} modul pedig az ezekhez tartozó szemantikadefiníciókat tartalm
 
 A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet vált. A régi környezetet, amit a \textit{Rho} nevű változó jelöl, átemeli a kiértékelési folyamba. Mikor a case kifejezés visszatérési értékét megkapjuk, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
 
-%TODO Eddig okés
 \paragraph{erl-parsing.k}
 
 Az ERL-PARSING modul egyesíti az összes -PARSING végű modult.
 
-*Kép*
+\input{tex/Szabalyok/41ERL-PARSING}
 
-Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva, így egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit --- jel választ el egymástól.
+Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva. Egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit $---$ jel választ el egymástól.
 
+%TODO Eddig okés
 \paragraph{erl.k}
 
 Az \textit{ERL} modul három dologért felelős.
