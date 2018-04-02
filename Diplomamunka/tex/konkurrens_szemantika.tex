@@ -68,7 +68,6 @@ Előző modulokban látható, hogy szintaxis esetén egyes fajtákhoz strict att
 
 \input{tex/Szabalyok/41VALUE}
 
-%TODO Eddig okés hozza van adva a szabaly (lehet majd több sorba kellene törni
 \paragraph{exp.k}
 
 Az \textit{EXP-PARSING} modul tartalmazza azon kifejezések szintaxisát, melyekhez lett szemantika definiálva.
@@ -79,8 +78,9 @@ Az \textit{EXP} modul pedig az ezekhez tartozó szemantikadefiníciókat tartalm
 
 \input{tex/Szabalyok/41EXP-EXAMPLE}
 
-A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet vált. A régi környezetet amit az \textit{Rho} változó jelöl, berakja a kiértékelési folyamba. Majd később, mikor a case kiértékelődött és visszaadja a visszatérési értékét, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
+A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet vált. A régi környezetet, amit a \textit{Rho} nevű változó jelöl, átemeli a kiértékelési folyamba. Mikor a case kifejezés visszatérési értékét megkapjuk, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
 
+%TODO Eddig okés
 \paragraph{erl-parsing.k}
 
 Az ERL-PARSING modul egyesíti az összes -PARSING végű modult.

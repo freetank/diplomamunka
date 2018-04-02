@@ -4,7 +4,7 @@
     \kprefix{green}{k}{
       \reduce
         {\terminal{case} \variable[Value]{E}{} \terminal{of} \variable[Match]{M}{} \terminal{end}}
-        {\terminal{matches} ( \variable[K]{E}{}, \variable[K]{M}{} ) ~> \variable[K]{Rho}{}}
+        {\terminal{matches} ( \variable[K]{E}{}, \variable[K]{M}{} ) \terminal{$\sim\!\!>$} \variable[K]{Rho}{}}
     }
     \mathrel{}%TODO ???
     \kall{blue}{env}{\variable[K]{Rho}{}}
