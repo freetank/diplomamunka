@@ -1,0 +1,86 @@
+%TODO túl hosszúak
+\begin{kblock}
+
+\krule{
+    \reduce
+      {{\variable[FunDefs]{F}{user}}\terminal{$---$}{\variable[Exp]{E}{user}}\terminal{.}}
+      {\variable[FunDefs]{F}{}\kra\variable[Exp]{E}{}}
+  }
+  {}{}{\kattribute{structural}}{}
+%
+\krule{
+    \reduce
+      {{\variable[FunCl]{F1}{user}}\mathrel{}{\variable[FunDefs]{F2}{user}}}
+      {\variable[FunCl]{F1}{}\kra\variable[FunDefs]{F2}{}}
+  }
+  {}{}{\kattribute{structural}}{}
+%
+\krule{
+    \kprefix{green}{k}{
+      \reduce
+        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{.}}
+        {\dotCt{K}}
+    }
+    \mathrel{}
+    \kall{blue}{defs}{
+      {\variable[Map]{{\rho}}{user}}\mathrel{}{
+      \reduce
+        {\dotCt{Map}}
+        {{\variable[Atom]{Name}{}}\mapsto{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+      }
+    }
+  }
+  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
+%
+\krule{
+    \kprefix{green}{k}{
+      \reduce
+        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{;}}
+        {\dotCt{K}}
+    }
+    \mathrel{}
+    \kall{blue}{defs}{
+      {\variable[Map]{{\rho}}{user}}\mathrel{}{
+      \reduce
+        {\dotCt{Map}}
+        {{\variable[Atom]{Name}{}}\mapsto{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+      }
+    }
+  }
+  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
+%
+\krule{
+    \kprefix{green}{k}{
+      \reduce
+        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{.}}
+        {\dotCt{K}}
+    }
+    \mathrel{}
+    \kmiddle{blue}{defs}{
+      {\variable[Atom]{Name}{}}\mapsto{
+      \reduce
+        {\variable[K]{Bodies}{}}
+        {{\variable[K]{Bodies}{}}\mathrel{}{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+      }
+    }
+  }
+  {}{}{\kattribute{structural}}{}
+%
+\krule{
+    \kprefix{green}{k}{
+      \reduce
+        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{;}}
+        {\dotCt{K}}
+    }
+    \mathrel{}
+    \kmiddle{blue}{defs}{
+      {\variable[Atom]{Name}{}}\mapsto{
+      \reduce
+        {\variable[K]{Bodies}{}}
+        {{\variable[K]{Bodies}{}}\mathrel{}{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+      }
+    }
+  }
+  {}{}{\kattribute{structural}}{}
+
+\end{kblock}
