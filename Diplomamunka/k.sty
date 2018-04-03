@@ -413,7 +413,6 @@
 % Modules %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newenvironment{module}[1]{%
-  \par\ %
   \tikzset{comment/.style={basic comment,fill=black!10}}%
   \par\noindent%
   \text{\scshape module #1}%
@@ -421,7 +420,7 @@
   \par%
 }{%
   \par\noindent\text{\scshape end module}%
-  \par\ \par%
+  %
 }
 
 \newenvironment{commentModule}{%
@@ -950,7 +949,7 @@ rectangle,rectangle
   \ifthenelse{\equal{#7}{}}{}{%  
    \ruleAttributes{#7}% 
   }%
-  \par\ \par
+  \par
 }
 
 \newcommand{\krule}[6][]{%
@@ -963,6 +962,9 @@ rectangle,rectangle
 \newtcolorbox{greyBox}[1][]{%
   sharp corners, % No rounded corners
   boxrule=0pt, % no real frame,
+  breakable,
+  before skip=5pt,
+  after skip=5pt,
   #1
 }
 
