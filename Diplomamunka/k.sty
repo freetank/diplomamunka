@@ -956,6 +956,34 @@ rectangle,rectangle
 \ksentence[#6]{rule}{#1}{#2}{#3}{#4}{#5}
 }
 
+\newcommand{\ksentenceReqInBox}[7][]{%
+  \par\indent
+  \k@ruleLabel{#3}{#2}$%
+  \ifthenelse{\equal{#1}{}}{}{%  
+   \left(% 
+  }%
+  #4%
+  \ifthenelse{\equal{#1}{}}{}{%  
+   \right)% 
+  }%
+    $%
+  \ifthenelse{\equal{#5}{}}{}{%
+    \parbox{70pt}{\whenReq{#5}}%
+  }%
+  \ifthenelse{\equal{#6}{}}{}{%
+    \whenEns{#6}%
+  }%
+  \k@markPosition%
+  \ifthenelse{\equal{#7}{}}{}{%  
+   \ruleAttributes{#7}% 
+  }%
+  \par
+}
+
+\newcommand{\kruleReqInBox}[6][]{%
+\ksentenceReqInBox[#6]{rule}{#1}{#2}{#3}{#4}{#5}
+}
+
 \newcommand{\kruleb}[4]{\begin{kblock}\krule[#1]{#2}{#3}{#4}\end{kblock}}
 
 \usepackage[most]{tcolorbox}
