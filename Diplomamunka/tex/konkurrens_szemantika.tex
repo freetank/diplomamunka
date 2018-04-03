@@ -1,8 +1,8 @@
 \section{Erlang nyelv konkurrens résznyelvének szemantikája K keretrendszerben}
-A K keretrendszernek erős kifejező ereje van, ami megkönnyíti a szemantikadefiníció megadását, még ilyen bonyolult témában is, ahol különböző folyamatok kommunikálnak egymással. A konkurrens résznyelv szemantikájának leírását nem kellett a nulláról kezdeni, már meg volt egy mag, amire lehetett építeni.
+A diplomamunka lényegi része az Erlang nyelv konkurrens résznyelvének szemantikájának definiálása volt. A K keretrendszernek erős kifejező ereje, megkönnyítette a szemantikadefiníció megadását, még ilyen bonyolult témában is, ahol különböző folyamatok kommunikálnak egymással. A konkurrens résznyelv szemantikájának leírását nem kellett a nulláról kezdeni, már meg volt egy mag, amire lehetett építeni. Ez a mag főleg az egyszerűbb kifejezéseket, függvénydefiniálások és - hívások szemantikáját tartalmazta. Az Erlang folyamatok ismertetése után megláthatjuk, hogyan épült fel erre az alapra a konkurrens résznyelv szemantikája.
 
 \subsection{Meglévő szemantikadefiníciók}
-Az első lépés 3.6-os verzióról 4.0-ra való áttérés, és a modularizálás volt.
+Az első lépés a meglévő szemantikadefiníciók 3.6-os verzióról 4.0-ra való átírása, és ezek modularizálása.
 
 \paragraph{tokens.k}
 Ebben a fájlban van az Erlang specifikus literáloknak és a változóknak a szintaxisa, mely két modult tartalmaz.

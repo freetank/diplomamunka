@@ -1,11 +1,13 @@
+\begin{greyBox}
+
 \begin{module}{\moduleName{TOKENS-SYNTAX}}
 
 \including{TOKENS-PARSING}
 
 \begin{syntaxBlock}{\nonTerminal{\sort{Variable}}}
-  \syntax
+  \syntaxKAttrBox
     {r"[A-Z][\_a-zA-Z0-9@]*"}
-    {\kattribute{token}, \kattribute{autoReject}}
+    {\kattribute{token}, \newline \kattribute{autoReject}}
 \end{syntaxBlock}
 
 \begin{syntaxBlock}{\nonTerminal{\sort{Joker}}}
@@ -15,3 +17,5 @@
 \end{syntaxBlock}
 
 \end{module}
+
+\end{greyBox}
