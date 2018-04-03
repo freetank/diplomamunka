@@ -1,10 +1,9 @@
 \begin{module}{\moduleName{TOKENS-PARSING}}
 
 \begin{syntaxBlock}{\nonTerminal{\sort{UnquotedAtom}}}
-  \syntax
+  \syntaxKAttrBox
     {r"[a-z][\_a-zA-Z0-9@]*"}
-    {\kattribute{token}, \kattribute{autoReject}%, \kattribute{notInRules}
-} %TODO nem fér ki egy sorba
+    {\kattribute{token}, \newline \kattribute{autoReject}, \newline \kattribute{notInRules}} %TODO nem fér ki egy sorba
 \end{syntaxBlock}
 
 \begin{syntaxBlock}{\nonTerminal{\sort{Atom}}}

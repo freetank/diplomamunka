@@ -452,6 +452,12 @@
 \syntaxKeyword$#1\mathrel{::=}{#2}$ \ifthenelse{\equal{#3}{}}{}{[#3]}%
 }\k@markPosition%
 }
+
+\newcommand{\syntaxKAttrBox}[3][\defSort]{\rulebox{%
+\syntaxKeyword$#1\mathrel{::=}{#2}$ \ifthenelse{\equal{#3}{}}{}{\parbox{100pt}{[#3]}}%
+}\k@markPosition%
+}
+
 \newcommand{\syntaxNoEq}[3][\defSort]{\rulebox{%
 \syntaxKeyword $#1$ \ifthenelse{\equal{#3}{}}{}{[#3]}%
 }\k@markPosition%
