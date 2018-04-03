@@ -454,7 +454,7 @@
 }
 
 \newcommand{\syntaxKAttrBox}[3][\defSort]{\rulebox{%
-\syntaxKeyword$#1\mathrel{::=}{#2}$ \ifthenelse{\equal{#3}{}}{}{\parbox{100pt}{[#3]}}%
+\syntaxKeyword$#1\mathrel{::=}{#2}$ \ifthenelse{\equal{#3}{}}{}{\parbox{70pt}{[#3]}}%
 }\k@markPosition%
 }
 
@@ -959,6 +959,12 @@ rectangle,rectangle
 
 \newcommand{\kruleb}[4]{\begin{kblock}\krule[#1]{#2}{#3}{#4}\end{kblock}}
 
+\usepackage[most]{tcolorbox}
+\newtcolorbox{greyBox}[1][]{%
+  sharp corners, % No rounded corners
+  boxrule=0pt, % no real frame,
+  #1
+}
 
 \ifk@poster
 \newcommand{\myskip}{\bigskip}
