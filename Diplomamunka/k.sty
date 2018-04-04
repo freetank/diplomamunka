@@ -885,6 +885,10 @@ rectangle,rectangle
   \hspace{2em} requires \ensuremath{#1}%
   \k@markPosition%
 }
+\newcommand{\whenReqInBox}[1]{%
+  \par requires \parbox{200pt}{\ensuremath{#1}}%
+  \k@markPosition%
+}
 
 %%% Context
 
@@ -927,6 +931,7 @@ rectangle,rectangle
 \newcommand{\wrapRules}[1]{\par\indent#1\par\ \par}
 %%% Rules.
 \newcommand{\ruleAttributes}[1]{\hfill[#1]}
+\newcommand{\ruleAttributesReqBox}[1]{[#1]}
 
 \newcommand{\ksentence}[7][]{%
   \par\indent
@@ -968,14 +973,14 @@ rectangle,rectangle
   }%
     $%
   \ifthenelse{\equal{#5}{}}{}{%
-    \parbox{70pt}{\whenReq{#5}}%
+    \whenReqInBox{#5}%
   }%
   \ifthenelse{\equal{#6}{}}{}{%
     \whenEns{#6}%
   }%
   \k@markPosition%
   \ifthenelse{\equal{#7}{}}{}{%  
-   \ruleAttributes{#7}% 
+    \ruleAttributesReqBox{#7}% 
   }%
   \par
 }
