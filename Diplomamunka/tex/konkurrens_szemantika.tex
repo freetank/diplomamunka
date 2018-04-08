@@ -18,7 +18,7 @@ A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. 
 \paragraph{exp-shared.k}
 Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismertetésre -- leválasztott egység.
 
-\input{tex/Szabalyok/41EXP-SHARED}
+\input{\RULESFOLDER/41EXP-SHARED}
 
 Az \textit{Exp} -- a kifejezések fajtája -- deklarálása itt található. Szinte az összes modul használja az Exp és az Exps fajtákat, viszont vannak olyanok, ahol szükségtelen az egész Exp-hez tartozó szintaxist importálni. Ha a modulokban újra lenne deklarálva, az névütközéshez vezetne. Az EXP-SHARED modul ezt hivatott elkerülni.
 
@@ -27,22 +27,22 @@ Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválas
 \paragraph{operators.k}
 Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
 
-\input{tex/Szabalyok/41OPERATORS-PARSING}
+\input{\RULESFOLDER/41OPERATORS-PARSING}
 
 Az \textit{OPERATORS} modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a strict attribútumot, ezért a szabály alkalmazása várat magára egészen addig, amíg az operandusokat ki nem értékelte.
 
-\input{tex/Szabalyok/41ARITHMETICS-EXAMPLE}
+\input{\RULESFOLDER/41ARITHMETICS-EXAMPLE}
 
 Ahogy a példában látható, az aritmetikai operátorok szemantikájának definiálása esetén nagy segítséget jelent a K keretrendszer beépített operátorai.
 
 \paragraph{tuple.k}
 Ebben a fájlban a tuple típussal kapcsolatos szintaxis és szemantika található. A \textit{TUPLE-PARSING} modul bővíti az Exp fajtát a tuple szintaxisával.
 
-\input{tex/Szabalyok/41TUPLE-PARSING}
+\input{\RULESFOLDER/41TUPLE-PARSING}
 
 A \textit{TUPLE} modul az OPERATORS modul kibővítése tuple specifikus összehasonlító operátorokkal.
 
-\input{tex/Szabalyok/41TUPLE-EXAMPLE}
+\input{\RULESFOLDER/41TUPLE-EXAMPLE}
 
 Egy strukturális átalakítás látható, ami jó példa arra, hogyan lehet felhasználni, a már meglévő szemantikadefinícióinkat újabbak definiálására.
 
@@ -50,33 +50,33 @@ Egy strukturális átalakítás látható, ami jó példa arra, hogyan lehet fel
 
 Az \textit{ERL-LIST-PARSING} modulban az erlangban használatos lista két fajta szintaxisa található.
 
-\input{tex/Szabalyok/41ERL-LIST-PARSING}
+\input{\RULESFOLDER/41ERL-LIST-PARSING}
 
 Az \textit{ERL-LIST} modul csak átalakítási szabályokat tartalmaz melyet a \textit{macro} attribútum jelöl. Ezeket a keretrendszer a legelső számítási lépés előtt elvégzi.
 
-\input{tex/Szabalyok/41ERL-LIST-EXAMPLE}
+\input{\RULESFOLDER/41ERL-LIST-EXAMPLE}
 
 \paragraph{errors.k}
 
 Az \textit{ERRORS} modul a futásidejű hibák fajtáit tartalmazza.
 
-\input{tex/Szabalyok/41ERRORS}
+\input{\RULESFOLDER/41ERRORS}
 
 \paragraph{value.k}
 
 Előző modulokban látható, hogy szintaxis esetén egyes fajtákhoz strict attribútum van rendelve. Ennek a következménye, hogy a szemantikai szabályok esetén, csakis akkor illeszkedik egy minta, ha a keretrendszer a szabály előfeltételében szereplő összes fajtát a K specifikus \textit{KResult} fajtára átalakította. A \textit{VALUE} modulban ezeket gyűjtöttük össze a \textit{Value} fajtába.
 
-\input{tex/Szabalyok/41VALUE}
+\input{\RULESFOLDER/41VALUE}
 
 \paragraph{exp.k}
 
 Az \textit{EXP-PARSING} modul tartalmazza azon kifejezések szintaxisát, melyekhez lett szemantika definiálva.
 
-\input{tex/Szabalyok/41EXP-PARSING}
+\input{\RULESFOLDER/41EXP-PARSING}
 
 Az \textit{EXP} modul pedig az ezekhez tartozó szemantikadefiníciókat tartalmazza.
 
-\input{tex/Szabalyok/41EXP-EXAMPLE}
+\input{\RULESFOLDER/41EXP-EXAMPLE}
 
 A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet vált. A régi környezetet, amit a \textit{Rho} nevű változó jelöl, átemeli a kiértékelési folyamba. Mikor a case kifejezés visszatérési értékét megkapjuk, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
 
@@ -84,7 +84,7 @@ A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet v
 
 Az ERL-PARSING modul egyesíti az összes -PARSING végű modult.
 
-\input{tex/Szabalyok/41ERL-PARSING}
+\input{\RULESFOLDER/41ERL-PARSING}
 
 Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva. Egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit $---$ jel választ el egymástól.
 
@@ -92,15 +92,15 @@ Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat i
 
 Az \textit{ERL} modul három dologért felelős.
 
-\input{tex/Szabalyok/41ERL-EXAMPLE-KRESULT}
+\input{\RULESFOLDER/41ERL-EXAMPLE-KRESULT}
 
 Először is a Value alfajtája lesz a \textit{KResult} K specifikus fajtának.
 
-\input{tex/Szabalyok/41ERL-EXAMPLE-PREPROCESSING}
+\input{\RULESFOLDER/41ERL-EXAMPLE-PREPROCESSING}
 
 Másodszor a program fájl feldolgozását definiálja. A függvénydefiníciós részt a későbbi függvény hívások miatt a \textit{defs} állapotba elmenti.
 
-\input{tex/Szabalyok/41ERL-EXAMPLE-FUNCALL}
+\input{\RULESFOLDER/41ERL-EXAMPLE-FUNCALL}
 
 Harmadszorra pedig az általunk definiált függvények hívásának szemantikáját definiálja. Itt a megszokott módon környezetet vált, és a defs állapotban megkeresi a hozzá tartozó függvénydefiníciót.
 
@@ -110,7 +110,7 @@ Harmadszorra pedig az általunk definiált függvények hívásának szemantiká
 
 Ebben a fájlban a kezdő konfiguráció található.
 
-*Regi kep store nelkul*
+\input{\RULESFOLDER/41CONFIG} %TODO itt tartok
 
 A fenti kezdő konfiguráció ezen diplomamunka előtti állapotot mutatja. A \textit{k} cella tartalmazza az adott konfigurációban a hátralévő programot. Az állapot jelenleg két függvényből áll. 
 
@@ -123,7 +123,6 @@ env: Variable -> Value
 Az \textit{env} függvény pedig a változó nevéhez hozzárendeli a változóhoz kötött értéket.
 
 %TODO először ezeket
-%	függvény definiálás az Erlang bemutatásánál
 %	Rendes matekos jelölésekkel a függvényeket (kérdés hogy a generáláskor pontosan mit kapok, bár nem tűnik ellentmondásosnak vele
 %	Ucsó paragraph szebben fogalmazni, helyesírás stb
 
