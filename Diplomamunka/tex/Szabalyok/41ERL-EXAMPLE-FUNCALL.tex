@@ -1,27 +1,27 @@
 \begin{greyBox}
 
+\begin{kblock}
+
 \krule{
     \kprefix{green}{k}{
       \reduce
         {\variable[Atom]{Name}{}}
-        {\terminal{matches} ( \{ \variable[]{Args} \}, \terminal{getMatch} ( \variable[List]{L}{} ) ) \kra \variable[]{Rho}{} }
+        {\terminal{matches} ( \{ \variable[]{Args} \}, \terminal{getMatch} ( \variable[List]{L}{} ) ) \kra \variable[]{\rho}{} }
     }
     \mathrel{}
-    
-    %TODO itt tartottam
-    \kall{blue}{defs}{
-      {\variable[Map]{{\rho}}{user}}\mathrel{}{
+    \kmiddle{blue}{defs}{
+      \variable[Atom]{Name}{} \mapsto \variable[]{L}{}
+    }
+    \mathrel{}
+    \kall{yellow}{defs}{
       \reduce
+        {\variable[]{\rho}{}}
         {\dotCt{Map}}
-        {{\variable[Atom]{Name}{}}\mapsto{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
-      }
     }
   }
-  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
+  {}{}{}{}
 %
-
-rule <k> Name:Atom(Args) => matches({ Args }, getMatch(L:List)) ~> Rho ... </k>
-         <defs> ... Name |-> L ... </defs>
-         <env> Rho => .Map </env>
+         
+\end{kblock}         
          
 \end{greyBox}
