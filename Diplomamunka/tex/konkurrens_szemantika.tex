@@ -104,27 +104,27 @@ Másodszor a program fájl feldolgozását definiálja. A függvénydefiníciós
 
 Harmadszorra pedig az általunk definiált függvények hívásának szemantikáját definiálja. Itt a megszokott módon környezetet vált, és a defs állapotban megkeresi a hozzá tartozó függvénydefiníciót.
 
-% Eddig ellenorizve
-
 \paragraph{config.k}
 
 Ebben a fájlban a kezdő konfiguráció található.
 
-\input{\RULESFOLDER/41CONFIG} %TODO itt tartok
+\input{\RULESFOLDER/41CONFIG}
 
-A fenti kezdő konfiguráció ezen diplomamunka előtti állapotot mutatja. A \textit{k} cella tartalmazza az adott konfigurációban a hátralévő programot. Az állapot jelenleg két függvényből áll. 
+A fenti kezdő konfiguráció ezen diplomamunka előtti állapotot mutatja. A \textit{k} cella tartalmazza az adott konfigurációban a hátralévő programot. Az állapot jelenleg két parciális függvényből áll. 
 
-defs: Atom -> Lista ahol Lista {f | f : Exps -> Body}
+\begin{align*}
+defs: Atom \rightarrow Lista \quad \textrm{ahol} \quad Lista \subseteq \{f | f : Exps \rightarrow Exp\}
+\end{align*}
 
-Ahogy feljebb olvasható a \textit{defs} tartalmazza a függvénydefiníciókat. A függvény nevéhez hozzárendeli a lehetséges függvénydefiníciókat.
+Ahogy feljebb olvasható a \textit{defs} tartalmazza a függvénydefiníciókat: a függvény nevéhez hozzárendeli a lehetséges függvénytörzseket.
 
-env: Variable -> Value
+\begin{align*}
+env: Variable \rightarrow Value
+\end{align*}
 
 Az \textit{env} függvény pedig a változó nevéhez hozzárendeli a változóhoz kötött értéket.
 
-%TODO először ezeket
-%	Rendes matekos jelölésekkel a függvényeket (kérdés hogy a generáláskor pontosan mit kapok, bár nem tűnik ellentmondásosnak vele
-%	Ucsó paragraph szebben fogalmazni, helyesírás stb
+% Eddig ellenorizve
 
 %TODO
 %	Meglévő szemantikadefiníciók

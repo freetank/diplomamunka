@@ -3,17 +3,17 @@
 \begin{kblock}
 
 \krule{
-    \kprefix{green}{k}{
+    \kprefix{\K_COLOR}{k}{
       \reduce
         {\variable[Atom]{Name}{}}
         {\terminal{matches} ( \{ \variable[]{Args} \}, \terminal{getMatch} ( \variable[List]{L}{} ) ) \kra \variable[]{\rho}{} }
     }
     \mathrel{}
-    \kmiddle{blue}{defs}{
+    \kmiddle{\DEFS_COLOR}{defs}{
       \variable[Atom]{Name}{} \mapsto \variable[]{L}{}
     }
     \mathrel{}
-    \kall{yellow}{defs}{
+    \kall{\ENV_COLOR}{env}{
       \reduce
         {\variable[]{\rho}{}}
         {\dotCt{Map}}

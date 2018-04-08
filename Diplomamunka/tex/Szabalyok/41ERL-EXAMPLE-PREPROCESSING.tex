@@ -18,14 +18,14 @@
   {}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
-    \kprefix{green}{k}{
+    \kprefix{\K_COLOR}{k}{
       \reduce
         {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{.}}
         {\dotCt{K}}
     }
     \newline
     \mathrel{}
-    \kall{blue}{defs}{
+    \kall{\DEFS_COLOR}{defs}{
       {\variable[Map]{{\rho}}{user}}\mathrel{}{
       \reduce
         {\dotCt{Map}}
@@ -36,14 +36,14 @@
   {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
-    \kprefix{green}{k}{
+    \kprefix{\K_COLOR}{k}{
       \reduce
         {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{;}}
         {\dotCt{K}}
     }
     \newline
     \mathrel{}
-    \kall{blue}{defs}{
+    \kall{\DEFS_COLOR}{defs}{
       {\variable[Map]{{\rho}}{user}}\mathrel{}{
       \reduce
         {\dotCt{Map}}
@@ -54,14 +54,14 @@
   {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
-    \kprefix{green}{k}{
+    \kprefix{\K_COLOR}{k}{
       \reduce
         {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{.}}
         {\dotCt{K}}
     }
     \newline
     \mathrel{}
-    \kmiddle{blue}{defs}{
+    \kmiddle{\DEFS_COLOR}{defs}{
       {\variable[Atom]{Name}{}}\mapsto{
       \reduce
         {\variable[K]{Bodies}{}}
@@ -72,14 +72,14 @@
   {}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
-    \kprefix{green}{k}{
+    \kprefix{\K_COLOR}{k}{
       \reduce
         {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{;}}
         {\dotCt{K}}
     }
     \newline
     \mathrel{}
-    \kmiddle{blue}{defs}{
+    \kmiddle{\DEFS_COLOR}{defs}{
       {\variable[Atom]{Name}{}}\mapsto{
       \reduce
         {\variable[K]{Bodies}{}}
