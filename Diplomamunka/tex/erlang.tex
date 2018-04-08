@@ -51,7 +51,7 @@ Az első példa jól mutatja, hogy gyakorlatilag figyelmen kívül hagyja az ér
 
 Mintaillesztés nem csak az egyenlőség jellel lehetséges, hanem más kifejezésekben is, mint például a \textit{receive} és a \textit{case}, amire később láthatunk példát.
 
-\subsection {További kifejezések}
+\subsection{További kifejezések}
 
 Az előzőekben egyszerű kifejezésekkel ismerkedtünk meg. Ez az alfejezet pedig olyan összetettebbeket mutat be, melyeknek már meg volt a K által kifejezett szemantikadefiníciója, mielőtt neki kezdtem volna a konkurrens résznyelvhez definiálni.
 
@@ -72,6 +72,16 @@ A \textit{case} esetén az Expr kifejezés kiértékelődik, ezután sorban vég
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/block.erl}
 
 A \textit{block} kifejezések sorozata, melyek ugyan ebben a sorrendben értékelődnek ki. A visszatérési értéke az utolsó kifejezés értéke.
+
+\subsection{Függvények}
+
+A függvények deklarációja függvényklózók sorozata, amely egy fejlécből áll, amely a függvény nevét, paramétereit tartalmazza és opcionálisan egy őrfeltételt, illetve egy függvénytörzsből.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/fuggveny_dekl.erl}
+
+A függvény név egy atom a paraméterei pedig minták. Egy függvényt egyértelműen a modulnév a függvénynév és a hozzá tartozó aritása határozza meg.
+
+Függvényhíváskor megpróbálja megkeresni a hivatkozott függvény deklarációját. Ha nem találja meg, akkor \textit{undef} futásidejű hibát ad. Ha megtalálja, az első függvényklóztól kezdődően a függvény fejléceire mintaillesztést végez. Ha az illesztés sikeres és az őrfeltétel is teljesül, ha létezik, akkor a függvénytörzset kiértékeli. Ha a mintaillesztés sikertelen, vagy sikeres illesztések esetén egy őrfeltétel sem teljesül, akkor \textit{function\_clause} futásidejű hibát kapunk.
 
 \paragraph{}
 Ebben a fejezetben egy rövid összefoglalót láthattunk az Erlang nyelvről. Ez az áttekintés megkönnyíti a későbbi szemantikadefiníciók megértését. Természetesen ez csak egy igen apró része a nyelvnek. Az hogy egy valós Erlang program hogy néz ki, nem tettem említést, mivel a szemantika definiálásánál egyelőre kifejezések állnak a központban, a modulokra bontás például nem. Még az Erlang konkurrens részének ismertetése hátra van, de azt később a hozzájuk tartozó szemantikadefiníciók ismertetésénél részletezem.
