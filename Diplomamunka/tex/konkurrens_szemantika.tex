@@ -126,14 +126,39 @@ Az \textit{env} függvény pedig a változó nevéhez hozzárendeli a változóh
 
 Ebben az alfejezetben egy rövid és tömör áttekintést kaphattunk a már meglévő szemantikadefiníciókról. Mielőtt tovább haladnánk, hogy megismerjük a konkurrens résznyelvhez tartozó szemantikadefiníciókat, érdemes egy rövid betekintést nyerni az erlang nyelv folyamatainak világába.
 
+\subsection{Erlang folyamatok}
+Az Erlang nyelv fő erőssége a konkurrens és az elosztott programozásban rejlik. Konkurrencia alatt a különböző szálak egy idejű kezelését értjük. Ez természetesen lehet valós párhuzamos megvalósítású több magos gépek esetén, illetve főként egy magos környezetben a szálak folyamatos cserélgetésével, így a párhuzamosság látszatát kapjuk. Ilyen szálakat Erlang nyelven könnyedén létrehozhatunk és eszközt is ad az egymás közötti kommunikációra. Erlangban ezeket a szálakat folyamatoknak hívjuk. Ez logikus megnevezés mivel a folyamatok egymással nem osztanak meg közvetlenül adatot. Az információcsere folyamatok között üzenetküldéssel történik.
+
+Egy ilyen folyamatot a \textit{spawn(Modul, Exportált\_Függvény, ArgumentLista)} hívással tudunk létrehozni.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/spawn.erl}
+
+A \textit{representSpawn} modul egy egyszerű példát mutat a spawn használatára. A \textit{start} függvénye három darab folyamatot indít el egymás után, ami függetlenül fog futni a létrehozó folyamattól. Ha meghívjuk a start függvényt az egyik lehetséges eredmény az alábbi lehet.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/spawn_start.erl}
+
+Látható hogy a kiírás sorrendje ebben az esetben 8, 10, 9. Ezen a sorozaton jól látható, hogy a folyamatok egymástól függetlenül futnak, mivel a processzor úgy ütemezett, hogy a 4-es argumentummal meghívott folyamat írja ki az eredményét a legkésőbb. A zárójelben ponttal elválasztott számok a folyamatazonosító. Minden folyamathoz tartozik egy ilyen egyedi azonosító, ami a spawn függvény visszatérési értéke.
+
+Mivel a folyamatok nem osztják meg közvetlenül saját adataikat, az egymással való kommunikáció üzenetküldéssel folyik. Ezt legegyszerűbben a klasszikus ping-pong példán lehet bemutatni \cite{RefMan}.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/pingpong.erl}
+
+A példában két folyamat kommunikál egymással. Az üzenet, akár egy ping pong labda, halad az egyik folyamattól a másik folyamatig. A \textit{start} függvény hozza létre a két folyamatot, amelyek kommunikálnak egymással. Az első folyamat, amit létrehoz, a \textit{pong} függvényt hívja meg, és eltárolja a folyamatazonosítóját egy változóba.
+
+A pong függvény egy \textit{receive} kifejezést tartalmaz. Ez a szerkezet felelős az üzenetek fogadásáért. Minden folyamathoz tartozik egy postaláda, amibe az üzenetek érkeznek. Ezeken a receive minden ágára, kezdve az elsővel, mintaillesztést végez a beérkezésük sorrendjében, amíg egyezést nem talál. Ha sikeres volt a mintaillesztés, akkor azt az üzenetet eldobja a postaládából, és az adott ághoz tartozó kifejezést kiértékeli. Ha nem volt egyezés, vár amíg újabb üzenet nem jön, és újra a legrégebbi üzenettől elkezdi a mintaillesztést. Jelen esetben nagy valószínűséggel a pong folyamat postaládája üres, ezért üzenetfogadására vár.
+
+A start létrehozza a második folyamatot, ami a \textit{ping} függvényt hívja meg két paraméterrel, egy számmal és egy folyamatazonosítóval. Az első paraméter megadja, hogy az üzenet küldés hányszor menjen végbe oda-vissza, a második paraméter pedig egy folyamatazonosító, amely folyamattal kommunikálni fog. A ping függvényben az első kifejezés a ! operátor. A két aritású operátorban az első operandusban megadott folyamatazonosító által meghatározott folyamatnak elküld egy a második operandusban megadott üzenetet. Itt az üzenet egy tuple, ami egy atomot és a \textit{self} függvényt tartalmazza. A self visszaadja az adott folyamat folyamatazonosítóját.
+
+Ezalatt a másik várakozó folyamat üzenetet kapott a ping függvényt kiértékelő folyamattól. A második ágra illeszkedik az üzenet így kiírja hogy megérkezett, és nyomban válaszol is rá a ! operátorral. A válasz már csak egy atom, mivel a ping függvényt kiértékelő folyamat paraméterként megkapta a folyamatazonosítót. Ezután rekurzívan meghívja önmagát. Ekkor a ping vagy épp most kezdi el a receive kiértékelését, vagy már el is végzett egy mintaillesztést, és egy új üzenetre vár. A kapott üzenet illeszkedik a pong atomra így jelzi, hogy az üzenet megérkezett, és a függvény szintén rekurzívan meghívja önmagát, ám az üzenetküldés számát meghatározó paraméter értékét csökkenti eggyel. Ez egészen addig megy így, amíg ez az érték nulla nem lesz. Ekkor a ping másik paraméterezésére fognak illeszkedni a függvényhívásban megadott paraméterek. A finished atomot tartalmazó üzenetet küldi el, ami jelzi a pongnak, hogy az üzenet küldések folyamatának vége. Mind a két függvény kiírja, hogy befejeződött az üzenetküldés, és már nincs rekurzív hívás, így a függvények kiértékelődtek, a két folyamat terminál.
+
 % Eddig ellenorizve
 
-\subsection{Erlang folyamatok}
-%TODO keressek valami jó bevezetőt a processekről más mint a man-ban van
+Lefuttatva a példa programot, feltételezve hogy a konzolra való kiíratást egyből végrehajtja, az alábbi eredményt kapjuk.
 
-%TODO man esetleg ha kevés vagy vmi ötletes dolog kell akkor a greatgod-bol csenni valamit
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/pingpong_start.erl}
+
+Ezzel az áttekintővel egy kép kialakult a folyamatok működéséről és kommunikációjáról, ami minimálisan szükséges a konkurrens szemantikadefiníciók könnyebb megértéséhez. A diplomamunka nem tér ki a több gépet tartalmazó elosztott programozásra.
 
 %TODO
-%	ha kell külön subsection az erlang folyamatokról
-%	szemantika definíció kidejtése, plusz mindegyiknél mit jelent a kifejezés
+%	szemantika definíció kifejtése, plusz mindegyiknél mit jelent a kifejezés
 %	milyen tesztek voltak hogy működik mennyire segített, honnan veszem, hogy azok helyesek?
