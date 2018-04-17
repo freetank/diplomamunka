@@ -1,0 +1,33 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kconfigWithoutText{
+\kall{\K_COLOR}{k}{
+  \variable[Pgm]{\$PGM}{}
+}
+\mathrel{}      
+\kall{\ENV_COLOR}{env}{
+  \dotCt{Map}
+}
+\mathrel{}      
+\kall{\PID_COLOR}{pid}{
+  \terminal{<0.0.0>}
+}
+\mathrel{}
+\kall{\MAILBOX_COLOR}{mailbox}{
+  \dotCt{List}
+}
+\mathrel{}
+\kall{\PROCESSFLAG_COLOR}{processFlag}{
+  \terminal{trap\_exit} |-> \terminal{false}
+}
+\mathrel{}
+\kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+	\terminal{false}
+}
+}
+
+\end{kblock}
+
+\end{greyBox}

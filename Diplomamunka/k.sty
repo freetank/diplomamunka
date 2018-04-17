@@ -5,6 +5,7 @@
 \RequirePackage{bookmark}
 \RequirePackage{kvoptions}
 \RequirePackage{ifthen}
+\RequirePackage[dvipsnames]{xcolor}
 % \RequirePackage{etoolbox}
 % \RequirePackage{etextools} % for xifstrequal
 % \RequirePackage{stringstrings} % for \stringlength
@@ -526,6 +527,12 @@ $\mid\;{#2}$ \ifthenelse{\equal{#3}{}}{}{[#3]\;}%
 \newcommand{\kconfig}[1]{\par%
   {\sc configuration:}\par%
     \ensuremath{#1}\k@markPosition%
+  \par\ \par%
+}
+
+\newcommand{\kconfigWithoutText}[1]{
+  \par%
+  \ensuremath{#1}\k@markPosition%
   \par\ \par%
 }
 
