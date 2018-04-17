@@ -170,11 +170,16 @@ ahol a process
 
 A kezdő konfiguráció kiegészült pár állapottal. Ezek leírása és tartalma azoknál a definícióknál lesz kifejtve, ahol először megjelennek. A résznyelv egész szemantikadefiníciója megtekinthető a diplomamunka mellékletében.%TODO tényleg?
 
+\subsubsection{Folyamat létrehozása}
+A folyamatok létrehozásáról az előző alfejezetben már tettem említést, ami a spawn függvénnyel lehetséges. A konfigurációban a \textit{processes} állapot tartalmazza a folyamatokat, ami gyakorlatilag egy multihalmaz (a multihalmaz jellege sose lesz kihasználva, mivel a folyamatazonosító mindig egyedi minden folyamatnak, emiatt nem létezhet két azonos elem a multihalmazban). Minden sikeres spawn híváskor egy új \textit{process} elem kerül be a konfigurációba. Ez a process tartalmazza a már említett k cellát és az env állapotot.
+
+A spawn függvénynek négy féle paraméterezése létezik. A három paraméterből álló szemantikadefiníciója lett megvalósítva. Az első paramétere a modul neve, amiben a függvény található. Mivel a modul rendszer szintaxisa és szemantikája még nem lett definiálva K keretrendszerben, emiatt az itt lévő atomot mindig figyelmen kívül hagyjuk. Második paramétere a függvény neve, harmadik pedig egy lista, ami a második paraméterben meghatározott függvény aktuális paramétereit tartalmazza. A konfiguráció átmenet létrehoz egy új process elemet, vagyis egy új folyamatot, a kezdőkonfiguráció szerinti állapot szerint. Egyedül a k cellát és a \textit{pid} állapotot módosítja. A k cellába a függvény hívás kerül a megadott paraméterekkel, amit a \textit{GetCommaSeparatedValuesFromList} szemantikus függvény a megfelelő alakra hoz, vagyis az átadott listából egy Values fajtára alakít. A pid állapot pedig egy egyedileg generált folyamatazonosítót fog tartalmazni, ami szintén bekerül \textit{processIds} állapot halmazába. A processIds a futó folyamatok folyamatazonosítóinak a listája. Egyelőre csak a helyes működés van definiálva, a függvény által dobott futásidejű hibák nincsenek. Ilyenek például, ha rossz függvény nevet, vagy aritású függvényt adunk meg.
+
 % Eddig ellenorizve
 
+%TODO self szemantikaja \input
+
 %TODO
-%	Process Creation
-%		spawn
 %		self
 %	Registered Processes
 %		register
@@ -192,6 +197,25 @@ A kezdő konfiguráció kiegészült pár állapottal. Ezek leírása és tartal
 %		process_flag(trap_exit, true)pipa
 %		exit
 %		exit(Pid,Reason)
+
+%                      <processes color="orange">pipa
+%                          <process multiplicity="*" color="magenta">pipa
+%                              <k color="green"> $PGM:Pgm </k>pipa
+%                              <env color="LightSkyBlue"> .Map </env>pipa
+%                              <pid> <0.0.0> </pid>pipa
+%                              <mailbox> .List </mailbox>
+%                              <processFlag> trap_exit |-> false </processFlag>
+%                              <terminatedProcess> false </terminatedProcess>
+%                          </process>
+%                      </processes>
+%                      <processIds> SetItem(<0.0.0>) </processIds>pipa
+%                      <processesCheckMails> .Set </processesCheckMails>
+%                      <idleProcesses> .Map </idleProcesses>
+%                      <processesDuringExit> .Set </processesDuringExit>
+%                      <registeredProcesses> .Map </registeredProcesses>
+%                      <linkedProcesses> .Map </linkedProcesses>
+%                      <time> 0 </time>
+%                      <defs color="blue"> .Map </defs>
 
 
 %TODO
