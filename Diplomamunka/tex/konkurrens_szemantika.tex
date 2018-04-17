@@ -151,13 +151,48 @@ A start létrehozza a második folyamatot, ami a \textit{ping} függvényt hívj
 
 Ezalatt a másik várakozó folyamat üzenetet kapott a ping függvényt kiértékelő folyamattól. A második ágra illeszkedik az üzenet így kiírja hogy megérkezett, és nyomban válaszol is rá a ! operátorral. A válasz már csak egy atom, mivel a ping függvényt kiértékelő folyamat paraméterként megkapta a folyamatazonosítót. Ezután rekurzívan meghívja önmagát. Ekkor a ping vagy épp most kezdi el a receive kiértékelését, vagy már el is végzett egy mintaillesztést, és egy új üzenetre vár. A kapott üzenet illeszkedik a pong atomra így jelzi, hogy az üzenet megérkezett, és a függvény szintén rekurzívan meghívja önmagát, ám az üzenetküldés számát meghatározó paraméter értékét csökkenti eggyel. Ez egészen addig megy így, amíg ez az érték nulla nem lesz. Ekkor a ping másik paraméterezésére fognak illeszkedni a függvényhívásban megadott paraméterek. A finished atomot tartalmazó üzenetet küldi el, ami jelzi a pongnak, hogy az üzenet küldések folyamatának vége. Mind a két függvény kiírja, hogy befejeződött az üzenetküldés, és már nincs rekurzív hívás, így a függvények kiértékelődtek, a két folyamat terminál.
 
-% Eddig ellenorizve
-
 Lefuttatva a példa programot, feltételezve hogy a konzolra való kiíratást egyből végrehajtja, az alábbi eredményt kapjuk.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/pingpong_start.erl}
 
 Ezzel az áttekintővel egy kép kialakult a folyamatok működéséről és kommunikációjáról, ami minimálisan szükséges a konkurrens szemantikadefiníciók könnyebb megértéséhez. A diplomamunka nem tér ki a több gépet tartalmazó elosztott programozásra.
+
+\subsection{Konkurrens résznyelv szemantikája}
+
+Szemantikadefiniálás gyakorlatilag a manuál értelmezéséből áll, amiből aztán megfelelő módszerrel, technikával formális szemantikadefiníciót készítünk. Ebben az alfejezetben kitérünk mit ír minden egyes nyelvi elemnél, milyen kikötések, kivételek vannak, és ezek alapján hogyan jutottunk el a végleges formális definícióig. A konfiguráció is bővült.
+
+
+\input{\RULESFOLDER/43CONFIG}
+
+ahol a process
+
+\input{\RULESFOLDER/43CONFIG_PROCESS}
+
+A kezdő konfiguráció kiegészült pár állapottal. Ezek leírása és tartalma azoknál a definícióknál lesz kifejtve, ahol először megjelennek. A résznyelv egész szemantikadefiníciója megtekinthető a diplomamunka mellékletében.%TODO tényleg?
+
+% Eddig ellenorizve
+
+%TODO
+%	Process Creation
+%		spawn
+%		self
+%	Registered Processes
+%		register
+%		registered
+%		whereis
+%		unregister
+%	Message sending
+%		operator !
+%		receive, itt térjek ki az időre, várakoztatás stb
+%	Links
+%		link
+%		spawn_link
+%		unlink
+%	Process Termination
+%		process_flag(trap_exit, true)pipa
+%		exit
+%		exit(Pid,Reason)
+
 
 %TODO
 %	szemantika definíció kifejtése, plusz mindegyiknél mit jelent a kifejezés
