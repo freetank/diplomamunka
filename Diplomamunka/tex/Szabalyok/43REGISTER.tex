@@ -1,0 +1,37 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{register}:\nonTerminal{Atom}(\variable[Atom]{Name}{}, \variable[Pid]{P}{})}
+        {\terminal{true}}
+    }
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{P}{}
+    }
+    \newline
+    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \reduce
+        {\variable[]{RP}{}}
+        {\variable[]{RP}{}[\variable[]{Name}{} <- \variable[]{P}{}]}
+    }
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \variable[]{Ids}{}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {\neg_{\scriptstyle\it Bool} \variable[]{Name}{} \terminal{in} keys(\variable[]{RP}{}) \wedge_{\scriptstyle\it Bool} \newline
+  \neg_{\scriptstyle Bool} \terminal{isPidInList}(\variable[]{P}{}, \terminal{values}(\variable[]{RP}{})) \wedge_{\scriptstyle\it Bool} \newline
+  \variable[]{Name}{} {=}{/}{=}{\rm\scriptstyle K} \terminal{undefined} \wedge_{\scriptstyle\it Bool} \newline
+  \variable[]{P}{} \terminal{in} \variable[]{Ids}{}
+  }
+  {}{}{}
+\end{kblock}
+
+\end{greyBox}

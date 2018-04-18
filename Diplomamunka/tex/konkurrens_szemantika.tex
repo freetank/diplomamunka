@@ -175,15 +175,36 @@ A folyamatok létrehozásáról az előző alfejezetben már tettem említést, 
 
 A spawn függvénynek négy féle paraméterezése létezik. A három paraméterből álló szemantikadefiníciója lett megvalósítva. Az első paramétere a modul neve, amiben a függvény található. Mivel a modul rendszer szintaxisa és szemantikája még nem lett definiálva K keretrendszerben, emiatt az itt lévő atomot mindig figyelmen kívül hagyjuk. Második paramétere a függvény neve, harmadik pedig egy lista, ami a második paraméterben meghatározott függvény aktuális paramétereit tartalmazza. A konfiguráció átmenet létrehoz egy új process elemet, vagyis egy új folyamatot, a kezdőkonfiguráció szerinti állapot szerint. Egyedül a k cellát és a \textit{pid} állapotot módosítja. A k cellába a függvény hívás kerül a megadott paraméterekkel, amit a \textit{GetCommaSeparatedValuesFromList} szemantikus függvény a megfelelő alakra hoz, vagyis az átadott listából egy Values fajtára alakít. A pid állapot pedig egy egyedileg generált folyamatazonosítót fog tartalmazni, ami szintén bekerül \textit{processIds} állapot halmazába. A processIds a futó folyamatok folyamatazonosítóinak a listája. Egyelőre csak a helyes működés van definiálva, a függvény által dobott futásidejű hibák nincsenek. Ilyenek például, ha rossz függvény nevet, vagy aritású függvényt adunk meg.
 
+\vfill %TODO Ha módosul a szöveg lehet nem kell
+
 \input{\RULESFOLDER/43SELF}
 
-Fent a self függvény szemantikadefiníciója látható. A self visszatérési értéke az éppen futó folyamat folyamatazonosítója. A definícióban a process cellában lévő pid állapotot kéri le, azt az egyedi azonosítót, amit a folyamat létrehozásakor generáltunk.
+A self függvény szemantikadefiníciója egy szabályból áll, ami fent látható. A self visszatérési értéke az éppen futó folyamat folyamatazonosítója. A szabály a saját process cellájában lévő pid állapotra illeszkedik, és ezt az egyedi azonosítót tartalmazza a k cella az átmenet után, amit a folyamat létrehozásakor generáltunk.
+
+\subsubsection{Folyamatok azonosítása}
+
+A folyamatokra a már előbb bemutatott folyamatazonosítóval is tudunk hivatkozni, ám nevesíthetjük is azokat, a két paraméteres \textit{register} függvénnyel. Az első paramétere az általunk választott név, ami egy atom, a második pedig a folyamatazonosító, amit ehhez a névhez szeretnénk társítani. Visszatérési értéke mindig true. \textit{badarg} futásidejű hibát okozhat az alábbi esetekben:
+
+\begin{itemize}
+\item ha az első argumentumban megadott névhez már lett folyamat rendelve
+\item ha a második paraméterben megadott folyamatazonosító nem létezik
+\item ha a második paraméterben megadott folyamatazonosítóhoz már rendeltünk nevet
+\item ha az első paraméter az \textit{undefined} atom
+\end{itemize}
+
+A függvénnyel több gépet tartalmazó környezetben folyamatazonosító helyett portot is átadhatunk paraméternek. Ahogy már említettem, a szemantikadefiníció nem tér ki az ilyen esetekre.
+
+Ehhez a szemantikadefinícióhoz három szabály is tartozik.
+
+\input{\RULESFOLDER/43REGISTER}
+
+Két szabály a sikeres név-folyamatazonosító hozzárendelése esetén, egy pedig a badarg futásidejű hiba esetén való átmenet. A fenti szabály a sikeres hozzárendelés nem saját folyamatazonosító esetén. Látható, hogy egy másik folyamat pid cellájára illeszkedik, amit a \textit{P} változóba ment el, és a hozzátársított névvel (\textit{Name}) a \textit{registeredProcesses} állapot map-ét bővíti az átmenet. Ez az állapot név-folyamatazonosító párokat tartalmaz, ami a nevekhez való társításokat tárolja. Az illeszkedés esetén való feltételt érdemes részletesebben megvizsgálni. Ez gyakorlatilag az előbb listaként felsorolt állítások tagadásai. Az \textit{RP}-ben lévő párok nem tartalmazhatják külön a regisztrált nevet, illetve a folyamatazonosítót, nem lehet a név undefined atom, és a folyamatazonosítónak benne kell lennie az Ids halmazban, ezzel kötjük ki, hogy csak futó folyamatokhoz tudunk nevet társítani.
+
+A másik sikeres szabály hasonló az előzőhöz, azzal a kivétellel, hogy itt a folyamat a saját azonosítójához akar nevet társítani, így nem egy process cella pid állapotára illeszkedik, hanem a sajátjáéra. A badarg futásidejű hibát kiváltó szabály esetén a k cellában lévő átmenet ezt a hibát adja, a feltételek pedig az előző szabályokénak a negáltja.
 
 % Eddig ellenorizve
 
 %TODO
-%	Registered Processes
-%		register
 %		registered
 %		whereis
 %		unregister
@@ -213,7 +234,7 @@ Fent a self függvény szemantikadefiníciója látható. A self visszatérési 
 %                      <processesCheckMails> .Set </processesCheckMails>
 %                      <idleProcesses> .Map </idleProcesses>
 %                      <processesDuringExit> .Set </processesDuringExit>
-%                      <registeredProcesses> .Map </registeredProcesses>
+%                      <registeredProcesses> .Map </registeredProcesses>pipa
 %                      <linkedProcesses> .Map </linkedProcesses>
 %                      <time> 0 </time>
 %                      <defs color="blue"> .Map </defs>
