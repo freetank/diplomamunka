@@ -175,12 +175,13 @@ A folyamatok létrehozásáról az előző alfejezetben már tettem említést, 
 
 A spawn függvénynek négy féle paraméterezése létezik. A három paraméterből álló szemantikadefiníciója lett megvalósítva. Az első paramétere a modul neve, amiben a függvény található. Mivel a modul rendszer szintaxisa és szemantikája még nem lett definiálva K keretrendszerben, emiatt az itt lévő atomot mindig figyelmen kívül hagyjuk. Második paramétere a függvény neve, harmadik pedig egy lista, ami a második paraméterben meghatározott függvény aktuális paramétereit tartalmazza. A konfiguráció átmenet létrehoz egy új process elemet, vagyis egy új folyamatot, a kezdőkonfiguráció szerinti állapot szerint. Egyedül a k cellát és a \textit{pid} állapotot módosítja. A k cellába a függvény hívás kerül a megadott paraméterekkel, amit a \textit{GetCommaSeparatedValuesFromList} szemantikus függvény a megfelelő alakra hoz, vagyis az átadott listából egy Values fajtára alakít. A pid állapot pedig egy egyedileg generált folyamatazonosítót fog tartalmazni, ami szintén bekerül \textit{processIds} állapot halmazába. A processIds a futó folyamatok folyamatazonosítóinak a listája. Egyelőre csak a helyes működés van definiálva, a függvény által dobott futásidejű hibák nincsenek. Ilyenek például, ha rossz függvény nevet, vagy aritású függvényt adunk meg.
 
+\input{\RULESFOLDER/43SELF}
+
+Fent a self függvény szemantikadefiníciója látható. A self visszatérési értéke az éppen futó folyamat folyamatazonosítója. A definícióban a process cellában lévő pid állapotot kéri le, azt az egyedi azonosítót, amit a folyamat létrehozásakor generáltunk.
+
 % Eddig ellenorizve
 
-%TODO self szemantikaja \input
-
 %TODO
-%		self
 %	Registered Processes
 %		register
 %		registered

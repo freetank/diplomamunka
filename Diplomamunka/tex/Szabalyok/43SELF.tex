@@ -1,0 +1,26 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{self}:\nonTerminal{Atom}(\dotCt{Epxs})}
+        {\variable[Pid]{P}{}}
+    }
+    \mathrel{}
+    \kall{\PID_COLOR}{pid}{
+      \variable[Pid]{P}{}
+    }
+    \mathrel{}
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}
