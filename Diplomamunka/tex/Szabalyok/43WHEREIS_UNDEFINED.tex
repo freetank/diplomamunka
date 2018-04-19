@@ -1,0 +1,25 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{whereis}:\nonTerminal{Atom}(\variable[Atom]{Name}{})}
+        {\terminal{undefined}}
+    }
+    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \variable[]{RP}{}
+    }
+    \newline
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {\neg_{\scriptstyle\it Bool} (\variable[]{Atom}{} \terminal{in} \somespace \terminal{keys}(\variable[]{RP}{}))}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

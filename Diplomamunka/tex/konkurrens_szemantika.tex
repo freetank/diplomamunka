@@ -208,10 +208,15 @@ Az így regisztrált nevek lekérhetőek a \textit{registered} paraméternélkü
 
 A fent látható szabály a registedProcesses állapotra illeszkedik, és az \textit{RP} változóba olvassa be a név-folyamatazonosító párokat. A \textit{fromSetToErlList} szemantikus függvény a paraméterként átadott neveket tartalmazó halmazból Erlang listát képez, ami az átmenet eredménye lesz a k cellában.
 
+A \textit{whereis} függvény megadja a paraméterben átadott atomhoz tartozó folyamatazonosítót. Ha még nem volt hozzárendelés az undefined atommal tér vissza.
+
+\input{\RULESFOLDER/43WHEREIS_UNDEFINED}
+
+A szemantikadefiníció két szabályból áll. A fenti írja le a működést abban az esetben, ha az atomhoz nincs hozzárendelve folyamatazonosító. Az illeszkedéssel az \textit{RP} változóba beolvassa a regisztrált név-folyamatazonosító párokat, és ha a nevekből alkotott halmaz nem tartalmazza a \textit{Name} változóban lévő atomot, akkor a k cellában az átmenet az undefined atomot adja. A másik szabály találat esetén visszaadja a Name-hez rendelt folyamatazonosítót a mapből.
+
 % Eddig ellenorizve
 
 %TODO
-%		whereis
 %		unregister
 %	Message sending
 %		operator !
