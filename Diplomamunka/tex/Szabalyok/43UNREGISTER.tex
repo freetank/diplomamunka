@@ -5,11 +5,13 @@
 \krule{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\terminal{whereis}:\nonTerminal{Atom}(\variable[Atom]{Name}{})}
-        {\terminal{undefined}}
+        {\terminal{unregister}:\nonTerminal{Atom}(\variable[Atom]{Name}{})}
+        {\terminal{true}}
     }
     \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
-      \variable[]{RP}{}
+      \reduce
+        {\variable[]{RP}{}}
+        {\variable[]{RP}{}[\variable[]{Name}{} <- \terminal{undef}]}
     }
     \newline
     \kall{\TIME_COLOR}{time}{
@@ -18,7 +20,7 @@
         {\builtinIntPlus{\variable[]{T}{}}{10}}
     }
   }
-  {\neg_{\scriptstyle\it Bool} (\variable[]{Name}{} \terminal{in} \somespace \terminal{keys}(\variable[]{RP}{}))}{}{}{}
+  {\variable[]{Name}{} \terminal{in} \somespace \terminal{keys}(\variable[]{RP}{})}{}{}{}
          
 \end{kblock}         
          

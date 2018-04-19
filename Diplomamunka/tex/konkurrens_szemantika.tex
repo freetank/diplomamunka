@@ -214,6 +214,12 @@ A \textit{whereis} függvény megadja a paraméterben átadott atomhoz tartozó 
 
 A szemantikadefiníció két szabályból áll. A fenti írja le a működést abban az esetben, ha az atomhoz nincs hozzárendelve folyamatazonosító. Az illeszkedéssel az \textit{RP} változóba beolvassa a regisztrált név-folyamatazonosító párokat, és ha a nevekből alkotott halmaz nem tartalmazza a \textit{Name} változóban lévő atomot, akkor a k cellában az átmenet az undefined atomot adja. A másik szabály találat esetén visszaadja a Name-hez rendelt folyamatazonosítót a mapből.
 
+A register függvény segítségével létre hozott név-folyamatazonosító társítást törölhetjük az \textit{unregister} segítségével. Visszatérési értéke mindig \textit{true}. Ha a paraméterében átadott atomhoz nincs folyamatazonosító rendelve, akkor \textit{badarg} futásidejű hibát okoz.
+
+\input{\RULESFOLDER/43UNREGISTER}
+
+Itt is két szabályból áll a definíció. Ha már volt regisztrálva a \textit{Name} változóban lévő atom, akkor a fent látható szabály illeszkedik. Az \textit{undef} segítségével tudunk egy map-ben lévő kulcs értéket törölni a hozzárendelt értékeivel együtt. A második szabály átmenete természetesen a \textit{badarg} futásidejű hibához vezet.
+
 % Eddig ellenorizve
 
 %TODO
