@@ -1,0 +1,41 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\variable[Pid]{P}{} ! \variable[Value]{V}{}}
+          {\variable[]{V}{}}
+      }
+    }
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kprefix{\K_COLOR}{k}{
+          {\variable[Exp]{E}{}}
+      }
+      \kall{\PID_COLOR}{pid}{
+        \variable[]{P}{}
+      }
+      \ksuffix{\MAILBOX_COLOR}{mailbox}{
+        \reduce
+          {\dotCt{List}}
+          {\terminal{ListItem}(\variable[]{V}{})}
+      }
+    }
+    \newline
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \variable[]{Ids}{}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {\variable[]{E}{} {=}{/}{=}{\rm\scriptstyle K} \terminal{\$wait\_for\_new\_message} \wedge_{\scriptstyle\it Bool} \newline
+  \variable[]{P}{} \terminal{in} \variable[]{Ids}{}}
+  {}{}{}
+\end{kblock}
+
+\end{greyBox}

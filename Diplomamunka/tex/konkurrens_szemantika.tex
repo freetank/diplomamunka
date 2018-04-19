@@ -222,8 +222,24 @@ Itt is két szabályból áll a definíció. Ha már volt regisztrálva a \texti
 
 % Eddig ellenorizve
 
+\subsubsection{Üzenet küldés és fogadás}
+
+Ahogy már korábban volt szó róla a folyamatok üzenetekkel tudnak egymással kommunikálni. Egy üzenetet a ! operátorral küldhetünk. Két operandusa olyan kifejezések lehetnek, ahol az elsőnek egy folyamatazonosítóra kell hogy kiértékelődjön, a második pedig az üzenet, amit el akarunk küldeni. Ha az első paraméter egy névre értékelődik ki, amihez nincs regisztrálva folyamatazonosító, akkor \textit{badarg} futásidejű hibát kapunk. Azonban akármilyen folyamatazonosítónak küldünk üzenetet, akár létezik az azonosított folyamat akár nem, az üzenet küldés soha sem okoz futásidejű hibát. Az operátor visszatérési érték a második kifejezés értéke lesz.
+
+Ehhez már bonyolultabb szemantikadefiníció tartozik 6 szabállyal. Ezek közül ötöt ismertetek, majd a \textit{receive} ismertetése közben pedig a hatodikat is.
+
+\input{\RULESFOLDER/43SENDTOOTHER}
+
+Az üzenetküldéskor leggyakrabban használt eset szabálya látható felül. A \textit{P} változóban lévő folyamatazonosító által meghatározott folyamatnak küldi el a \textit{V} változóban lévő értéket. Az illeszkedés a \textit{P} szerinti változó alapján történik, így látható a második process cella. Itt az átmenet a mailbox állapot listájának a végére fűzi a \textit{V} üzenetet. A mailbox a folyamatokhoz tartozó postaláda állapota, a beérkező üzeneteket időrendben tároló lista. A feltétel második része érdekes csak most számunkra, ami azt mondja meg hogy az adott \textit{P} folyamat tényleg létezik-e. Hasonló a szabály akkor is, ha egy folyamat saját magának akar üzenetet küldeni. Ekkor a szabály a saját pid állapotára illeszkedik, és az átmenet a saját üzeneteinek a végéhez fűzi az üzenetet. A harmadik szabály feltétele azt mondja ki, hogy az adott \textit{P} folyamat nem létezik, így a k cella átmenete végbe megy, az üzenet lesz a cél, de semmi változás nem történik egyik folyamat postafiókjában sem.
+
+\input{\RULESFOLDER/43SENDTOREGISTER}
+
 %TODO
-%		unregister
+%	registeres üzenetküldés
+%	ellenőrzés
+%	receive...
+
+%TODO
 %	Message sending
 %		operator !
 %		receive, itt térjek ki az időre, várakoztatás stb
@@ -241,7 +257,7 @@ Itt is két szabályból áll a definíció. Ha már volt regisztrálva a \texti
 %                              <k color="green"> $PGM:Pgm </k>pipa
 %                              <env color="LightSkyBlue"> .Map </env>pipa
 %                              <pid> <0.0.0> </pid>pipa
-%                              <mailbox> .List </mailbox>
+%                              <mailbox> .List </mailbox>pipa
 %                              <processFlag> trap_exit |-> false </processFlag>
 %                              <terminatedProcess> false </terminatedProcess>
 %                          </process>

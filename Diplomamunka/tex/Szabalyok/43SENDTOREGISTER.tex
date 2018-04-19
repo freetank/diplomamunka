@@ -1,0 +1,24 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\variable[Atom]{Name}{}}
+        {\variable[]{P}{}}
+      \somespace ! \variable[]{V}{}
+    }
+    \kmiddle{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \variable[]{Name}{} {|}{-}{>} \variable[Pid]{P}{}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {}{}{}{}
+\end{kblock}
+
+\end{greyBox}
