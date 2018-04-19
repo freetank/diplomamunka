@@ -1,0 +1,25 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{registered}:\nonTerminal{Atom}(\dotCt{Epxs})}
+        {\terminal{fromSetToErlList}(\terminal{keys}(\variable[]{RP}{}))}
+    }
+    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \variable[]{RP}{}
+    }
+    \newline
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

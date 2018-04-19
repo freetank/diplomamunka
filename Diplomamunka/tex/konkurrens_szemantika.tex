@@ -202,10 +202,15 @@ Két szabály a sikeres név-folyamatazonosító hozzárendelése esetén, egy p
 
 A másik sikeres szabály hasonló az előzőhöz, azzal a kivétellel, hogy itt a folyamat a saját azonosítójához akar nevet társítani, így nem egy process cella pid állapotára illeszkedik, hanem a sajátjáéra. A badarg futásidejű hibát kiváltó szabály esetén a k cellában lévő átmenet ezt a hibát adja, a feltételek pedig az előző szabályokénak a negáltja.
 
+Az így regisztrált nevek lekérhetőek a \textit{registered} paraméternélküli függvénnyel. A neveket egy listában adja vissza.
+
+\input{\RULESFOLDER/43REGISTERED}
+
+A fent látható szabály a registedProcesses állapotra illeszkedik, és az \textit{RP} változóba olvassa be a név-folyamatazonosító párokat. A \textit{fromSetToErlList} szemantikus függvény a paraméterként átadott neveket tartalmazó halmazból Erlang listát képez, ami az átmenet eredménye lesz a k cellában.
+
 % Eddig ellenorizve
 
 %TODO
-%		registered
 %		whereis
 %		unregister
 %	Message sending
