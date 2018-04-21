@@ -236,6 +236,32 @@ A maradék két szabály a regisztrált névnek való üzenetküldésről szól.
 
 % Eddig ellenorizve
 
+Az üzenet fogadása a \textit{receive} kifejezéssel történik. A postaládából az üzenetekre sorban mintaillesztést végez az kifejezés egyes ágaira. Tehát először a legrégebbi üzenetet veszi ki a postaládából és végez mintaillesztést felülről lefelé a \textit{receive} ágaira. Ha az illesztés sikeres volt, és a hozzátartozó őrfeltétel is igazra értékelődött ki, akkor kiértékeli a hozzátartozó ágat, és a kifejezés értéke az ág értéke lesz. Az üzenetet ekkor eldobja a postaládából. Ha nem volt sikeres mintaillesztés folytatja a másodikkal, és így tovább. A \textit{receive} soha sem dob futásidejű hibát, vagyis, ha egyik üzenetre sem volt sikeres a mintaillesztés és vagy sikeres volt, de a hozzátartozó őrfeltétel nem volt igaz, akkor a folyamat addig vár, amíg új üzenet nem érkezik, és kezdődik minden előröl. A hozzátartozó szemantikadefinícióban nem foglalkozunk az őrfeltételekkel, a szintaxis sem tartalmazza egyelőre.
+
+\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/receive.erl}
+
+A kifejezés tartalmazhat egy \textit{after} részt, ahol az \textit{ExprT} kifejezés értéke egy nullánál nagyobb vagy egyenlő számnak, vagy az \textit{infinity} atomnak kell lennie, ellenező esetben \textit{badarg} futásidejű hibát kapunk. Ha van \textit{after}, akkor a sikertelen mintaillesztések után, ennyi milliszekundumig vár a folyamat új üzenetre. Ha az idő letelt, akkor az \textit{after} utáni \textit{BodyT} lesz kiértékelve, ami a \textit{receive} visszatérési értéke lesz. Az \textit{infinity} atom esete, ugyan olyan, mint ha nem lenne \textit{after} rész. Ennek haszna az, ha futásidőben akarjuk kiszámolni az értéket.
+
+Az \textit{after} rész megköveteli az idő múlásának szimulálását. Sajnos a K keretrendszer jelenleg nem támogatja semmilyen módon, így a szemantika részeként kellet megvalósítani. A már látott szemantikadefiníciókban feltűnhetett a time állapot. Ez az állapot a program indítása óta eltelt időt jelenti milliszekundumban. Ám ez az idő relatív. Minden egyes utasítás növeli a time állapot értékét, jelenleg ez állandóan 10 milliszekundum. Így egy fajta időmúlás érzetét kapjuk, ami természetesen, ahogy említettem relatív, vagyis nem azonos a való világban eltelt idővel.
+
+Főleg az \textit{after} rész miatt ez az egyik legbonyolultabb szemantikadefiníció, amit tartalmaz a diplomamunka. Az \textit{after} rész egységes kezeléséért lett bevezetve az alábbi fajta az \textit{After}.
+
+\input{\RULESFOLDER/43DOLLARAFTER}
+
+Az első paraméter tartalmazza az \textit{after} részben meghatározott időt. Azért \textit{Exp} fajta, mert az \textit{infinity} atomot is tartalmazhatja. A második paramétere az \textit{after} rész törzse, a harmadik pedig a receive kiértékelésének az elkezdésének az időpontja a \textit{time} állapot alapján. Ennek segítségével a k cellában lévő \textit{receive} hívásoknak egységes felületet tudunk adni.
+
+\input{\RULESFOLDER/43RECEIVESTRUCTURAL}
+
+Minden \textit{receive} híváskor egy struktúrális átalakítást végző szabály illeszkedik először, ami a megfelelő átalakítást végzi. Fent látható a négy szabály közül az egyik. Ez az az eset, amikor nincsen after rész. Látható a k cella átmenetében, hogy a számítási folyamba betesszük az előbb említett \textit{\$after}-t a megfelelő paraméterekkel. Itt az \textit{infinity} atomot adjuk meg első paraméterben, második paraméternek pedig \textit{undefined} atomot, mivel nincs \textit{after} rész, nincs is kifejezés, amit ki kellene értékelni. Az idő állapotot lekérjük, és harmadik paraméterként adjuk át. Egy új állapotot fedezhetünk fel a \textit{processesCheckMails}. Ez azoknak a folyamatoknak a halmaza, amelyek éppen \textit{receive} kifejezést értékelik ki, de nem várakoznak üzenetekre. Ez a szabály csak is akkor illeszkedik, ha még csak most ér a folyamat a \textit{receive} kifejezéshez. Ennek oka az, hogy a struktúrális átalakítások alatt lecsípjük az \textit{after} részt így az összes formájú \textit{receive} azonos formájú lesz a folyamban, és egy már átalakított kifejezést, nem akarunk még egyszer strukturálisan átalakítani. Mivel minden formájú \textit{receive} kifejezés azonos lesz, a szemantikáját egységesen lehet definiálni. Természetesen már strukturális átalakítás során kiszűrjük a rossz argumentumú \textit{after} klózt.
+
+Üzenetfeldolgozásért három szabály felelős, egy amely sikeres mintaillesztés esetén illeszkedik, kettő pedig mikor sikertelen. Az egyik sikertelen esetet kezelő szabályról fogok részletesebben beszélni.
+
+\input{\RULESFOLDER/43RECEIVENOTMATCHED}
+
+A feltételben lévő \textit{callMatchesToListOfValues} végzi a mintaillesztést az üzenetekre. Ebben az esetben nem volt sikeres mintaillesztés, vagyis \textit{\$error\_badmatch}-el tér vissza. A feltétel második része mondja ki, hogy csak azokra a folyamatokra illeszkedik ez a szabály, amelyeken a strukturális átalakítás lefutott, és készek rá, hogy megvizsgálják a postaládájukat. Ez is az az egyik szabály, ami miatt a strukturális átalakításnál kikötöttük, hogy nem vizsgálja postafiókját. Hisz látható, hogy abban a szabályban és ebben a szabályban is a k cella eleje azonos, így ha ez a feltétel nincs, nem determinisztikusan illeszkedhet az egyik illetve a másik szabály. Mivel ez a szabály a postaládában lévő üzenetek mintaillesztéséről szól, emiatt az átmenet kiveszi a \textit{processesCheckMails} állapotból a folyamat azonosítóját. Az átmenet a folyamatot várakoztató állapotba rakja. Ezt két helyen is jelölve van. Az egyik a \textit{k} cella átmenete, ahol a számítási folyamba berakja a \textit{\$wait\_msg} konstant, ami a későbbi szabályok illesztésénél ad segítséget, illetve az \textit{idleProcesses} állapotba berakja a folyamatazonosító-lejárati idő párt. Az \textit{idleProcesses} állapot egy map, ahova a folyamatokhoz hozzárendel egy lejárati időt. Ezután a folyamat várakozik. Itt jön a képbe a hatodik szabálya a ! operátor szemantikadefiníciójának.
+
+\input{\RULESFOLDER/43SENDTOIDLEPROCESS}
+
 %TODO
 %	receive...
 
@@ -254,21 +280,12 @@ A maradék két szabály a regisztrált névnek való üzenetküldésről szól.
 
 %                      <processes color="orange">pipa
 %                          <process multiplicity="*" color="magenta">pipa
-%                              <k color="green"> $PGM:Pgm </k>pipa
-%                              <env color="LightSkyBlue"> .Map </env>pipa
-%                              <pid> <0.0.0> </pid>pipa
-%                              <mailbox> .List </mailbox>pipa
 %                              <processFlag> trap_exit |-> false </processFlag>
 %                              <terminatedProcess> false </terminatedProcess>
 %                          </process>
 %                      </processes>
-%                      <processIds> SetItem(<0.0.0>) </processIds>pipa
-%                      <processesCheckMails> .Set </processesCheckMails>
-%                      <idleProcesses> .Map </idleProcesses>
 %                      <processesDuringExit> .Set </processesDuringExit>
-%                      <registeredProcesses> .Map </registeredProcesses>pipa
 %                      <linkedProcesses> .Map </linkedProcesses>
-%                      <time> 0 </time>
 %                      <defs color="blue"> .Map </defs>
 
 

@@ -1,0 +1,55 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\variable[Pid]{P}{} \mathrel{!} \variable[Value]{V}{}}
+          {\variable[]{V}{}}
+      }
+    }
+    \newline
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{} \terminal{end}}
+          {\terminal{receive} \variable[Match]{M}{} \terminal{end}}
+      }
+      \kall{\PID_COLOR}{pid}{
+        \variable[]{P}{}
+      }
+      \ksuffix{\MAILBOX_COLOR}{mailbox}{
+        \reduce
+          {\dotCt{List}}
+          {\terminal{ListItem}(\variable[]{V}{})}
+      }
+    }
+    \newline
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \variable[]{Ids}{}
+    }
+    \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
+      \reduce
+        {\variable[]{Idles}{}}
+        {\variable[]{Idles}{} [\variable[]{P}{} \leftarrow \; \terminal{undef}]}
+    }
+    \newline
+    \kall{\PROCESSESCHECKMAILS_COLOR}{processesCheckMails}{
+      \reduce      
+        {\dotCt{Set}}
+        {\terminal{SetItem}(\variable[]{P}{})}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+    \newline
+  }
+  {\variable[]{P}{} \terminal{in} \variable[]{Ids}{}}
+  {}{}{}
+\end{kblock}
+
+\end{greyBox}

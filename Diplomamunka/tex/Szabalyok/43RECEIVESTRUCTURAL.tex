@@ -1,0 +1,28 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{receive} \variable[Match]{M}{} \terminal{end}}
+        {\terminal{receive} \variable[]{M}{} \terminal{end} \; \kra \; \terminal{\$after} ( \terminal{infinity}, \terminal{undefined}, \variable[]{T}{})}
+    }
+    \newline
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{P}{}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \variable[]{T}{}
+    }
+    \kall{\PROCESSESCHECKMAILS_COLOR}{processesCheckMails}{
+      \reduce      
+        {\variable[]{PCM}{}}
+        {\variable[]{PCM}{} \terminal{SetItem}(\variable[]{P}{})}
+    }
+  }
+  {\neg_{\rm\scriptstyle Bool} (\variable[]{P}{} \terminal{in} \variable[]{PCM}{})}
+  {}{\kattribute{structural}}{}
+\end{kblock}
+
+\end{greyBox}

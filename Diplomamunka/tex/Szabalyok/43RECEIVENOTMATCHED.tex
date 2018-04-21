@@ -1,0 +1,41 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \newline
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{receive} \variable[Match]{M}{} \terminal{end} \; \kra \; \terminal{\$after} (\variable[Int]{Ms}{}, \variable[Exp]{E}{}, \variable[Int]{CreationTime}{})}
+        {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{} \terminal{end} \; \kra \; \terminal{\$after} (\variable[]{Ms}{}, \variable[]{E}{}, \variable[]{CreationTime}{})}
+    }
+    \newline
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{P}{}
+    }
+    \kall{\MAILBOX_COLOR}{mailbox}{
+      \variable[]{Mails}{}
+    }
+    \kall{\PROCESSESCHECKMAILS_COLOR}{processesCheckMails}{
+      \reduce      
+        {\variable[]{PCM}{}}
+        {\variable[]{PCM}{} \terminal{-Set} \; \terminal{SetItem}(\variable[]{P}{})}
+    }
+    \newline
+    \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
+      \reduce
+        {\variable[]{Idles}{}}
+        {\variable[]{Idles}{} \; \variable[]{P}{} \mapsto (\variable[]{CreationTime}{} \; \mathrel{+_{\rm\scriptstyle Int}} \; \variable[]{Ms}{})}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {\terminal{callMatchesToListOfValues}(\variable[]{Mails}{}, \variable[]{M}{}) \, \mathrel{{==}_{\rm\scriptstyle K}} \newline \terminal{\$error\_badmatch} \wedge_{\rm\scriptstyle Bool} \newline
+  \variable[]{P}{} \terminal{in} \variable[]{PCM}{}}
+  {}{}{}
+\end{kblock}
+
+\end{greyBox}
