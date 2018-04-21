@@ -220,23 +220,23 @@ A register függvény segítségével létre hozott név-folyamatazonosító tá
 
 Itt is két szabályból áll a definíció. Ha már volt regisztrálva a \textit{Name} változóban lévő atom, akkor a fent látható szabály illeszkedik. Az \textit{undef} segítségével tudunk egy map-ben lévő kulcs értéket törölni a hozzárendelt értékeivel együtt. A második szabály átmenete természetesen a \textit{badarg} futásidejű hibához vezet.
 
-% Eddig ellenorizve
-
 \subsubsection{Üzenet küldés és fogadás}
 
-Ahogy már korábban volt szó róla a folyamatok üzenetekkel tudnak egymással kommunikálni. Egy üzenetet a ! operátorral küldhetünk. Két operandusa olyan kifejezések lehetnek, ahol az elsőnek egy folyamatazonosítóra kell hogy kiértékelődjön, a második pedig az üzenet, amit el akarunk küldeni. Ha az első paraméter egy névre értékelődik ki, amihez nincs regisztrálva folyamatazonosító, akkor \textit{badarg} futásidejű hibát kapunk. Azonban akármilyen folyamatazonosítónak küldünk üzenetet, akár létezik az azonosított folyamat akár nem, az üzenet küldés soha sem okoz futásidejű hibát. Az operátor visszatérési érték a második kifejezés értéke lesz.
+Ahogy már korábban említésre került a folyamatok üzenetekkel tudnak egymással kommunikálni. Egy üzenetet a ! operátorral küldhetünk, melynek két operandusa kifejezések. Az első kiértékelése után folyamatazonosítónak vagy egy atomnak kell lennie, ám ebben az esetben előzőleg egy folyamatazonosítót kell regisztrálnunk a \textit{register} függvénnyel különben \textit{badarg} futásidejű hibát kapunk. Azonban akármilyen folyamatazonosítónak küldünk üzenetet, akár ténylegesen azonosít egy folyamatot akár nem, az üzenet küldés nem okoz futásidejű hibát. Az operátor visszatérési érték az üzenet.
 
-Ehhez már bonyolultabb szemantikadefiníció tartozik 6 szabállyal. Ezek közül ötöt ismertetek, majd a \textit{receive} ismertetése közben pedig a hatodikat is.
+Ehhez már bonyolultabb szemantikadefiníció tartozik 6 szabállyal. Ezek közül ötöt ismertetek, majd a \textit{receive} bemutatása közben pedig az utolsót is.
 
 \input{\RULESFOLDER/43SENDTOOTHER}
 
-Az üzenetküldéskor leggyakrabban használt eset szabálya látható felül. A \textit{P} változóban lévő folyamatazonosító által meghatározott folyamatnak küldi el a \textit{V} változóban lévő értéket. Az illeszkedés a \textit{P} szerinti változó alapján történik, így látható a második process cella. Itt az átmenet a mailbox állapot listájának a végére fűzi a \textit{V} üzenetet. A mailbox a folyamatokhoz tartozó postaláda állapota, a beérkező üzeneteket időrendben tároló lista. A feltétel második része érdekes csak most számunkra, ami azt mondja meg hogy az adott \textit{P} folyamat tényleg létezik-e. Hasonló a szabály akkor is, ha egy folyamat saját magának akar üzenetet küldeni. Ekkor a szabály a saját pid állapotára illeszkedik, és az átmenet a saját üzeneteinek a végéhez fűzi az üzenetet. A harmadik szabály feltétele azt mondja ki, hogy az adott \textit{P} folyamat nem létezik, így a k cella átmenete végbe megy, az üzenet lesz a cél, de semmi változás nem történik egyik folyamat postafiókjában sem.
+Az üzenetküldéskor leggyakrabban használt eset szabálya látható felül. A \textit{P} változóban lévő folyamatazonosító által meghatározott folyamatnak küldi el a \textit{V} változóban lévő értéket. Az illeszkedés a \textit{P} szerinti változó alapján történik, tehát illeszkedik a ! operátor kiértékelt első operandusára, és egy másik folyamat pid állapotára, emiatt látható a második process cella. Itt az átmenet a mailbox állapot listájának a végére fűzi a \textit{V} üzenetet. A mailbox a folyamatokhoz tartozó postaláda állapota, a beérkező üzeneteket időrendben tároló lista. A feltétel második része érdekes csak most számunkra, ami azt mondja meg hogy az adott \textit{P} folyamat tényleg létezik-e. Hasonló a szabály akkor is, ha egy folyamat saját magának akar üzenetet küldeni. Ekkor a szabály a saját pid állapotára illeszkedik, és az átmenet a saját üzeneteinek a végéhez fűzi az üzenetet. A harmadik szabály feltétele azt mondja ki, hogy az adott \textit{P} folyamat nem létezik, így a k cella átmenete végbe megy, az üzenet lesz a cél, de semmi változás nem történik egyik folyamat postafiókjában sem.
 
 \input{\RULESFOLDER/43SENDTOREGISTER}
 
+A maradék két szabály a regisztrált névnek való üzenetküldésről szól. Fent látható, ha létezik regisztrált név a \textit{registeredProcesses} állapotban, akkor a névből a hozzárendelt folyamatazonosítóba megy az átmenet. Itt feltétel sem szükséges, mivel az illeszkedés csak akkor történik meg, ha létezik az a bizonyos név-folyamatazonosító társítás. A \textit{badarg} futásidejű hibát kiváltó szabály esetén ha a \textit{registeredProcessses} állapotban lévő mapben nincs hozzárendelve a névhez az adott kulcs, az azt jelenti, hogy nem regisztrált név, így az üzenet küldés \textit{badarg} futásidejű hibát ad a k cella átmenetében.
+
+% Eddig ellenorizve
+
 %TODO
-%	registeres üzenetküldés
-%	ellenőrzés
 %	receive...
 
 %TODO
