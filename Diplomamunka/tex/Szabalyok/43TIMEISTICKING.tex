@@ -1,0 +1,34 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \kprefix{\K_COLOR}{k}{
+      \terminal{\$wait\_msg}
+    }
+    \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+      \terminal{false}
+    }
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \terminal{Ids}
+    }
+    \newline
+    \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
+      \variable[]{Idles}{}
+    }
+    \kall{\PROCESSESDURINGEXIT_COLOR}{processesDuringExit}{
+      PDE
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {(\terminal{size}(\variable[]{Ids}{}) ==_{\scriptstyle\it Int} \terminal{size}(\variable[]{Idles}{})) \wedge_{\scriptstyle\it Bool} \newline
+  (\terminal{isStillIdle}(\variable[]{T}{}, \variable[]{Idles}{})) \wedge_{\scriptstyle\it Bool} \newline
+  \terminal{size}(\variable[]{PDE}{}) ==_{\scriptstyle\it Int} 0}
+  {}{}{}
+\end{kblock}
+
+\end{greyBox}

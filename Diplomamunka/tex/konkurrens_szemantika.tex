@@ -258,17 +258,27 @@ Minden \textit{receive} híváskor egy struktúrális átalakítást végző sza
 
 \input{\RULESFOLDER/43RECEIVENOTMATCHED}
 
-A feltételben lévő \textit{callMatchesToListOfValues} végzi a mintaillesztést az üzenetekre. Ebben az esetben nem volt sikeres mintaillesztés, vagyis \textit{\$error\_badmatch}-el tér vissza. A feltétel második része mondja ki, hogy csak azokra a folyamatokra illeszkedik ez a szabály, amelyeken a strukturális átalakítás lefutott, és készek rá, hogy megvizsgálják a postaládájukat. Ez is az az egyik szabály, ami miatt a strukturális átalakításnál kikötöttük, hogy nem vizsgálja postafiókját. Hisz látható, hogy abban a szabályban és ebben a szabályban is a k cella eleje azonos, így ha ez a feltétel nincs, nem determinisztikusan illeszkedhet az egyik illetve a másik szabály. Mivel ez a szabály a postaládában lévő üzenetek mintaillesztéséről szól, emiatt az átmenet kiveszi a \textit{processesCheckMails} állapotból a folyamat azonosítóját. Az átmenet a folyamatot várakoztató állapotba rakja. Ezt két helyen is jelölve van. Az egyik a \textit{k} cella átmenete, ahol a számítási folyamba berakja a \textit{\$wait\_msg} konstant, ami a későbbi szabályok illesztésénél ad segítséget, illetve az \textit{idleProcesses} állapotba berakja a folyamatazonosító-lejárati idő párt. Az \textit{idleProcesses} állapot egy map, ahova a folyamatokhoz hozzárendel egy lejárati időt. Ezután a folyamat várakozik. Itt jön a képbe a hatodik szabálya a ! operátor szemantikadefiníciójának.
+A feltételben lévő \textit{callMatchesToListOfValues} végzi a mintaillesztést az üzenetekre. Ebben az esetben nem volt sikeres mintaillesztés, vagyis \textit{\$error\_badmatch}-el tér vissza. A feltétel második része mondja ki, hogy csak azokra a folyamatokra illeszkedik ez a szabály, amelyeken a strukturális átalakítás lefutott, és készek rá, hogy megvizsgálják a postaládájukat. Ez is az az egyik szabály, ami miatt a strukturális átalakításnál kikötöttük, hogy nem vizsgálja postafiókját. Hisz látható, hogy abban a szabályban és ebben a szabályban is a k cella eleje azonos, így ha ez a feltétel nincs, nem determinisztikusan illeszkedhet az egyik illetve a másik szabály. Mivel ez a szabály a postaládában lévő üzenetek mintaillesztéséről szól, emiatt az átmenet kiveszi a \textit{processesCheckMails} állapotból a folyamat azonosítóját. Az átmenet a folyamatot várakoztató állapotba rakja. Ezt két helyen is jelölve van. Az egyik a \textit{k} cella átmenete, ahol a számítási folyamba berakja a \textit{\$wait\_msg} konstans, ami a későbbi szabályok illesztésénél ad segítséget, illetve az \textit{idleProcesses} állapotba berakja a folyamatazonosító-lejárati idő párt. Az \textit{idleProcesses} állapot egy map, ahova a folyamatokhoz hozzárendel egy lejárati időt. Ezután a folyamat várakozik. Itt jön a képbe a hatodik szabálya a ! operátor szemantikadefiníciójának.
 
 \input{\RULESFOLDER/43SENDTOIDLEPROCESS}
 
-%TODO
-%	receive...
+Mivel ez egy külön eset, külön szabály is tartozik hozzá. Abban az esetben, ha egy folyamat várakozik, amit a \textit{\$wait\_msg} alapján is tudunk, akkor az üzenetküldés fogja beindítani a \textit{k} cella átmenetében az újbóli feldolgozását az postaládában lévő üzeneteinek. Figyeljük meg az \textit{idleProcesses} és a \textit{processesCheckMails} állapotok változásait. A folyamat többé nem várakozó folyamat, hanem az üzeneteit vizsgáló folyamat. Ezen kívül még egy eset létezik (a kívülről jövő termináló üzeneten kívül) a várakozó folyamat állapotból való kiléptetésre, mégpedig ha az ideje lejárt.
+
+\input{\RULESFOLDER/43TIMEISUP}
+
+A szabály csak várakozó folyamatokra illeszkedik. Ha a \textit{\$after} harmadik paramétere, vagyis a \textit{receive} kiértékelésének elkezdésének ideje és az \textit{after} klózban tartalmazott idő, ami az első paraméter, összege nagyobb, mint a \textit{time} állapotban lévő idő, akkor többet nem vár a folyamat illeszkedő üzenetre, az \textit{after} klóz törzsét kiértékeli. Ekkor az \textit{idleProcesses} állapotból kiveszi az adott folyamatazonosító-idő párost, ezzel jelezve, hogy már nem várakozó folyamat az alábbi.
+
+Ezzel gyakorlatilag az üzenet küldés és fogadás szemantikadefiníciója majdnem teljesen egészében le lett fedve, viszont egy megválaszolatlan kérdés maradt. Mi történik akkor, hogy ha az összes folyamat üzenetre várakozik. Ha mindegyik végtelenségig vár, akkor a programunk megakadt várni fog, de ha legalább egy folyamat \textit{after} klózában egy számot adtunk meg, akkor az idő letelte után az adott résznek aktiválódnia kéne. A probléma az, hogy mivel minden folyamat vár, és a szemantika része az idő múlásának a szimulálása, ezért nem fog telni az idő, mert egyelten egy kifejezés sem értékelődik ki, és emiatt nem növeli az idő állapotot.
+
+\input{\RULESFOLDER/43TIMEISTICKING}
+
+Itt fellelhető néhány állapot, melyek később lesznek ismertetve. A lényegi rész a feltételben és a \textit{k} cellában található. Ha minden folyamat várakozik, akkor minden folyamat \textit{k} cellájában a \textit{\$wait\_msg} található. Így ez a szabály bármelyik folyamatra tud illeszkedni. Viszont a feltétel kiköti, hogy ha van nem várakozó folyamatunk, akkor ne tudjon illeszkedni. Mégpedig ha az \textit{idleProcesses} állapotban lévő elemek száma megegyezik a \textit{processIds} állapot elemeinek számával és az éppen illeszkedett folyamatra hívott \textit{isStillIdle} szemantikus függvény igazat ad, akkor az átmenet növelje a \textit{time} állapot értékét, vagyis teljen az idő. A feltétel első fele azt mondja ki, hogy ugyanannyi futó folyamatunk van, mint amennyi várakozik, a második pedig megvizsgálja, hogy a várakozó folyamatok közül van-e olyan, amelynek már letelt az ideje, vagyis az \textit{after} rész kiértékelhető-e már.
 
 %TODO
-%	Message sending
-%		operator !
-%		receive, itt térjek ki az időre, várakoztatás stb
+%	átnézni
+%	esetleg vmi befejezést írni neki
+
+%TODO
 %	Links
 %		link
 %		spawn_link

@@ -1,0 +1,28 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\kruleReqInBox{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{} \terminal{end} \; \kra \; \terminal{\$after}(\variable[Int]{Ms}{}, \variable[]{E}{}, \variable[]{CreationTime}{})}
+        {\variable[]{E}{}}
+    }
+    \newline
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{P}{}
+    }
+    \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
+      \reduce
+        {\variable[]{Idles}{}}
+        {\variable[]{Idles}{} [\variable[]{P}{} \leftarrow \; \terminal{undef}]}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \variable[]{T}{}
+    }
+  }
+  {(\builtinIntPlus{\variable[]{CreationTime}{}}{\variable[]{Ms}{}}) \leq_{\scriptstyle\it Bool} \variable[]{T}{}}
+  {}{\kattribute{structural}}{}
+\end{kblock}
+
+\end{greyBox}
