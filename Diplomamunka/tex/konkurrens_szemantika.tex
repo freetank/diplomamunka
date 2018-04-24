@@ -260,24 +260,25 @@ A feltételben lévő \textit{callMatchesToListOfValues} végzi a mintailleszté
 
 \vfill %TODO Ha módosul a szöveg lehet nem kell
 
-% Eddig ellenorizve
-
 \input{\RULESFOLDER/43SENDTOIDLEPROCESS}
 
-Mivel ez egy külön eset, külön szabály is tartozik hozzá. Abban az esetben, ha egy folyamat várakozik, amit a \textit{\$wait\_msg} alapján is tudunk, akkor az üzenetküldés fogja beindítani a \textit{k} cella átmenetében az újbóli feldolgozását az postaládában lévő üzeneteinek. Figyeljük meg az \textit{idleProcesses} és a \textit{processesCheckMails} állapotok változásait. A folyamat többé nem várakozó folyamat, hanem az üzeneteit vizsgáló folyamat. Ezen kívül még egy eset létezik (a kívülről jövő termináló üzeneten kívül) a várakozó folyamat állapotból való kiléptetésre, mégpedig ha az ideje lejárt.
+Mivel ez egy külön eset, külön szabály is tartozik hozzá. Ha egy folyamat várakozik, amit a \textit{\$wait\_msg} alapján is tudunk, akkor az üzenetküldés fogja beindítani, a \textit{k} cella átmenetében, az újbóli feldolgozását a postaládában lévő üzeneteknek. Figyeljük meg az \textit{idleProcesses} és a \textit{processesCheckMails} állapotok változásait. A folyamat többé nem várakozó folyamat, hanem az üzeneteit vizsgáló folyamat. Ezen kívül még egy eset létezik (a kívülről jövő termináló üzeneten kívül) a várakozó folyamat állapotból való kiléptetésre, mégpedig ha az ideje lejárt.
 
 \input{\RULESFOLDER/43TIMEISUP}
 
-A szabály csak várakozó folyamatokra illeszkedik. Ha a \textit{\$after} harmadik paramétere, vagyis a \textit{receive} kiértékelésének elkezdésének ideje és az \textit{after} klózban tartalmazott idő, ami az első paraméter, összege nagyobb, mint a \textit{time} állapotban lévő idő, akkor többet nem vár a folyamat illeszkedő üzenetre, az \textit{after} klóz törzsét kiértékeli. Ekkor az \textit{idleProcesses} állapotból kiveszi az adott folyamatazonosító-idő párost, ezzel jelezve, hogy már nem várakozó folyamat az alábbi.
+A szabály csak várakozó folyamatokra illeszkedik. Ha a \textit{\$after} harmadik paramétere, vagyis a \textit{receive} hívásának kezdetének ideje és az \textit{after} klózban tartalmazott idő, ami az első paraméter, összege nagyobb, mint a \textit{time} állapotban lévő idő, akkor többet nem vár a folyamat illeszkedő üzenetre, hanem az \textit{after} klóz törzsét kiértékeli. Ekkor az \textit{idleProcesses} állapotból kiveszi az adott folyamatazonosító-idő párost, ezzel jelezve, hogy már nem várakozó folyamat az alábbi.
 
-Ezzel gyakorlatilag az üzenet küldés és fogadás szemantikadefiníciója majdnem teljesen egészében le lett fedve, viszont egy megválaszolatlan kérdés maradt. Mi történik akkor, hogy ha az összes folyamat üzenetre várakozik. Ha mindegyik végtelenségig vár, akkor a programunk megakadt várni fog, de ha legalább egy folyamat \textit{after} klózában egy számot adtunk meg, akkor az idő letelte után az adott résznek aktiválódnia kéne. A probléma az, hogy mivel minden folyamat vár, és a szemantika része az idő múlásának a szimulálása, ezért nem fog telni az idő, mert egyelten egy kifejezés sem értékelődik ki, és emiatt nem növeli az idő állapotot.
+Ezzel gyakorlatilag az üzenet küldés és fogadás szemantikadefinícióját majdnem teljesen egészében lefedtük, viszont egy megválaszolatlan kérdés maradt. Mi történik akkor, hogy ha az összes folyamat üzenetre várakozik. Ha mindegyik \textit{infinity} atommal lett meghívva, vagy \textit{after} klóz nélkül, akkor a végtelenségig vár, a programunk megakadt, de ha legalább egy folyamat \textit{after} klózában egy számot adtunk meg, akkor az idő letelte után az utána lévő kifejezést ki kell értékelnie. A probléma az, hogy mivel minden folyamat vár, tehát számítási lépés nem hajtódik végre, ezért nem fog telni az idő, vagyis nem növeli egy szabály sem az idő állapotban lévő értéket.
 
 \input{\RULESFOLDER/43TIMEISTICKING}
 
-Itt fellelhető néhány állapot, melyek később lesznek ismertetve. A lényegi rész a feltételben és a \textit{k} cellában található. Ha minden folyamat várakozik, akkor minden folyamat \textit{k} cellájában a \textit{\$wait\_msg} található. Így ez a szabály bármelyik folyamatra tud illeszkedni. Viszont a feltétel kiköti, hogy ha van nem várakozó folyamatunk, akkor ne tudjon illeszkedni. Mégpedig ha az \textit{idleProcesses} állapotban lévő elemek száma megegyezik a \textit{processIds} állapot elemeinek számával és az éppen illeszkedett folyamatra hívott \textit{isStillIdle} szemantikus függvény igazat ad, akkor az átmenet növelje a \textit{time} állapot értékét, vagyis teljen az idő. A feltétel első fele azt mondja ki, hogy ugyanannyi futó folyamatunk van, mint amennyi várakozik, a második pedig megvizsgálja, hogy a várakozó folyamatok közül van-e olyan, amelynek már letelt az ideje, vagyis az \textit{after} rész kiértékelhető-e már.
+Itt fellelhető néhány állapot, melyek később lesznek ismertetve. A lényegi rész a feltételben és a \textit{k} cellában található. Ha minden folyamat várakozik, akkor minden folyamat \textit{k} cellájában a \textit{\$wait\_msg} található. Ez a szabály bármelyik várakozó folyamatra tud illeszkedni. Ha az \textit{idleProcesses} állapotban lévő elemek száma megegyezik a \textit{processIds} állapot elemeinek számával és az éppen illeszkedett folyamatra hívott \textit{isStillIdle} szemantikus függvény igazat ad, akkor az átmenet növeli a \textit{time} állapot értékét, vagyis telik az idő. A feltétel első fele azt mondja ki, hogy ugyanannyi futó folyamatunk van, mint amennyi várakozik, tehát minden futó folyamatunk várakozik, a második pedig megvizsgálja, hogy a várakozó folyamatok közül van-e olyan, amelynek már letelt az ideje, vagyis az \textit{after} rész kiértékelhető-e már.
+
+Ezzel körbe is jártuk az üzenet küldés és fogadás szemantikadefinícióját. Ezt az összetett működést összesen 15 szabály segítségével adtuk meg.
+
+% Eddig ellenorizve
 
 %TODO
-%	átnézni
 %	esetleg vmi befejezést írni neki
 
 %TODO
