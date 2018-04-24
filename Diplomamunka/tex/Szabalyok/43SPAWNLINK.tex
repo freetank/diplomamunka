@@ -1,0 +1,39 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \newline
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{spawn\_link}:\nonTerminal{\sort{Atom}} (\variable[Atom]{Name}{}, \variable[Atom]{F}{}, \variable[Values]{Args}{})}
+        {\terminal{\$spawn\_link} (\terminal{link}:\nonTerminal{\sort{Atom}} (\terminal{spawn}:\nonTerminal{\sort{Atom}}((\variable[Atom]{Name}{}, \variable[]{F}{}, \variable[]{Args}{}):\nonTerminal{\sort{Exps}})))}
+    }
+    \newline
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }   
+  }
+  {}{}{\kattribute{structural}}{}
+%
+
+\krule{
+    \reduce
+      {\terminal{\$spawn\_link} (\terminal{link}:\nonTerminal{\sort{Atom}} (\variable[Pid]{P}{})) }
+      {\terminal{\$spawn\_link} (\terminal{link}:\nonTerminal{\sort{Atom}} (\variable[]{P}{}) \kra \variable[]{P}{})}   
+  }
+  {}{}{}{}
+%
+
+\krule{
+    \reduce
+      {\terminal{\$spawn\_link} (true \kra \variable[]{P}{})}
+      {\variable[]{P}{}}   
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

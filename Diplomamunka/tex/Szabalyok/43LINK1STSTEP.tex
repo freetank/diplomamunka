@@ -1,0 +1,37 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{link}:\nonTerminal{Atom}(\variable[Pid]{P}{})}
+        {\terminal{\$link}(\variable[]{P}{})}
+    }
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{OwnP}{}
+    }
+    \newline
+    \kmiddle{\LINKEDPROCESSES_COLOR}{linkedProcesses}{
+      \reduce
+        {\variable[]{OwnP}{} \mapsto \variable[]{ValuesOfOwnP}{}}
+        {\variable[]{OwnP}{} \mapsto \variable[]{ValuesOfOwnP}{} \terminal{SetItem}(\variable[]{P}{})}
+    }
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \variable[]{Ids}{}
+    }
+    \newline
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+    \newline
+  }
+  {\variable[]{P}{} \terminal{in} \variable[]{Ids}{} \wedge_{\scriptstyle\it Bool}
+  \variable[]{P}{} =/=_{\scriptstyle\it K} \variable[]{OwnP}{}}
+  {}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}
