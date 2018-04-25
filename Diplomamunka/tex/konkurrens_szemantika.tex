@@ -276,11 +276,9 @@ Itt fellelhető néhány állapot, melyek később lesznek ismertetve. A lényeg
 
 Ezzel körbe is jártuk az üzenet küldés és fogadás szemantikadefinícióját. Ezt az összetett működést összesen 15 szabály segítségével adtuk meg.
 
-% Eddig ellenorizve
-
 \subsubsection{Folyamatok közötti kapcsolatok}
 
-A folyamatok között kialakítható egy kölcsönös kapcsolat a \textit{link} függvénnyel, amelyet az \textit{unlink} függvénnyel meg tudunk szüntetni. Ezek a kapcsolatok a folyamatok terminálásának kezelésére alkalmasak. Ha egy folyamat terminál, akár futásidejű hibával akár nem, akkor az összes hozzákapcsolt folyamatot értesíti erről. A \textit{link} függvény mindig \textit{true} atommal tér vissza. Egy paramétere a folyamatazonosító, amely között a futó folyamat kapcsolatot akar létrehozni. Ha már létezik kapcsolat, akkor nem fog létrehozni új kapcsolatot, mivel minden folyamat között csak egy kapcsolat lehet. Saját magához nem tud kapcsolatot létrehozni. Ha a paraméterben megadott folyamatazonosító nem létezik, akkor két lehetőség létezik. Ha a \textit{trap\_exit} flag értéke hamis, akkor a \textit{noproc} futásidejű hibát adja, ha viszont igaz, a hívó folyamat egy üzenetet kap mégpedig az alábbi formában:
+A folyamatok között kialakítható egy kölcsönös kapcsolat a \textit{link} függvénnyel, melyet párjával az \textit{unlink}kel meg tudunk szüntetni. Ezek a kapcsolatok a folyamatok terminálásának kezelésére alkalmasak. Ha egy folyamat terminál, akár futásidejű hibával akár nem, akkor az összes hozzákapcsolt folyamatot értesíti erről. A \textit{link} függvény mindig \textit{true} atommal tér vissza. Egyetlen paramétere a folyamatazonosító, amely között a hívó folyamat kapcsolatot akar létrehozni. Ha már létezik, akkor nem fog létrehozni újat, mivel minden folyamat között csak egy kapcsolat lehet. Saját magával nem tud kapcsolatot létrehozni. Ha a paraméterben megadott folyamatazonosítóhoz nem tartozik futó folyamat, akkor két lehetőség létezik. Ha a \textit{trap\_exit} flag értéke hamis, akkor a \textit{noproc} futásidejű hibát adja, ha viszont igaz, a hívó folyamat egy üzenetet kap mégpedig az alábbi formában:
 
 \begin{lstlisting}[language=Erlang]
 {'EXIT', Folyamatazonosito, noproc}
@@ -290,24 +288,25 @@ A \textit{trap\_exit} flagről később lesz szó.
 
 \input{\RULESFOLDER/43LINK1STSTEP}
 
-A folyamatok közötti kapcsolat kialakítása két lépésből áll. A \textit{linkedProcesses} állapotban, ami egy map, tárolja a kapcsolatokat. Egy folyamatazonosítóhoz egy folyamatazonosítókat tartalmazó halmazt rendel. Először, ahogy fent látható, \textit{link} függvény a hívó folyamathoz rendeli paraméterben átadott folyamatazonosítót. Az illeszkedés csak akkor sikeres, ha már ez a folyamat, vagy ehhez a folyamathoz létezik már ilyen kapcsolat. A hozzátartozó halmazt bővíti az első paraméterrel. Abban az esetben, ha már létezik kapcsolat a két folyamat között, ez a lépés gyakorlatilag nem fog semmi újat hozzáadni a \textit{linkedProcesses} állapothoz, mivel a halmaz tulajdonsága miatt nem lesz két ugyan olyan elem benne, vagyis nem lesz két kapcsolat egy és ugyanazon folyamatok között.
+A folyamatok közötti kapcsolat kialakítása két lépésből áll. A \textit{linkedProcesses} állapotban, ami egy map, tárolja a kapcsolatokat. Egy folyamatazonosítóhoz egy folyamatazonosítókat tartalmazó halmazt rendel. Először, ahogy fent látható, a \textit{link} függvény a hívó folyamathoz rendeli a paraméterben átadott folyamatazonosítót. Az illeszkedés csak akkor sikeres, ha ehhez a folyamathoz létezik már ilyen kapcsolat. A hozzátartozó halmazt bővíti az első paraméterrel. Abban az esetben, ha már létezik kapcsolat a két folyamat között, ez a lépés gyakorlatilag nem fog semmi újat hozzáadni a \textit{linkedProcesses} állapothoz, mivel a halmaz tulajdonság miatt nem lesz két ugyan olyan eleme, vagyis nem lesz két kapcsolat ugyanazon folyamatok között.
 
-A második lépés is hasonló. Ahogy láthattuk a \textit{k} cella átmenete a \textit{\$link} volt. Ez azért volt szükséges, mert jól el kell határolni az első hozzárendelést és a második hozzárendelést. Sajnos a $\mathbb{K}$ keretrendszer nem tudott olyan összetett illesztést csinálni, hogy mind a két elemre tudjon illeszkedni a \textit{linkedProcesses} állapoton belül, ha létezik. Második lépésben a paraméterben átadott folyamatazonosítóhoz rendeltük a hívó folyamat azonosítóját. Az ilyen fajta tárolás megkönnyíti és lerövidíti a későbbi szabályokat.
+A második lépés is hasonló. Ahogy láthattuk a \textit{k} cella átmenete a \textit{\$link}. Ez azért szükséges, mert jól el kell határolni az első folyamathoz való hozzárendelést a másodiktól. Az ok az, hogy előfordulhat az az eset, amikor az egyik folyamathoz már létezik kapcsolat, vagyis a \textit{linkedProcesses} állapotban megtalálható, viszont a második folyamathoz még nem létezik, így új elemként kell beszúrni ebbe az állapotba. A \textit{linkedProcesses} állapot redundánsan tartalmazza az információt a kapcsolatokról, viszont az ilyen fajta tárolás megkönnyíti az adatok kezelését.
 
 A \textit{spawn\_link} függvénnyel egy lépésben hozhatunk létre új folyamatot, és kapcsolhatjuk össze a hívó folyamattal.
 
 \input{\RULESFOLDER/43SPAWNLINK}
 
-Fent látható, hogy egy a strukturális átalakítás során a \textit{link} függvény első paramétere a \textit{spawn} függvény visszatérési értéke lesz. Az ok amiért ilyen bonyolult szabályhalmazzal lehetett megoldani ezt a definíciót az az, hogy a link függvény a \textit{true} atommal tér vissza, míg a \textit{spawn\_link} a létrehozott folyamat azonosítójával. Egy speciális \textit{Exp} fajta segítségével a \textit{\$spawn\_link}-kel egy saját kontextus hoz létre a számítási folyamatban, így csak az alsó két szabály tud illeszkedni rá. Az első esetén már ki van értékelve a \ŧextit{spawn} függvény, és a saját kontextusának számítási folyamába berakja, a létrehozott folyamat azonosítóját, és végrehajtja a \textit{link} függvényt. Végezetül ha sikeres volt a függvény kiértékelése, visszaadja a folyamatazonosítót, ami a saját lokális számítási folyamba lett elmentve. A kiértékelés azért kezdődik el, mert a \textit{\$spawn\_link} paramétere \textit{strict} attribútummal rendelkezik.
+Fent látható, hogy a strukturális átalakítás során a \textit{link} függvény első paramétere a \textit{spawn} függvény visszatérési értéke lesz. Az ok, amiért ilyen bonyolult szabályhalmazzal lehetett megoldani ezt a definíciót az az, hogy a link függvény a \textit{true} atommal tér vissza, míg a \textit{spawn\_link} a létrehozott folyamat azonosítójával. Egy speciális \textit{Exp} fajta segítségével, ami a \textit{\$spawn\_link}, egy saját kontextust hoz létre a számítási folyamban, így csak az alsó két szabály tud illeszkedni rá. Az első esetén már ki van értékelve a \textit{spawn} függvény, és a saját kontextusának számítási folyamába berakja a létrehozott folyamat azonosítóját, és végrehajtja a \textit{link} függvényt. Végezetül ha sikeres volt a függvény kiértékelése, visszaadja a folyamatazonosítót, ami a saját lokális számítási folyamba lett elmentve. A paraméter kiértékelés azért kezdődik el, mert a \textit{\$spawn\_link} paramétere \textit{strict} attribútummal rendelkezik.
 
-Az utolsó függvény az \textit{unlink}, ami a törli a kapcsolatot a két folyamat között, ha létezik. Ha nem létező folyamat azonosítóját adjuk meg paraméterként, akkor sem kapunk futásidejű hibát, minden esetben a \textit{true} atommal tér vissza. Ha a \ŧextit{trap\_exit} igazra van állítva, akkor még az alábbi üzenetet is be fogja rakni a hívó folyamat postaládájába.
+Az utolsó függvény az \textit{unlink}, ami törli a kapcsolatot két folyamat között, ha létezik. Ha nem létező folyamat azonosítóját adjuk meg paraméterként, akkor sem kapunk futásidejű hibát, minden esetben a \textit{true} atommal tér vissza. Ha a \textit{trap\_exit} igazra van állítva, akkor még az alábbi üzenetet is be fogja rakni a hívó folyamat postaládájába.
 
 \begin{lstlisting}[language=Erlang]
 {'EXIT', Id, _}
 \end{lstlisting}
 
+% Eddig ellenorizve
+
 %TODO
-%	átnézni
 %	befejezést nekije
 
 
