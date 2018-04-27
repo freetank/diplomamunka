@@ -2,12 +2,17 @@
 
 \begin{kblock}
 
+\begin{syntaxBlock}{\nonTerminal{\sort{Exp}}}
+  \syntax
+    {\terminal{\$spawn\_link} (\nonTerminal{\sort{Exp}}, \nonTerminal{\sort{Exp}})}
+    {\kattribute{strict(2)}}
+\end{syntaxBlock}
+
 \krule{
-    \newline
     \kprefix{\K_COLOR}{k}{
       \reduce
         {\terminal{spawn\_link}:\nonTerminal{\sort{Atom}} (\variable[Atom]{Name}{}, \variable[Atom]{F}{}, \variable[Values]{Args}{})}
-        {\terminal{\$spawn\_link} (\terminal{link}:\nonTerminal{\sort{Atom}} (\terminal{spawn}:\nonTerminal{\sort{Atom}}((\variable[Atom]{Name}{}, \variable[]{F}{}, \variable[]{Args}{}):\nonTerminal{\sort{Exps}})))}
+        {\terminal{\$spawn\_link} (\variable[]{?HOLE}{} , \terminal{spawn}:\nonTerminal{\sort{Atom}}((\variable[Atom]{Name}{}, \variable[]{F}{}, \variable[]{Args}{}):\nonTerminal{\sort{Exps}}))}
     }
     \newline
     \kall{\TIME_COLOR}{time}{
@@ -21,15 +26,24 @@
 
 \krule{
     \reduce
-      {\terminal{\$spawn\_link} (\terminal{link}:\nonTerminal{\sort{Atom}} (\variable[Pid]{P}{})) }
-      {\terminal{\$spawn\_link} (\terminal{link}:\nonTerminal{\sort{Atom}} (\variable[]{P}{}) \kra \variable[]{P}{})}   
+      {\terminal{\$spawn\_link} (\variable[]{?HOLE}{}, \variable[Pid]{P}{})}
+      {\terminal{\$spawn\_link} (\variable[]{P}{}, \terminal{link}:\nonTerminal{\sort{Atom}}(\variable[]{P}{}))}
+  }
+  {\neg_{\scriptstyle\it Bool} \terminal{isPid}{}(\variable[]{?HOLE}{})}
+  {}{}{}
+%
+
+\krule{
+    \reduce
+      {\terminal{\$spawn\_link} (\variable[Pid]{P}{}, true)}
+      {\variable[]{P}{}}
   }
   {}{}{}{}
 %
 
 \krule{
     \reduce
-      {\terminal{\$spawn\_link} (true \kra \variable[]{P}{})}
+      {\terminal{\$spawn\_link} (\variable[Pid]{P}{}, \terminal{\$error\_noproc})}
       {\variable[]{P}{}}   
   }
   {}{}{}{}

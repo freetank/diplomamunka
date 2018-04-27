@@ -296,7 +296,7 @@ A \textit{spawn\_link} függvénnyel egy lépésben hozhatunk létre új folyama
 
 \input{\RULESFOLDER/43SPAWNLINK}
 
-Fent látható, hogy a strukturális átalakítás során a \textit{link} függvény első paramétere a \textit{spawn} függvény visszatérési értéke lesz. Az ok, amiért ilyen bonyolult szabályhalmazzal lehetett megoldani ezt a definíciót az az, hogy a link függvény a \textit{true} atommal tér vissza, míg a \textit{spawn\_link} a létrehozott folyamat azonosítójával. Egy speciális \textit{Exp} fajta segítségével, ami a \textit{\$spawn\_link}, egy saját kontextust hoz létre a számítási folyamban, így csak az alsó két szabály tud illeszkedni rá. Az első esetén már ki van értékelve a \textit{spawn} függvény, és a saját kontextusának számítási folyamába berakja a létrehozott folyamat azonosítóját, és végrehajtja a \textit{link} függvényt. Végezetül ha sikeres volt a függvény kiértékelése, visszaadja a folyamatazonosítót, ami a saját lokális számítási folyamba lett elmentve. A paraméter kiértékelés azért kezdődik el, mert a \textit{\$spawn\_link} paramétere \textit{strict} attribútummal rendelkezik.
+Fent látható a \textit{spawn\_link} szemantikadefiníciója. Az ok, amiért ilyen bonyolult szabályhalmazzal lehetett megoldani ezt a definíciót az az, hogy a link függvény a \textit{true} atommal tér vissza, míg a \textit{spawn\_link} a létrehozott folyamat azonosítójával, emiatt nem lehet egyszerűen csak paraméterként átadni a \textit{spawn} visszatérési értékét a \textit{link} függvénynek. Egy speciális \textit{Exp} fajta segítségével, ami a \textit{\$spawn\_link}, egy saját kontextust hoz létre a számítási folyamban, így csak az alsó három szabály tud illeszkedni rá. A második paramétere rendelkezik \textit{strict} attribútummal, tehát a strukturális átalakítás után egyből elkezdi kiértékelni a \textit{spawn} függvényt. A \textit{?HOLE} egy ismeretlen változót jelöl, ami gyakorlatilag megfelel a joker karakternek, ám tudunk a szabályokban hivatkozni rájuk. Abban az esetben, ha kiértékelődött a függvény és a változó nem \textit{Pid} fajtájú, akkor az első paraméter helyére berakja a második paraméterben értékként kapott folyamatazonosítót, tehát elmenti, hogy vissza tudjon térni vele, míg a második paraméterbe pedig berakja a \textit{link} függvényt ugyanezzel a folyamatazonosítóval. Most már a \textit{link} a második paraméter, ezért ki kell értékelnie a keretrendszernek, mielőtt foglalkozna a \textit{\$spawn\_link}-kel. Mivel az első paraméter folyamatazonosító, csak az utolsó kettő szabály tud illeszkedni a számítási folyamra. Előfordulhat az az eset, amikor a linkelés még be sem fejeződött, de a létrehozott folyamat már terminált is. Ebben az esetben a \textit{link} függvény \textit{noproc} futásidejű hibát dob, ez viszont nem releváns, mivel csak a hívó folyamat volt lassú, de a \textit{spawn\_link} atominak tekinthető. Az utolsó szabály pont ezt küszöböli ki.
 
 Az utolsó függvény az \textit{unlink}, ami törli a kapcsolatot két folyamat között, ha létezik. Ha nem létező folyamat azonosítóját adjuk meg paraméterként, akkor sem kapunk futásidejű hibát, minden esetben a \textit{true} atommal tér vissza. Ha a \textit{trap\_exit} igazra van állítva, akkor még az alábbi üzenetet is be fogja rakni a hívó folyamat postaládájába.
 
@@ -304,10 +304,13 @@ Az utolsó függvény az \textit{unlink}, ami törli a kapcsolatot két folyamat
 {'EXIT', Id, _}
 \end{lstlisting}
 
-% Eddig ellenorizve
-
 A következő alfejezet a folyamatok terminálásának viselkedését és szemantikadefinícióját mutatja be, mellyel még világosabbá válik a folyamatok közötti kapcsolatok jelentősége.
 
+% Eddig ellenorizve
+
+\subsubsection{Folyamatok terminálása}
+
+A folyamatok változatos formában képesek terminálni. Ennek egyik fajtája az egy és kettő aritású \textit{exit} függvény. Az egy paraméteres változat a hívó folyamatot terminálja, mégpedig a paraméterben megadott indokkal. A két paraméteres változattal a második paraméterben 
 
 %TODO
 %	Process Termination
