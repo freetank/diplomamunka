@@ -1,0 +1,50 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{exit}:\nonTerminal{\sort{Atom}}(\variable[Value]{Reason}{user})}
+        {{\terminal{\$exit} (\variable[]{P}{}, \variable[]{SetOfPid}{}, \variable[]{Reason}{})} \mathrel{\kra} {\terminal{\$terminated}}}
+    }
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{P}{}
+    }
+    \newline
+    \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+      \reduce
+        {false}
+        {true}
+    }
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \reduce
+        {\variable[]{Ids}{}}
+        {{\variable[]{Ids}{}} \mathrel{-_{\scriptstyle\it Set}} {\terminal{SetItem} (\variable[]{P}{})}}
+    }
+    \newline
+    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \reduce
+        {\variable[]{RP}{}}
+        {\terminal{deleteAllNameWithValuesPid} (\variable[]{P}{}, \variable[]{RP}{})}
+    }
+    \kmiddle{\LINKEDPROCESSES_COLOR}{linkedProcesses}{
+      \variable[]{P}{} \mapsto \variable[Set]{SetOfPid}{user}
+    }
+    \newline
+    \kmiddle{\PROCESSESDURINGEXIT_COLOR}{processesDuringExit}{
+      \reduce
+        {\dotCt{Set}}
+        {\terminal{SetItem} (\variable[]{P}{})}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

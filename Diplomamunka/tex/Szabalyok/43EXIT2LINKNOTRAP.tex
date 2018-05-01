@@ -1,0 +1,41 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{whereis}:\nonTerminal{Atom}(\variable[Atom]{Name}{user})}
+        {\terminal{undefined}}
+    }
+    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \variable[]{RP}{}
+    }
+    \newline
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {\neg_{\scriptstyle\it Bool} (\variable[]{Name}{} \terminal{in} \somespace \terminal{keys}(\variable[]{RP}{}))}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}
+
+
+             <process>...
+                 <k> exit:Atom(P:Pid, Reason:Value) => ($exit(P, SetOfPid, Reason) ~> true) ...</k>
+             </process>
+             <process>...
+                 <pid> P </pid>
+                 <processFlag>... trap_exit |-> TrapFlag:Bool ...</processFlag>
+                 <terminatedProcess> false </terminatedProcess>
+             </process>
+
+         <linkedProcesses>... P |-> SetOfPid:Set ...</linkedProcesses>
+         <processesDuringExit>... .Set => SetItem (P) ...</processesDuringExit>
+         <time> T => T +Int 10 </time>
+         requires Reason =/=K normal andBool (TrapFlag ==Bool false orBool Reason ==K kill)

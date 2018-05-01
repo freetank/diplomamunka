@@ -1,0 +1,42 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kall{\K_COLOR}{k}{
+      \variable[Value]{V}{user}
+    }
+    \kall{\PID_COLOR}{pid}{
+      \variable[]{P}{}
+    }
+    \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+      \reduce
+        {\terminal{false}}
+        {\terminal{true}}
+    }
+    \newline
+    \kall{\PROCESSIDS_COLOR}{processIds}{
+      \reduce
+        {\variable[]{Ids}{}}
+        {{\variable[]{Ids}{}} \mathrel{-_{\scriptstyle\it Set}} {\terminal{SetItem} (\variable[]{P}{})}}
+    }
+    \kall{\LINKEDPROCESSES_COLOR}{linkedProcesses}{
+      \variable[]{LP}{}
+    }
+    \newline
+    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
+      \reduce
+        {\variable[]{RP}{}}
+        {\terminal{deleteAllNameWithValuesPid} (\variable[]{P}{}, \variable[]{RP}{})}
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {\neg_{\scriptstyle\it Bool} (\variable[]{P}{} \terminal{in} \somespace \terminal{keys}(\variable[]{LP}{}))}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}
