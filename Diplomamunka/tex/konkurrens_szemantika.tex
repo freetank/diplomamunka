@@ -328,33 +328,28 @@ A fent látható szabály az egy paraméteres \textit{exit} függvény szemantik
 
 Érdemes megfigyelni a \textit{k} cella átmenetét. A \textit{\$exit} után egy \textit{\$terminated} kerül a számítási folyamba. Ennek oka, hogy minden féle feltétel nélkül akarjuk megállítani a további kiértékelést. Miután a \textit{\$exit} környezet eliminálása megtörténik, a maradék kód még ottmarad a \textit{k} cellában. Ahhoz hogy ne értékelje tovább, minden egyes szabálynak tartalmaznia kellene egy olyan feltételt, ami azt állítja, hogy a \textit{processIds} állapotban benne van a folyamat azonosítója. Ezzel a trükkel viszont, nem kell a többi szabályt bővíteni, hiszen a \textit{\$terminated} miatt nem fognak illeszkedni a konfigurációra.
 
-% Eddig ellenorizve
-
-A két paraméterű \textit{exit} függvénynél már bonyolultabb szabályok jelennek meg, mivel ott még azt is kell figyelni, hogy a \textit{trap\_exit} flag értéke mire van beállítva. Ezenkívül küldheti saját magának is az üzenetet. Itt a szabályok halmaza két nagy részre osztható. Az egyik rész, mikor kell exit szignált küldenie, a másik pedig mikor üzenetet kell küldeni a folyamatnak.
+A két paraméterű \textit{exit} függvénynél már bonyolultabb szabályok jelennek meg, mivel ott még azt is kell figyelni, hogy a \textit{trap\_exit} flag értéke mire van beállítva. Ezenkívül küldheti saját magának is az üzenetet. Itt a szabályok halmaza két nagy részre osztható. Az egyik mikor kell exit szignált küldenie, a másik pedig mikor üzenetet kell küldeni a folyamatnak.
 
 \input{\RULESFOLDER/43EXIT2LINKNOTRAP}
 
-Ebben a szabályban az egyik folyamat terminál egy másikat. Ha nem a \textit{normal} okkal és a folyamat \textit{trap\_exit} flagje hamis vagy a termináló ok a \textit{kill} atom, akkor a folyamatot terminálja, és mivel van hozzákapcsolva folyamat, a \textit{k} cellában az átmenet szintén a \textit{\$exit} környezetet hozza be, és elkezdődik az exit szignál küldése. A szemantikadefiníció többi szabálya is hasonló. Mind a feltételben különbözőek, és attól függően kezelik a folyamat terminálását. Érdekes szabály még az alábbi is.
+Ebben a szabályban az egyik folyamat terminál egy másikat. Ha nem a \textit{normal} okkal, és a folyamat \textit{trap\_exit} flagje hamis vagy az ok a \textit{kill} atom, akkor a folyamatot terminálja, és mivel van hozzákapcsolva folyamat, a \textit{k} cellában az átmenet szintén a \textit{\$exit} környezetet hozza be, és elkezdődik az exit szignál küldése. A szemantikadefiníció többi szabálya is hasonló. Mind a feltételben különbözőek, és attól függően kezelik a folyamat terminálását. Érdekes szabály még az alábbi is.
 
 \input{\RULESFOLDER/43EXIT2TRAPEXITWAITMSG}
 
-Ez azt az esetet írja le, mikor egy folyamat éppen \textit{receive} kiértékelése közben van, és üzenetre vár, és a \textit{trap\_exit} flaghez pedig a \textit{true} atom van hozzárendelve. Ekkor nem csak az üzenetet kell elküldenie a folyamatnak, hanem azért is felelős, hogy a folyamat elkezdje újra előröl átnézni a postafiókját. Emiatt a folyamat \textit{k} cellájában a \textit{\$wait\_msg}-t eliminálja. Ekkor ha újra a folyamatra esik a kiértékelés, akkor elkezdi ellenőrizni a postafiókját. Természetesen ha a termináló ok az a \textit{kill} atom, akkor ez a szabály nem alkalmazható.
+Ez azt az esetet írja le, mikor egy folyamat éppen \textit{receive} kiértékelése közben van, üzenetre vár, és a \textit{trap\_exit} flaghez pedig a \textit{true} atom van hozzárendelve. Ekkor nem csak az üzenetet kell elküldeni, hanem azért is felelős, hogy a folyamat elkezdje újra előröl átnézni a postafiókját. Emiatt a folyamat \textit{k} cellájában a \textit{\$wait\_msg}-t eliminálja. Ha újra a folyamatra esik a kiértékelés, akkor elkezdi ellenőrizni a postafiókját. Természetesen ha a termináló ok a \textit{kill} atom, akkor ez a szabály nem alkalmazható.
 
-Még sok szabály van, amit itt külön nem részletezek. Ilyenek például, mikor a saját folyamatazonosítóját adja meg paraméterként, vagy mikor a terminálási oka \textit{normal}  atom vagy mikor az adott folyamatazonosítóhoz nem tartozik folyamat. Összesen tíz darab szabály tartozik a két paraméterű \textit{exit} függvény szemantikadefiníciójához. Már csak egy kis részlet maradt hátra a \textit{\$exit}-hez tartozó szabályok, melyek a szignál küldését bonyolítják le.
+Még sok szabály van, amit itt külön nem részletezek. Ilyenek például a már említett esetek, mint mikor a saját folyamatazonosítóját adja meg paraméterként, vagy a terminálás oka \textit{normal} atom, vagy az adott folyamatazonosító nem identifikál semmilyen folyamat. Összesen tíz darab szabály tartozik a két paraméterű \textit{exit} függvény szemantikadefiníciójához. Már csak egy kis részlet maradt hátra a \textit{\$exit}-hez tartozó szabályok, melyek a szignál küldését bonyolítják le.
 
-Ezek a szabályok gyakorlatilag egy az egyben megegyeznek a két paraméteres \textit{exit} függvénnyel. A második paraméterben lévő halmazt járják végig, és minden egyes folyamatot módosítják sok feltételtől függően, mint például a termináló ok, és a \textit{trap\_exit} flag. Mondhatni egy rekurzív függvényt szimulál, melynek a kilépési pontja az alábbi szabály.
+Ezek a szabályok gyakorlatilag egy az egyben megegyeznek a két paraméteres \textit{exit} függvénnyel. A második paraméterben lévő halmazt járják végig, és minden egyes folyamatot módosítják feltételektől függően, mint például a termináló ok, és a \textit{trap\_exit} flag. Mondhatni egy rekurzív függvényt szimulál, melynek a kilépési pontja az alábbi szabály.
 
 \input{\RULESFOLDER/43DOLLAREXITEXIT}
 
-Ha az összes hozzákapcsolt folyamatnak elküldte az exit szignált, vagyis a második aktuális paramétere üres halmaz, akkor a program végleg terminálhat. Előzőleg már a \textit{processIds} állapotból ki lett véve a folyamatazonosítója, illetve minden állapotból kikerült még a terminálás bekövetkeztekor, vagy az \textit{exit} hívásakor. Így már csak a \textit{processesDuringExit} állapotból kell kivenni a folyamatazonosítóját, ezzel jelezve hogy befejezte az exit szingál küldést.
+Ha az összes hozzákapcsolt folyamatnak elküldte az exit szignált, vagyis a második aktuális paramétere üres halmaz, akkor a folyamat végleg terminálhat. Előzőleg már a \textit{processIds} állapotból ki lett véve a folyamatazonosítója, illetve minden állapotból kikerült még a terminálás bekövetkeztekor, vagy az \textit{exit} hívásakor. Tehát már csak a \textit{processesDuringExit} állapotból kell kivenni a folyamatazonosítóját, ezzel jelezve hogy befejezte az exit szignálok küldést.
 
 \paragraph{}
 Összesen 21 szabály kapcsolódik a terminálással kapcsolatos szemantikához. A konkurrens résznyelvet leíró szemantikadefiníció végül 61 szabályt és 9 szemantikus függvényt tartalmaz.
 
-%TODO
-%	átnézni
-
-% 13
+% Eddig ellenorizve
 
 %TODO
 %	milyen tesztek voltak hogy működik mennyire segített, honnan veszem, hogy azok helyesek?
