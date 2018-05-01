@@ -968,6 +968,10 @@ rectangle,rectangle
 \ksentence[#6]{rule}{#1}{#2}{#3}{#4}{#5}
 }
 
+\newcommand{\kruleWithoutRule}[6][]{%
+\ksentence[#6]{}{#1}{#2}{#3}{#4}{#5}
+}
+
 \newcommand{\ksentenceReqInBox}[7][]{%
   \par\indent
   \k@ruleLabel{#3}{#2}$%

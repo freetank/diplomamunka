@@ -2,40 +2,46 @@
 
 \begin{kblock}
 
-\krule{
-    
-    \kprefix{\K_COLOR}{k}{
-      \reduce
-        {\terminal{whereis}:\nonTerminal{Atom}(\variable[Atom]{Name}{user})}
-        {\terminal{undefined}}
-    }
-    \kall{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
-      \variable[]{RP}{}
+\kruleReqInBox{
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\terminal{exit}:\nonTerminal{Atom}(\variable[Pid]{P}{user}, \variable[Value]{Reason}{user})}
+          {({\terminal{\$exit} (\variable[]{P}{}, \variable[]{SetOfPid}{}, \variable[]{Reason}{})} \kra {\terminal{true}})}
+      }
     }
     \newline
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kall{\PID_COLOR}{pid}{
+        \variable[]{P}{}
+      }
+      \kmiddle{\PROCESSFLAG_COLOR}{processFlag}{
+        {\terminal{trap\_exit}} \mapsto \variable[Bool]{TrapFlag}{user}
+      }
+      \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+        \terminal{false}
+      }
+    }
+    \newline
+    \kmiddle{\LINKEDPROCESSES_COLOR}{linkedProcesses}{
+      \variable[]{P}{} \mapsto \variable[Set]{SetOfPid}{user}
+    }
+    \kmiddle{\PROCESSESDURINGEXIT_COLOR}{processesDuringExit}{
+      \reduce
+        {\dotCt{Set}}
+        {\terminal{SetItem} (\variable[]{P}{})}
+    }
     \kall{\TIME_COLOR}{time}{
       \reduce
         {\variable[]{T}{}}
         {\builtinIntPlus{\variable[]{T}{}}{10}}
     }
   }
-  {\neg_{\scriptstyle\it Bool} (\variable[]{Name}{} \terminal{in} \somespace \terminal{keys}(\variable[]{RP}{}))}{}{}{}
+  {{\variable[]{Reason}{}} \mathrel{=/=_{\scriptstyle\it K}} {\terminal{normal}} \wedge_{\scriptstyle\it Bool} \newline
+  ({\variable[]{TrapFlag}{}} \mathrel{==_{\scriptstyle\it K}} {\terminal{false}} \vee_{\scriptstyle\it Bool}
+  {\variable[]{Reason}{}} \mathrel{==_{\scriptstyle\it K}} {\terminal{kill}})}
+  {}{}{}
          
 \end{kblock}         
          
 \end{greyBox}
-
-
-             <process>...
-                 <k> exit:Atom(P:Pid, Reason:Value) => ($exit(P, SetOfPid, Reason) ~> true) ...</k>
-             </process>
-             <process>...
-                 <pid> P </pid>
-                 <processFlag>... trap_exit |-> TrapFlag:Bool ...</processFlag>
-                 <terminatedProcess> false </terminatedProcess>
-             </process>
-
-         <linkedProcesses>... P |-> SetOfPid:Set ...</linkedProcesses>
-         <processesDuringExit>... .Set => SetItem (P) ...</processesDuringExit>
-         <time> T => T +Int 10 </time>
-         requires Reason =/=K normal andBool (TrapFlag ==Bool false orBool Reason ==K kill)

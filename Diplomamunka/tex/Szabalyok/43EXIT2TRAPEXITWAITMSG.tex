@@ -1,0 +1,67 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kmiddle{\PROCESS_COLOR}{process}{
+      \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\terminal{exit}:\nonTerminal{Atom}(\variable[Pid]{P}{user}, \variable[Value]{Reason}{user})}
+          {\terminal{true}}
+      }
+      \kall{\PID_COLOR}{pid}{
+        \variable[]{Pid}{}
+      }
+    }
+    \newline
+    \kmiddle{\PROCESS_COLOR}{process}{
+    }
+    \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
+      \reduce
+        {\variable[]{IDs}{}}
+        {\variable[]{IDs}{} [{\variable[]{P}{}} \leftarrow {\terminal{undef}}]}
+    }
+    \ksuffix{\PROCESSESCHECKMAILS_COLOR}{processesCheckMails}{
+      \reduce
+        {\dotCt{Set}}
+        {\terminal{SetItem}(\variable[]{P}{})}
+    }
+    \newline
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {{\variable[]{Reason}{}} \mathrel{=/=_{\scriptstyle\it K}} {\terminal{kill}}}
+  {}{}{}
+
+  ahol a process
+
+\kruleWithoutRule{
+    \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\terminal{\$wait\_msg}}
+          {\dotCt{}}
+      }
+      \ksuffix{\MAILBOX_COLOR}{mailbox}{
+        \reduce
+          {\dotCt{List}}
+          {\terminal{ListItem} (\{ \terminal{eXIT}, \variable[]{OwnP}{}, \variable[]{Reason}{}\})}
+      }
+      \kall{\PID_COLOR}{pid}{
+        \variable[]{P}{}
+      }
+      \newline
+      \kmiddle{\PROCESSFLAG_COLOR}{processFlag}{
+        {\terminal{trap\_exit}} \mapsto {\terminal{true}}
+      }
+      \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+        \terminal{false}
+      }
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

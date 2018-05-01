@@ -1,0 +1,30 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\terminal{\$exit}(\variable[]{P}{}, \dotCt{Set}, \variable[]{Reason}{})}
+        {\dotCt{}}
+    }
+    \kall{\PID_COLOR}{pid}{
+      \variable[Pid]{P}{user}
+    }
+    \newline
+    \kall{\PROCESSESDURINGEXIT_COLOR}{prosessesDuringExit}{
+      \reduce
+        {\variable[]{PDE}{}}
+        {{\variable[]{PDE}{}} \mathrel{-_{\scriptstyle\it Set}} {\terminal{SetItem} (\variable[]{P}{})}} 
+    }
+    \kall{\TIME_COLOR}{time}{
+      \reduce
+        {\variable[]{T}{}}
+        {\builtinIntPlus{\variable[]{T}{}}{10}}
+    }
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}
