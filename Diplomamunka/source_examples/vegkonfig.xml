@@ -1,0 +1,20 @@
+<T>
+  <processes>
+    <process>
+      <k> 10 </k>
+      <env> .Map </env>
+      <pid> < 0 . 0 . 0 > </pid>
+      <mailbox> .List </mailbox>
+      <processFlag> trap_exit |-> false </processFlag>
+      <terminatedProcess> true </terminatedProcess>
+    </process>
+  </processes>
+  <processIds> .Set </processIds>
+  <processesCheckMails> .Set </processesCheckMails>
+  <idleProcesses> .Map </idleProcesses>
+  <processesDuringExit> .Set </processesDuringExit>
+  <registeredProcesses> .Map </registeredProcesses>
+  <linkedProcesses> .Map </linkedProcesses>
+  <time> 330 </time>
+  <defs> do_count |-> ( ListItem ( { 10 , .Exps } -> 10 ) ListItem ( { Value , .Exps } -> do_count ( ( Value + 1 ) , .Exps ) ) ) count_to_ten |-> ListItem ( { .Exps } -> do_count ( 0 , .Exps ) ) </defs>
+</T>
