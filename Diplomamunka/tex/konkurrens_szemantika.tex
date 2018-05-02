@@ -345,15 +345,13 @@ Ha az összes hozzákapcsolt folyamatnak elküldte az exit szignált, vagyis a m
 \paragraph{}
 Összesen 21 szabály kapcsolódik a terminálással kapcsolatos szemantikához. A konkurrens résznyelvet leíró szemantikadefiníció végül 61 szabályt és 9 szemantikus függvényt tartalmaz.
 
-% Eddig ellenorizve
-
 \subsection{Tesztelés}
 
 Egy bonyolult és összetett szemantikadefiníciót ismerhettünk meg az előző fejezetben. A függvények sokszor egymástól függnek, ilyen például a folyamatok közötti kapcsolatok és a terminálás. A definíció írása alatt nagyon könnyedén lehetett úgy bővíteni a szabályhalmazt és az állapotteret, hogy a már megírt szabályok nem adták vissza megfelelően a manuálban leírtakat. Emiatt a definíció írásának jól meghatározott ciklusai voltak.
 
-A ciklus első lépése a manuál értelmezése volt, a nem egyértelmű részek megvitatása, válasz kutatása. Második lépésként az összegyűjtött adatok alapján apró példakódokat írni, mellyel a függvény egy-egy specifikus működését lehetett ellenőrizni. Harmadik lépés pedig maga a szabályhalmaz megírása, amit az előző fejezetben láthattunk is. Abban az esetben, ha már megírt részekhez tartozó tesztek megbuktak, negyedik lépésként össze kellett hangolni a szabályokat, hogy újra zöld legyen az út.
+A ciklus első lépése a manuál értelmezése volt, a nem egyértelmű részek megvitatása, ezekre válasz keresése. Második lépésként az összegyűjtött adatok alapján apró példakódokat írni, mellyel a függvény egy-egy specifikus működését lehetett ellenőrizni. Harmadik lépés pedig maga a szabályhalmaz megírása, amit az előző fejezetben láthattunk is. Abban az esetben, ha a megírt részekhez tartozó tesztek megbuktak, negyedik lépésként össze kellett hangolni a szabályokat, esetleg a teszteket módosítani, hogy újra zöld legyen az út.
 
-A második lépésben segítséget nyújtott a $\mathbb{K}$ keretrendszer tesztelő rendszere. Ha futtattunk egy programot a \textit{krun} paranccsal, akkor eredményként a végkonfigurációt kaptuk meg, persze csak akkor ha terminált a program. Erre a végkonfigurációra lehet mintaillesztéssel információt kinyerni.
+A második lépésben segítséget nyújtott a $\mathbb{K}$ keretrendszer tesztelő egysége. Ha futtatunk egy programot a \textit{krun} paranccsal, akkor a végkonfiguráció lesz az eredmény, ha terminált a program. Ebből lehet mintaillesztéssel információt nyerni.
 
 \lstinputlisting[language=erlang]{\EXAMPLESFOLDER/count.erl}
 
@@ -361,22 +359,21 @@ Legegyszerűbben egy példán keresztül lehet bemutatni a működését. Vegyü
 
 \lstinputlisting[language=XML]{\EXAMPLESFOLDER/vegkonfig.xml}
 
-Ez egy nagyon jó példa arra, hogy egy ilyen kis program esetén is ugyanazzal a hatalmas állapottérrel dolgozunk, mint egy összetettebb, több folyamatot tartalmazó programnál. A leegyszerűsíthetjük, kiemelhetjük mintaillesztéssel azt a részt, ami számunkra hasznos a \textit{--pattern} kapcsolóval és egy utánalévő mintával. Ebben az esetben a \textit{k} cella végállapotára vagyunk kiváncsiak, és csakis abban az esetben, ha az \textit{Value} fajta. Ekkor az alábbi mintát kell megadni:
+Ez egy nagyon jó példa arra, hogy egy ilyen kis program esetén is ugyanazzal a hatalmas állapottérrel dolgozunk, mint egy összetettebb, több folyamatot tartalmazó programnál. Leegyszerűsíthetjük, kiemelhetjük mintaillesztéssel a számunkra hasznos részt a \textit{--pattern} kapcsolóval és egy utánalévő mintával. Ebben az esetben a \textit{k} cella végállapotára vagyunk kiváncsiak, és csakis abban az esetben, ha az \textit{Value} fajtát tartalmaz. Ekkor az alábbi mintát kell megadni:
 
 \lstinputlisting[language=XML]{\EXAMPLESFOLDER/pattern.xml}
 
-A minta a \textit{k} cellára illeszkedik. Ha több folyamat lenne a végállapotra, akkor az összes \textit{k} cellára illeszkedne, ami csak egy \textit{Value} fajtát tartalmazna, és az összes eredményt visszaadná kimenetként. Lefuttatva a programont ezzel a mintával eredményként az alábbit kapjuk:
+A minta a \textit{k} cellára illeszkedik. Ha több folyamat lenne a végkonfigurációban, akkor az összes \textit{k} cellára illeszkedne, ami csak egy \textit{Value} fajtát tartalmaz, és az összes eredményt visszaadná kimenetként. Lefuttatva a programot ezzel a mintával eredményként az alábbit kapjuk:
 
 \lstinputlisting[language=XML]{\EXAMPLESFOLDER/search_result.txt}
 
-Ez már könnyebben olvasható, mint a fenti teljes végkonfiguráció. Ha ezt a kimenetet elmentjük a programot tartalmazó fájl nevével a végére illesztve a \textit{.out} kiterjesztést, akkor egyszerűen automatizálhatjuk a tesztjeinket. Egy \textit{config.xml} fájlban megadhatjuk hogy az egyes programokra milyen mintát illesszen, és az eredményt összehasonlítja a \textit{.out} fájlban lévő eredménnyel. Ennél természetesen sokkal bonyolultabb mintákat is lehet konstruálni, és tesztelés során kellett is.
+Ez már könnyebben olvasható, mint a fenti teljes végkonfiguráció. Ha ezt a kimenetet elmentjük a programot tartalmazó fájl nevével a végére illesztve a \textit{.out} kiterjesztést, akkor egyszerűen automatizálhatjuk a tesztjeinket. Ezt a \textit{ktest} paranccsal és egy hozzátartozó \textit{config.xml} fájllal tehetjük meg, ahol megadhatjuk, hogy az egyes programokra milyen mintát illesszen, és az eredményt összehasonlítja a \textit{.out} fájlban lévővel. Ennél természetesen sokkal bonyolultabb mintákat is lehet konstruálni, és tesztelés során kellett is.
 
-Azonban a rendszernek vannak hiányosságai. Például, ha egy map tartalmára vagyok kiváncsi, akkor ott számít a sorrend. Sokszor előfordult hogy \textit{kompile} parancsot használva ugyan azt az eredményt kaptam meg, de a map sorrendje megváltozott. Ezen felül az idő ellenőrzése is sokszot bajos volt, mivel volt hogy néha kevesebb, néha kicsit több volt, főleg ha a szabályhalmazt bővítve lett. Mind ezek ellenére nagyon hasznos eszköznek bizonyult munkám során.
+Azonban a rendszernek vannak hiányosságai. Például, ha egy map tartalmára vagyok kíváncsi, akkor ott számít a sorrend. Sokszor előfordult, hogy \textit{kompile} parancsot használva ugyan azt az eredményt kaptam meg, de a map sorrendje megváltozott. Ezen felül az idő ellenőrzése is sokszor bajos volt, mivel volt hogy néha kevesebb, néha kicsit több volt, főleg ha a szabályhalmaz bővítve lett. Mindezek ellenére nagyon hasznos eszköznek bizonyult munkám során.
 
-A konkurrens rész összesen 38 tesztet tartalmaz. Minden teszt esetén a mintával az éppen számunkra érdekes információt nyerjük ki a végkonfigurációból, amiből kiderülhet, hogy az adott kódrészlet helyesen futott le. Felmerülhet a kérdés, hogy ezek a tesztek ténylegesen a helyes működést ellenőrzik-e. Minden egyes teszt írásakor a manuálra építettem, ahogy a szemantikadefiniálásakor is. Azonban a diplomamunkám pont arról szól, hogy egy résznyelv informatív szemantikaleírásából, egy formális szemantikadefiníciót készül. Tehát ez az én interpretálásom a definícióra is és a tesztekre is. Mindenféleképpen érdemes lenne több emberrel is konzultálni a félreérthetőségek, az emberi nyelvből való pontatlanságok elkerülése véget.
+A konkurrens rész összesen 38 tesztet tartalmaz. Minden teszt esetén a mintával az éppen számunkra érdekes információt nyerjük ki a végkonfigurációból, amiből kiderülhet, hogy az adott kódrészlet helyesen futott-e le. Felmerülhet a kérdés, hogy ezek a tesztek ténylegesen a helyes működést ellenőrzik? Minden egyes teszt írásakor a manuálra építettem, ahogy a szemantikadefiniálásakor is. Azonban a diplomamunkám pont arról szól, hogy egy résznyelv informatív szemantikaleírásából, egy formális szemantikadefiníció készült. Tehát ez az én interpretálásom a definícióra is és a tesztekre is. Mindenféleképpen érdemes lenne több emberrel is konzultálni a félreérthetőségek, az emberi nyelvből való pontatlanságok elkerülése végett.
 
 \paragraph{}
 A diplomamunka lényegi része ebben a fejezetben található. Áttekintettük a meglévő szemantikadefiníciót, bevezetést kaphattunk az Erlang folyamatok világába, ezután a konkurrens résznyelv szemantikájába ástuk be magunkat megvalósítva a $\mathbb{K}$ keretrendszer segítségével, és végül az ehhez tartozó tesztekről hallhattunk. Igyekeztem a legnagyobb precizitással és körüljárással értelmezni a függvények pontos működését, majd formális szabályok formájába önteni, melynek eredménye ez a diplomamunka lett.
 
-%TODO
-%	milyen tesztek voltak hogy működik mennyire segített, honnan veszem, hogy azok helyesek?
+% Eddig ellenorizve
