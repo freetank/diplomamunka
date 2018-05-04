@@ -36,12 +36,11 @@ Itt látható szabályok abban az esetben generálodnak, ha az összeadás oper�
 
 Ilyenkor minden esetben először a fűtő szabályt alkalmazza, és egészen addig, amíg a kontextusból kiemelt term nem \textit{KResult} fajtájú, egészen addig nem tudja alkalmazni rá a hűtő szabályt.
 
-\subsection{•}
+\subsection{További területei}
 
+Az előző alfejezetben láthattuk, hogyan definiálhatunk egy formális nyelvet a $\mathbb{K}$ keretrendszerrel. A kész definíciónkat a \textit{kompile} paranccsal fordíthatjuk le, és a \textit{krun} paranccsal futtathatjuk a generált értelmezőt programon. Alapértelmezett beállításokkal az előbb említett működést kapjuk, viszont konfigurálhatjuk hogy az összes lehetséges működést megkapjuk. Ez főleg konkurrens programoknál fordulhat elő. Tipikusan jó példa erre, mikor két szál egy globális változót akar módosítani. Az eredmény mindig függeni fog attól, hogy a gép hogyan ossza ki az órajelet a különböző szálaknak.
 
+A keretrendszer mögött három backend is állhat. Az elsőnek implementált verzióból let a Maude nevű. A Java backenddel szimbólikus futtatás is lehetséges, nem úgy mint a OCaml backenddel, viszont hátránya, hogy lassabb is. A keretrendszerhez sok más eszköz is tartozik, mint például a futásidőbeli verifikáló, a statikus és dinamikus tulajdonságokat ellenőrző szimbolikus bizonyító, melynek matematikai háttere a Matching Logic és a Reachibility Logic. A bizonyító nyelv független ellentétben az ismert Hoare logikával. Tehát nem kell minden nyelvre külön megalkotni a bizonyítót, csak a formális szemantikát kell megírnunk. A másik előnye pedig pont ez, mivel közvetlenül tudja használni a szemantikát, emiatt nem kell a szemantika és a bizonyító között semmiféle leképezést készíteni, amit természetesen növeli a rendszer sérülékenységét is.
 
-%TODO
-%	Szép és jó, de miért kell nekünk? Mire használható?
-%		krun beállítások
-%	C-s példa felhozása, runtime verification
-%	Statikus dinamikus verifikálás mögött Matching Logic, reachibility logic, meg a veryfiert (ez mind említés szinten)
+\paragraph{}
+Most hogy már megismerkedtünk felületesen a keretrendszer által nyújtott lehetőségeket, azt is hogy hogyan kell formális nyelvdefiníciót adni, megismerkedhetünk az Erlang nyelvvel is.
