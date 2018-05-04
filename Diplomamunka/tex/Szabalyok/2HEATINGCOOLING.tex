@@ -1,0 +1,21 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \reduce
+      {\variable[]{X}{} \mathrel{=} \variable[]{A}{};}
+      {\variable[]{A}{} \kra \variable[]{X}{} \mathrel{=} [];}
+  }
+  {}{}{}{}
+%
+\krule{
+    \reduce
+      {\variable[]{A}{} \kra \variable[]{X}{} \mathrel{=} [];}
+      {\variable[]{X}{} \mathrel{=} \variable[]{A}{};}
+  }
+  {}{}{}{}
+         
+\end{kblock}
+         
+\end{greyBox}

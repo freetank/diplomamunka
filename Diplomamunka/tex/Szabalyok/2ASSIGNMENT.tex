@@ -1,0 +1,27 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \kprefix{\K_COLOR}{k}{
+      \reduce
+        {\variable[]{X}{} \mathrel{=} \variable[]{V}{}}
+        {\variable[]{V}{}}
+    }
+    \mathrel{}
+    \kmiddle{\ENV_COLOR}{env}{
+      \variable[]{X}{} \mapsto
+      \reduce
+        {\terminal{\_}}
+        {\variable[]{V}{}}
+    }
+  }
+  {}{}{}{}
+%
+<k> X = V => V ...</k>
+\newline
+<env>... X |-> (\_ => V) ...</env>
+         
+\end{kblock}         
+         
+\end{greyBox}

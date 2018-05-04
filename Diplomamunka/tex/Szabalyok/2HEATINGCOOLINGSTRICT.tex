@@ -1,0 +1,35 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \reduce
+      {\variable[]{A1}{} \mathrel{+} \variable[]{A2}{}}
+      {\variable[]{A1}{} \kra [] \mathrel{+} \variable[]{A2}{}}
+  }
+  {}{}{}{}
+%
+\krule{
+    \reduce
+      {\variable[]{A1}{} \kra [] \mathrel{+} \variable[]{A2}{}}
+      {\variable[]{A1}{} \mathrel{+} \variable[]{A2}{}}
+  }
+  {}{}{}{}
+%
+\krule{
+    \reduce
+      {\variable[]{A1}{} \mathrel{+} \variable[]{A2}{}}
+      {\variable[]{A2}{} \kra \variable[]{A1}{} \mathrel{+} []}
+  }
+  {}{}{}{}
+%
+\krule{
+    \reduce
+      {\variable[]{A2}{} \kra \variable[]{A1}{} \mathrel{+} []}
+      {\variable[]{A1}{} \mathrel{+} \variable[]{A2}{}}
+  }
+  {}{}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

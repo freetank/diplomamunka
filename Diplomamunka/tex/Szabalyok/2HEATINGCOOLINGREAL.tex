@@ -1,0 +1,22 @@
+\begin{greyBox}
+
+\begin{kblock}
+
+\krule{
+    \reduce
+      {\variable[]{X}{} \mathrel{=} \variable[]{A}{};}
+      {\variable[]{A}{} \kra \variable[]{X}{} \mathrel{=} [];}
+  }
+  {\mathrel{\neg_{\scriptstyle\it Bool}} \terminal{isKResult}(\variable[]{A}{})}{}{}{}
+%
+\krule{
+    \reduce
+      {\variable[]{A}{} \kra \variable[]{X}{} \mathrel{=} [];}
+      {\variable[]{X}{} \mathrel{=} \variable[]{A}{};}
+  }
+  {\terminal{isKResult}(\variable[]{A}{})}
+  {}{}{}
+         
+\end{kblock}         
+         
+\end{greyBox}

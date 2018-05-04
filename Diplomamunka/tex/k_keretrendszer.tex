@@ -1,2 +1,47 @@
-\section{K keretrendszer}
-dsfsdf
+\section{$\mathbb{K}$ keretrendszer}
+
+Diplomamunkám témája formális szemantikát definiálni az Erlang nyelv egy résznyelvére nem a megszokott módszerekkel, mint például denotációs vagy operációs szemantika. A $\mathbb{K}$ keretrendszer segítségével történt meg ez. Ez a keretrendszer képes a szemantikai szabályok alapján egy értelmezőt készíteni, amivel programjaink futtathatóak, így ténylegesen megtekinthetjük az általunk definiált szemantikánk működését. Ezen felül még sok más érdekes funkcióval is rendelkezik. A keretrendszer fejlesztését Grogire Rosu kezdte 2003-ban. jelenleg az amerikai Illinois Urbana-Champaign Egyetem és a román Alexandru Ioan Cuza Egyetem közös projektje.
+
+%TODO vhova a videonak a cite-ja
+
+Az egyik ok, amiért ez a projekt létre jött, az eszközök hiánya formális szemantika definiálására. Ezenfelül ha definiáltunk is valamilyen módszerrel, nem tudunk egyszerűen értelmezőt létrehozni, nem tudjuk helyesség bizonyítani programjainkat, a létrehozott modellt nem tudjuk ellenőrizni, hogy megfelel-e az adott specifikációnak és még sok minden felsorolható. Viszont ha van egy formális nyelvdefiníciónk, akkor ezeket elméletileg közvetlenül felhasználva megvalósítható lenne. Erre törekszik ez a keretrendszer. Létrehozni egy olyan formális nyelvdefiníciót, mely nem rendelkezik a már ismert definiálási módok hátrányaival, mint például a modularitási vagy verifikálási nehézségek. Így egy megbízható formális nyelvdefiníciónk lenne, és nem kellene félni a sokszor ad-hoc módon implementált fordítók hibáitól.
+
+\subsection{Szemantika definiálása}
+
+A keretrendszerrel teljes formális nyelvdefiníciót tudunk készíteni, tehát nem csak szemantikát, hanem a szintaxist is megadjuk, ami BNF jelöléssel írható le. Ezekhez különböző attribútumokat társíthatunk. Közülük a legfontosabb a \textit{strict}, amellyel a kiértékelési stratégiát határozhatunk meg. Az ilyen fajta megadási módszer kézenfekvő, hisz szabályok esetén már csak a kiértékelt értékekkel kell foglalkozni.
+
+\input{tex/Szabalyok/2STRICTEXAMPLE}
+
+Fent látható példában egy értékadás operátor szintaxisa látható BNF jelöléssel, és a hozzátartozó kiértékelési stratégiával. Látható hogy az operátor fajtája \textit{Exp} és a két operandusé is ugyanaz, aminek jelentése, hogy az értékadás mind két oldalán egy kifejezés állhat, és az értékadás önmagában is kifejezés. A \textit{strict} attribútum után zárójelben egy kettes látható, tehát a kiértékelési stratégia az, hogy csak a második operandust értékeljük ki, így az értékadó operátorhoz tartozó szemantikai szabály csak ezután a kiértékelés után alkalmazható.
+
+\input{tex/Szabalyok/41CONFIG}
+
+A keretrendszerben a definiált nyelvhez tartozik egy konfiguráció. A konfiguráció egymásba ágyazott cellákból ál, melyeknek a sorrendje nem számít. Ezek tartalmazzák az összes információt, amire a programnak, illetve nekünk elemzés szempontjából szükségünk van. A konfiguráció gyakorlatilag az állapotot tartalmazza, illetve egy speciális \textit{k} cellát, mely a számításokat tartalmazza, ami gyakorlatilag az absztrakt szintaxis fa kiegészítve egy kiegészítve egy lista struktúrával ami a \textit{~>} használja mint elválasztó jelet. A keretrendszer rendelkezik egy speciális \textit{K} fajtával, és a lista elemei ilyen típusúak. Ezt a listára bontást a keretrendszer automatikusan elvégzi azok a \textit{syntax} kulcsszó alapján. Így a szemantika szabályok tisztán \textit{K} fajtákra tudnak illeszkedni.
+
+\input{tex/Szabalyok/2ASSIGNMENT}
+
+Az értékadó operátornak a szemantika szabályát mutatja be a fent látható példa. Felül az olvashatóbb, prezentációra szánt változat, melyet generáltatni lehet a keretrendszerrel, illetve alul a ténylegesen írott forma. Látható hogy két cellát a \textit{k}-t és a az \textit{env}-et tartalmazza. Ha a kiértékelési stratégia végbement, akkor a fenti szabály alkalmazható. Ezek a szabályok a redukciós szabályok, annak ellenére, ha nem is csökkentik a konfigurációt. Az átmenet a \textit{k} cellában az értéket tartja meg, és ezalatt az \textit{env} cellában az \textit{X} K változóban lévő programbeli változóhoz hozzárendeli az értéket. Az átmenetben látható a \textit{\_} joker karakter, ami mindenre tud illeszkedni, tehát akármi is volt ehhez a változóhoz hozzárendelve azzal nem foglalkozunk többet. A szabály csak két cellát tartalmaz, azokat amik az értékadó operátor redukciós szabályában szerepet játszanak, a többivel nem foglalkozik. Ennek előnye hogy a konfiguráció könnyedén bővíthető úgy, hogy nem kell a már meglévő szabályhalmazunkon módosítani. Az alsó résznél látható, hogy a \textit{k} cellában jobb oldalon három pont látható, illetve az \textit{env} cellában mind a két szélén. Ennek a jelentés az, hogy a termek, amikez a cellák tartalmaznak, az a cella elejére, végére vagy lényegtelen, hogy hova illeszkedjen. A szabályokhoz tartozhatnak különböző feltételek, amelyeknek teljesülniük kell, hogy az illeszkedés végbemehessen.
+
+Most már visszatérhetünk pontosan mit is csinál eleméletben a \textit{strict} attribútum. Példaként vegyük megint az értékadás operátort. A hozzátartozó attribútum az alábbi két szabályt generálja.
+
+\input{tex/Szabalyok/2HEATINGCOOLING}
+
+Az első szabály kiveszi az értékadó operátor kontextusából a második operandust, és berakja a folyam elejére egy új termként. A második pedig a kivett operandust visszarakja az értékadó operátor környezetébe. A kémiai absztrakt gép alapján ezeket rendre fűtő és hűtő szabályoknak nevezzük. \textit{strict} attribútum esetén a sorrend nem számit.
+
+\input{tex/Szabalyok/2HEATINGCOOLINGSTRICT}
+
+Itt látható szabályok abban az esetben generálodnak, ha az összeadás operátor kiértékelési stratégiája olyan, hogy mind a két operandust ki kell értékelni szabály alkalmazása előtt. Könnyen látható, hogy ezek a szabályok könnyen előidézhetnek nem determinisztikus futást. Ugyan ezek a szabályok generálodnak a \textit{seqstrict} attribútum esetén is, de itt már számít a sorrend. Tehát az \textit{A2}-re a egészen addig nem alkalmazza a fűtő/hűtő szabályokat, amíg az A1-re nem alkalmazta ezeket. Viszont a szabályok felcserélhetőek, aminek következménye, hogy a $\mathbb{K}$-ban definiált nyelv nem lesz futtatható, mivel előfordulhat hogy nem terminál. Ennek érdekében lett bevezetve a \textit{KResult} fajta és a hozzá tartozó \textit{isKResult} szemantikus függvény, amely eldönti egy termről, hogy \textit{KResult} fajta vagy sem. Ezzel a felcserélhetőséget úgy akadályozza meg, hogy a teljes generált szabályok értékadó operátor esetén az alábbiak:
+
+\input{tex/Szabalyok/2HEATINGCOOLINGREAL}
+
+Ilyenkor minden esetben először a fűtő szabályt alkalmazza, és egészen addig, amíg a kontextusból kiemelt term nem \textit{KResult} fajtájú, egészen addig nem tudja alkalmazni rá a hűtő szabályt.
+
+\subsection{•}
+
+
+
+%TODO
+%	Szép és jó, de miért kell nekünk? Mire használható?
+%		krun beállítások
+%	C-s példa felhozása, runtime verification
+%	Statikus dinamikus verifikálás mögött Matching Logic, reachibility logic, meg a veryfiert (ez mind említés szinten)
