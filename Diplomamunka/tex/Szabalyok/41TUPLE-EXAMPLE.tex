@@ -5,9 +5,9 @@
 \kruleReqInBox{
     \reduce
       {{\{{\left({{\variable[Value]{X}{user}}\mathpunct{\terminalNoSpace{,}}{\variable[Values]{Xs}{user}}}\right)}\}}\terminal{<}{\{{\left({{\variable[Value]{Y}{user}}\mathpunct{\terminalNoSpace{,}}{\variable[Values]{Ys}{user}}}\right)}\}}}
-      {{\left({{\variable[Value]{X}{}}\terminal{<}{\variable[Value]{Y}{}}}\right)}\terminal{orelse}{\left({{{\variable[Value]{X}{}}\terminal{==}{\variable[Value]{Y}{}}}\terminal{andalso}{{\{{\variable[Values]{Xs}{}}\}}\terminal{<}{\{{\variable[Values]{Ys}{}}\}}}}\right)}}
+      {{\left({{\variable[Value]{X}{user}}\terminal{<}{\variable[Value]{Y}{user}}}\right)}\terminal{orelse}{\left({{{\variable[Value]{X}{user}}\terminal{==}{\variable[Value]{Y}{user}}}\terminal{andalso}{{\{{\variable[Values]{Xs}{user}}\}}\terminal{<}{\{{\variable[Values]{Ys}{user}}\}}}}\right)}}
   }
-  {{{{}\terminal{count}({\variable[Values]{Xs}{}})}\mathrel{{=}{=}_{\scriptstyle\it Int}}{{}\terminal{count}({\variable[Values]{Ys}{}})}} \wedge_{\scriptstyle\it Bool} \newline {{{}\terminal{count}({\variable[Values]{Xs}{}})}\mathrel{>_{\scriptstyle\it Int}}{\constant[\#Int]{0}}} \wedge_{\scriptstyle\it Bool} \newline {{{}\terminal{count}({\variable[Values]{Ys}{}})}\mathrel{>_{\scriptstyle\it Int}}{\constant[\#Int]{0}}}}{}{\kattribute{structural}}{}
+  {{{{}\terminal{count}({\variable[Values]{Xs}{user}})}\mathrel{{=}{=}_{\scriptstyle\it Int}}{{}\terminal{count}({\variable[Values]{Ys}{user}})}} \wedge_{\scriptstyle\it Bool} \newline {{{}\terminal{count}({\variable[Values]{Xs}{user}})}\mathrel{>_{\scriptstyle\it Int}}{\constant[\#Int]{0}}} \wedge_{\scriptstyle\it Bool} \newline {{{}\terminal{count}({\variable[Values]{Ys}{user}})}\mathrel{>_{\scriptstyle\it Int}}{\constant[\#Int]{0}}}}{}{\kattribute{structural}}{}
 
 \end{kblock}
 

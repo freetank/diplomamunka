@@ -5,12 +5,12 @@
 \kruleReqInBox{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\variable[Atom]{Name}{}}
+        {\variable[Atom]{Name}{user}}
         {\variable[]{P}{}}
       \, ! \variable[]{V}{}
     }
     \kmiddle{\REGISTEREDPROCESSES_COLOR}{registeredProcesses}{
-      \variable[]{Name}{} \mapsto \variable[Pid]{P}{}
+      \variable[]{Name}{} \mapsto \variable[Pid]{P}{user}
     }
     \kall{\TIME_COLOR}{time}{
       \reduce

@@ -11,8 +11,8 @@
 \krule{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\terminal{spawn\_link}:\nonTerminal{\sort{Atom}} (\variable[Atom]{Name}{}, \variable[Atom]{F}{}, \variable[Values]{Args}{})}
-        {\terminal{\$spawn\_link} (\variable[]{?HOLE}{} , \terminal{spawn}:\nonTerminal{\sort{Atom}}((\variable[Atom]{Name}{}, \variable[]{F}{}, \variable[]{Args}{}):\nonTerminal{\sort{Exps}}))}
+        {\terminal{spawn\_link}:\nonTerminal{\sort{Atom}} (\variable[Atom]{Name}{user}, \variable[Atom]{F}{user}, \variable[Values]{Args}{user})}
+        {\terminal{\$spawn\_link} (\variable[]{?HOLE}{} , \terminal{spawn}:\nonTerminal{\sort{Atom}}((\variable[Atom]{Name}{user}, \variable[]{F}{}, \variable[]{Args}{}):\nonTerminal{\sort{Exps}}))}
     }
     \newline
     \kall{\TIME_COLOR}{time}{
@@ -26,7 +26,7 @@
 
 \krule{
     \reduce
-      {\terminal{\$spawn\_link} (\variable[]{?HOLE}{}, \variable[Pid]{P}{})}
+      {\terminal{\$spawn\_link} (\variable[]{?HOLE}{}, \variable[Pid]{P}{user})}
       {\terminal{\$spawn\_link} (\variable[]{P}{}, \terminal{link}:\nonTerminal{\sort{Atom}}(\variable[]{P}{}))}
   }
   {\neg_{\scriptstyle\it Bool} \terminal{isPid}{}(\variable[]{?HOLE}{})}
@@ -35,7 +35,7 @@
 
 \krule{
     \reduce
-      {\terminal{\$spawn\_link} (\variable[Pid]{P}{}, true)}
+      {\terminal{\$spawn\_link} (\variable[Pid]{P}{user}, true)}
       {\variable[]{P}{}}
   }
   {}{}{}{}
@@ -43,7 +43,7 @@
 
 \krule{
     \reduce
-      {\terminal{\$spawn\_link} (\variable[Pid]{P}{}, \terminal{\$error\_noproc})}
+      {\terminal{\$spawn\_link} (\variable[Pid]{P}{user}, \terminal{\$error\_noproc})}
       {\variable[]{P}{}}   
   }
   {}{}{}{}

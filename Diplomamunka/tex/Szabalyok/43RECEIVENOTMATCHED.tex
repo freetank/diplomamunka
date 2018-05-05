@@ -6,8 +6,8 @@
     \newline
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\terminal{receive} \variable[Match]{M}{} \terminal{end} \; \kra \; \terminal{\$after} (\variable[Int]{Ms}{}, \variable[Exp]{E}{}, \variable[Int]{CreationTime}{})}
-        {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{} \terminal{end} \; \kra \; \terminal{\$after} (\variable[]{Ms}{}, \variable[]{E}{}, \variable[]{CreationTime}{})}
+        {\terminal{receive} \variable[Match]{M}{user} \terminal{end} \; \kra \; \terminal{\$after} (\variable[Int]{Ms}{user}, \variable[Exp]{E}{user}, \variable[Int]{CreationTime}{user})}
+        {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{user} \terminal{end} \; \kra \; \terminal{\$after} (\variable[]{Ms}{}, \variable[]{E}{}, \variable[]{CreationTime}{})}
     }
     \newline
     \kall{\PID_COLOR}{pid}{

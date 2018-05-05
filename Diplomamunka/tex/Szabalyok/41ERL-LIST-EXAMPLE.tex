@@ -15,17 +15,17 @@
 %
 \krule{
     \reduce
-      {[{{\variable[K]{X}{}}\mathpunct{\terminalNoSpace{,}}{\variable[K]{Y}{}}}]}
-      {[{\variable[K]{X}{}}\terminal{|}{[{\variable[K]{Y}{}}]}]}
+      {[{{\variable[]{X}{}}\mathpunct{\terminalNoSpace{,}}{\variable[]{Y}{}}}]}
+      {[{\variable[]{X}{}}\terminal{|}{[{\variable[]{Y}{}}]}]}
   }
   {}{}{\kattribute{macro}}{}
 %
 \krule{
     \reduce
-      {[{{\variable[K]{X}{}}\mathpunct{\terminalNoSpace{,}}{\variable[K]{Xs}{}}}\terminal{|}{\variable[K]{Y}{}}]}
-      {[{\variable[K]{X}{}}\terminal{|}{[{\variable[K]{Xs}{}}\terminal{|}{\variable[K]{Y}{}}]}]}
+      {[{{\variable[]{X}{}}\mathpunct{\terminalNoSpace{,}}{\variable[]{Xs}{}}}\terminal{|}{\variable[]{Y}{}}]}
+      {[{\variable[]{X}{}}\terminal{|}{[{\variable[]{Xs}{}}\terminal{|}{\variable[]{Y}{}}]}]}
   }
-  {{\variable[K]{Xs}{}}\mathrel{\neq_K}{\dotCt{Exps}}}{}{\kattribute{macro}}{}
+  {{\variable[]{Xs}{}}\mathrel{\neq_K}{\dotCt{Exps}}}{}{\kattribute{macro}}{}
     
 \end{module}
 

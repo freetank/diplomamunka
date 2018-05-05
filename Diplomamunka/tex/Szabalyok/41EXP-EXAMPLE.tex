@@ -5,11 +5,11 @@
 \krule{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\terminal{case} \variable[Value]{E}{} \terminal{of} \variable[Match]{M}{} \terminal{end}}
-        {\terminal{matches} ( \variable[K]{E}{}, \variable[K]{M}{} ) \kra \variable[K]{\rho}{}}
+        {\terminal{case} \variable[Value]{E}{user} \terminal{of} \variable[Match]{M}{user} \terminal{end}}
+        {\terminal{matches} ( \variable[]{E}{}, \variable[]{M}{} ) \kra \variable[]{\rho}{}}
     }
     \mathrel{}
-    \kall{blue}{env}{\variable[K]{\rho}{}}
+    \kall{blue}{env}{\variable[]{\rho}{}}
   }
   {}{}{}{}
 

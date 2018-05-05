@@ -5,7 +5,7 @@
 \kruleReqInBox{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{} \terminal{end} \; \kra \; \terminal{\$after}(\variable[Int]{Ms}{}, \variable[]{E}{}, \variable[]{CreationTime}{})}
+        {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{user} \terminal{end} \; \kra \; \terminal{\$after}(\variable[Int]{Ms}{user}, \variable[]{E}{}, \variable[]{CreationTime}{})}
         {\variable[]{E}{}}
     }
     \newline

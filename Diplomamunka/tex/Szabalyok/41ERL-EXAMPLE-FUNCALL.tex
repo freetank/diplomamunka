@@ -5,12 +5,12 @@
 \krule{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {\variable[Atom]{Name}{}}
-        {\terminal{matches} ( \{ \variable[]{Args} \}, \terminal{getMatch} ( \variable[List]{L}{} ) ) \kra \variable[]{\rho}{} }
+        {\variable[Atom]{Name}{user}}
+        {\terminal{matches} ( \{ \variable[]{Args} \}, \terminal{getMatch} ( \variable[List]{L}{user} ) ) \kra \variable[]{\rho}{} }
     }
     \mathrel{}
     \kmiddle{\DEFS_COLOR}{defs}{
-      \variable[Atom]{Name}{} \mapsto \variable[]{L}{}
+      \variable[Atom]{Name}{user} \mapsto \variable[]{L}{}
     }
     \mathrel{}
     \kall{\ENV_COLOR}{env}{

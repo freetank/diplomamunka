@@ -5,21 +5,21 @@
 \krule{
     \reduce
       {{\variable[FunDefs]{F}{user}}\terminal{$---$}{\variable[Exp]{E}{user}}\terminal{.}}
-      {\variable[FunDefs]{F}{}\kra\variable[Exp]{E}{}}
+      {\variable[FunDefs]{F}{user}\kra\variable[Exp]{E}{user}}
   }
   {}{}{\kattribute{structural}}{}
 %
 \krule{
     \reduce
       {{\variable[FunCl]{F1}{user}}\mathrel{}{\variable[FunDefs]{F2}{user}}}
-      {\variable[FunCl]{F1}{}\kra\variable[FunDefs]{F2}{}}
+      {\variable[FunCl]{F1}{user}\kra\variable[FunDefs]{F2}{user}}
   }
   {}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{.}}
+        {{\variable[Atom]{Name}{user}}({\variable[]{Args}{}}){}\terminal{->}{\variable[]{Body}{}}\terminal{.}}
         {\dotCt{K}}
     }
     \newline
@@ -28,16 +28,16 @@
       {\variable[Map]{{\rho}}{user}}\mathrel{}{
       \reduce
         {\dotCt{Map}}
-        {{\variable[Atom]{Name}{}}\mapsto{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+        {{\variable[Atom]{Name}{user}}\mapsto{{}\terminal{ListItem}({{\{{\variable[]{Args}{}}\}}\terminal{->}{\variable[]{Body}{}}})}}
       }
     }
   }
-  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
+  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{user}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{;}}
+        {{\variable[Atom]{Name}{user}}({\variable[]{Args}{}}){}\terminal{->}{\variable[]{Body}{}}\terminal{;}}
         {\dotCt{K}}
     }
     \newline
@@ -46,25 +46,25 @@
       {\variable[Map]{{\rho}}{user}}\mathrel{}{
       \reduce
         {\dotCt{Map}}
-        {{\variable[Atom]{Name}{}}\mapsto{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+        {{\variable[Atom]{Name}{user}}\mapsto{{}\terminal{ListItem}({{\{{\variable[]{Args}{}}\}}\terminal{->}{\variable[]{Body}{}}})}}
       }
     }
   }
-  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
+  {\neg_{\scriptstyle\it Bool}{{\variable[Atom]{Name}{user}}\terminal{in}{{}\terminal{keys}({\variable[Map]{{\rho}}{}})}}}{}{\kattribute{structural}}{}
 %
 \kruleReqInBox{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{.}}
+        {{\variable[Atom]{Name}{user}}({\variable[]{Args}{}}){}\terminal{->}{\variable[]{Body}{}}\terminal{.}}
         {\dotCt{K}}
     }
     \newline
     \mathrel{}
     \kmiddle{\DEFS_COLOR}{defs}{
-      {\variable[Atom]{Name}{}}\mapsto{
+      {\variable[Atom]{Name}{user}}\mapsto{
       \reduce
-        {\variable[K]{Bodies}{}}
-        {{\variable[K]{Bodies}{}}\mathrel{}{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+        {\variable[]{Bodies}{}}
+        {{\variable[]{Bodies}{}}\mathrel{}{{}\terminal{ListItem}({{\{{\variable[]{Args}{}}\}}\terminal{->}{\variable[]{Body}{}}})}}
       }
     }
   }
@@ -73,16 +73,16 @@
 \kruleReqInBox{
     \kprefix{\K_COLOR}{k}{
       \reduce
-        {{\variable[Atom]{Name}{user}}({\variable[K]{Args}{}}){}\terminal{->}{\variable[K]{Body}{}}\terminal{;}}
+        {{\variable[Atom]{Name}{user}}({\variable[]{Args}{}}){}\terminal{->}{\variable[]{Body}{}}\terminal{;}}
         {\dotCt{K}}
     }
     \newline
     \mathrel{}
     \kmiddle{\DEFS_COLOR}{defs}{
-      {\variable[Atom]{Name}{}}\mapsto{
+      {\variable[Atom]{Name}{user}}\mapsto{
       \reduce
-        {\variable[K]{Bodies}{}}
-        {{\variable[K]{Bodies}{}}\mathrel{}{{}\terminal{ListItem}({{\{{\variable[K]{Args}{}}\}}\terminal{->}{\variable[K]{Body}{}}})}}
+        {\variable[]{Bodies}{}}
+        {{\variable[]{Bodies}{}}\mathrel{}{{}\terminal{ListItem}({{\{{\variable[]{Args}{}}\}}\terminal{->}{\variable[]{Body}{}}})}}
       }
     }
   }
