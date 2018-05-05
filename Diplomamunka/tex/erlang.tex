@@ -26,13 +26,13 @@ Egy érdekes adattípus, ami manapság már sok imperatív nyelvben is megtalál
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/fun.erl}
 
-A példában egy függvény objektumot hoztunk létre, amely két paramétert vár X és Y, és ezeknek az összegével tér vissza. Láthatjuk is a példában, hogy a visszatérési értéke az objektumra mutató referencia. A nagy betűvel kezdődő szavak Erlangban a \textit{változók}, később még lesz róluk szó. A Sum változóban tárolt függvényt zárójeles formában meg is tudjuk hívni.
+A példában egy függvény objektumot hoztunk létre, amely két paramétert vár \textit{X} és \textit{Y}, és ezeknek az összegével tér vissza. Láthatjuk is a példában, hogy a visszatérési értéke az objektumra mutató referencia. A nagy betűvel kezdődő szavak Erlangban a \textit{változók}, később még lesz róluk szó. A \textit{Sum} változóban tárolt függvényt zárójeles formában meg is tudjuk hívni.
 
 A \textit{pid} egy folyamatot azonosít három integer számmal.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/pid.erl}
 
-A spawn függvény segítségével egy új folyamatot hozunk létre, és visszatérési értékként egy pidet ad vissza.
+A \textit{spawn} függvény segítségével egy új folyamatot hozunk létre, és visszatérési értékként egy pidet ad vissza.
 
 Még mielőtt folytatnák érdemes szót ejteni a \textit{sztring} és a \textit{logikai} literálokról. Erlangban mint külön adattípusok nem léteznek. A két logikai literál valójában két atom: a \textit{true} és a \textit{false}. A sztringek pedig listák. Idéző jelek között tudjuk megadni, de valójában az ASCII vagy unicode kódtáblában megfeleltetett számok listájaként van ábrázolva.
 
@@ -53,29 +53,29 @@ Mintaillesztés nem csak az egyenlőség jellel lehetséges, hanem más kifejez�
 
 \subsection{További kifejezések}
 
-Az előzőekben egyszerű kifejezésekkel ismerkedtünk meg. Ez az alfejezet pedig olyan összetettebbeket mutat be, melyeknek már meg volt a K által kifejezett szemantikadefiníciója, mielőtt neki kezdtem volna a konkurrens résznyelvhez definiálni.
+Az előzőekben egyszerű kifejezésekkel ismerkedtünk meg. Ez az alfejezet pedig olyan összetettebbeket mutat be, melyeknek már meg volt a $\mathbb{K}$ keretrendszer által kifejezett szemantikadefiníciója, mielőtt neki kezdtem volna a konkurrens résznyelvhez definiálni.
 
 Az \textit{if} kifejezés merőben eltérő az imperatív nyelvekben megszokotthoz.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/if.erl}
 
-Az if kifejezés ágain sorban megy végig, és ahol az első őrfeltétel (guard) igazra értékelődik ki, vagyis true atom lesz a kifejezés értéke, annak az ágnak a kifejezését értékeli ki. A visszatérési értéke pedig az ágban lévő kifejezés értéke lesz.
+Az \textit{if} kifejezés ágain sorban megy végig, és ahol az első őrfeltétel (guard) igazra értékelődik ki, vagyis true atom lesz a kifejezés értéke, annak az ágnak a kifejezését értékeli ki. A visszatérési értéke pedig az ágban lévő kifejezés értéke lesz.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/if2.erl}
 
-A példában előfordulhatna badmatch futásidejű hiba, ha az Animal változó értékét megváltoztatnánk \textit{pig} atomra, hisz ekkor egyik ág őrfeltétele sem adna igazat.
+A példában előfordulhatna \textit{badmatch} futásidejű hiba, ha az \textit{Animal} változó értékét megváltoztatnánk \textit{pig} atomra, hisz ekkor egyik ág őrfeltétele sem adna igazat.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/case.erl}
 
-A \textit{case} esetén az Expr kifejezés kiértékelődik, ezután sorban végig megy az ágakon, és mintaillesztést hajt végre. Ahol a mintaillesztés sikeres, és az őrfeltétel is igazra értékelődik ki, annak az ágnak a kifejezését kiértékeli. A case kifejezés visszatérési értéke az ágban lévő kifejezés értéke. Szintén, ha az összes ágra sikertelen a mintaillesztés, akkor badmatch futásidejű hibát kapunk.
+A \textit{case} esetén az \textit{Expr} kifejezés kiértékelődik, ezután sorban végig megy az ágakon, és mintaillesztést hajt végre. Ahol a mintaillesztés sikeres, és az őrfeltétel is igazra értékelődik ki, annak az ágnak a kifejezését kiértékeli. A \textit{case} kifejezés visszatérési értéke az ágban lévő kifejezés értéke. Szintén, ha az összes ágra sikertelen a mintaillesztés, akkor \textit{badmatch} futásidejű hibát kapunk.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/block.erl}
 
-A \textit{block} kifejezések sorozata, melyek ugyan ebben a sorrendben értékelődnek ki. A visszatérési értéke az utolsó kifejezés értéke.
+A \textit{block} kifejezések sorozata, melyek sorrendben értékelődnek ki, gyakorlatilag szekvenciát adunk meg. A visszatérési értéke az utolsó kifejezés értéke.
 
 \subsection{Függvények}
 
-A függvények deklarációja függvényklózók sorozata, amely egy fejlécből áll, amely a függvény nevét, paramétereit tartalmazza és opcionálisan egy őrfeltételt, illetve egy függvénytörzsből.
+A függvények deklarációja függvényklózók sorozata. Egy fejlécből áll, amely a függvény nevét, paramétereit tartalmazza és opcionálisan egy őrfeltételt, illetve egy függvénytörzsből.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/fuggveny_dekl.erl}
 
@@ -84,4 +84,4 @@ A függvény név egy atom a paraméterei pedig minták. Egy függvényt egyért
 Függvényhíváskor megpróbálja megkeresni a hivatkozott függvény deklarációját. Ha nem találja meg, akkor \textit{undef} futásidejű hibát ad. Ha megtalálja, az első függvényklóztól kezdődően a függvény fejléceire mintaillesztést végez. Ha az illesztés sikeres és az őrfeltétel is teljesül, ha létezik, akkor a függvénytörzset kiértékeli. Ha a mintaillesztés sikertelen, vagy sikeres illesztések esetén egy őrfeltétel sem teljesül, akkor \textit{function\_clause} futásidejű hibát kapunk.
 
 \paragraph{}
-Ebben a fejezetben egy rövid összefoglalót láthattunk az Erlang nyelvről. Ez az áttekintés megkönnyíti a későbbi szemantikadefiníciók megértését. Természetesen ez csak egy igen apró része a nyelvnek. Az hogy egy valós Erlang program hogy néz ki, nem tettem említést, mivel a szemantika definiálásánál egyelőre kifejezések állnak a központban, a modulokra bontás például nem. Még az Erlang konkurrens részének ismertetése hátra van, de azt később a hozzájuk tartozó szemantikadefiníciók ismertetésénél részletezem.
+Ebben a fejezetben egy rövid összefoglalót láthattunk az Erlang nyelvről. Ez az áttekintés megkönnyíti a későbbi szemantikadefiníciók megértését. Természetesen ez csak egy igen apró része a nyelvnek. Az hogy egy valós Erlang program hogy néz ki, nem tettem említést, mivel a szemantika definiálásánál egyelőre kifejezések állnak a központban, a modulokra bontás nem. Még az Erlang konkurrens részének ismertetése hátra van, de azt később a hozzájuk tartozó szemantikadefiníciók ismertetésénél részletezem.
