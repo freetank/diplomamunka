@@ -1,5 +1,5 @@
 \section{Erlang nyelv konkurrens résznyelvének szemantikája $\mathbb{K}$ keretrendszerben}
-A diplomamunka lényegi része az Erlang nyelv konkurrens résznyelvének szemantikájának definiálása volt. A $\mathbb{K}$ keretrendszernek erős kifejező ereje, megkönnyítette a szemantikadefiníció megadását, még ilyen bonyolult témában is, ahol különböző folyamatok kommunikálnak egymással. A konkurrens résznyelv szemantikájának leírását nem kellett a nulláról kezdeni, már meg volt egy mag, amire lehetett építeni. Ez a mag főleg az egyszerűbb kifejezéseket, függvénydefiniálások és - hívások szemantikáját tartalmazta. Az Erlang folyamatok ismertetése után megláthatjuk, hogyan épült fel erre az alapra a konkurrens résznyelv szemantikája.
+A diplomamunka lényegi része az Erlang nyelv konkurrens résznyelvének szemantikájának definiálása volt. A $\mathbb{K}$ keretrendszernek erős kifejező ereje, megkönnyítette a szemantikadefiníció megadását, még ilyen bonyolult témában is, ahol különböző folyamatok kommunikálnak egymással. A konkurrens résznyelv szemantikájának leírását nem kellett a nulláról kezdeni, már meg volt egy mag, amire lehetett építeni. Főleg az egyszerűbb kifejezéseket, függvénydefiniálások és -hívások szemantikáját tartalmazta. Az Erlang folyamatok ismertetése után megláthatjuk, hogyan épült fel erre az alapra a konkurrens résznyelv szemantikája.
 
 \subsection{Meglévő szemantikadefiníció}
 Az első lépés a meglévő szemantikadefiníciók 3.6-os verzióról 4.0-ra való átírása, és ezek modularizálása.
@@ -9,38 +9,38 @@ Ebben a fájlban van az Erlang specifikus literáloknak és a változóknak a sz
 
 \input{tex/Szabalyok/41TOKENS-PARSING}
 
-A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} fajtákat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az UnquotedAtom alfajtája az Atomnak, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A Joker és a Variable definíciója ebben a modulban nem látható. Ennek az az oka, hogy a $\mathbb{K}$ keretrendszer rendelkezik egy \textit{\#KVariable} fajtával, amelynek a definíciójában megadott reguláris kifejezés által meghatározott lehetséges karakterláncok halmaza és a hasonló módon Variable által meghatározott halmaz metszete nem üres, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
+A \textit{TOKENS-PARSING}, ahogy látható felül, az \textit{UnquotedAtom}, \textit{Atom}, \textit{Joker} és a \textit{Variable} fajtákat tartalmazza. A definíciók maguktól értetendőek. A \textit{Bool} és az \textit{UnquotedAtom} alfajtája az \textit{Atomnak}, viszont az aposztrófok közé írt atom nem, mivel egyelőre nincs definiálva. A \textit{Joker} és a \textit{Variable} definíciója ebben a modulban nem látható. Ennek az az oka, hogy a $\mathbb{K}$ keretrendszer rendelkezik egy \textit{\#KVariable} fajtával, amelynek a definíciójában megadott reguláris kifejezés által meghatározott lehetséges karakterláncok halmaza és a hasonló módon \textit{Variable} által meghatározott halmaz metszete nem üres, emiatt ha itt definiálnánk, parszolási hibát kapnánk.
 \newline
 \input{tex/Szabalyok/41TOKENS-SYNTAX}
 
-A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő levelek \#KVariable címkéit lecseréli a saját Variable fajtával.
+A TOKENS-SYNTAX modulban megadva a definíciókat ezt a hibát elkerülhetjük. Ilyenkor a parszolás után kapott fán lévő levelek \textit{\#KVariable} címkéit lecseréli a saját \textit{Variable} fajtával.
 
 \paragraph{exp-shared.k}
 Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismertetésre -- leválasztott egység.
 
 \input{\RULESFOLDER/41EXP-SHARED}
 
-Az \textit{Exp} -- a kifejezések fajtája -- deklarálása itt található. Szinte az összes modul használja az Exp és az Exps fajtákat, viszont vannak olyanok, ahol szükségtelen az egész Exp-hez tartozó szintaxist importálni. Ha a modulokban újra lenne deklarálva, az névütközéshez vezetne. Az EXP-SHARED modul ezt hivatott elkerülni.
+Az \textit{Exp} -- a kifejezések fajtája -- deklarálása itt található. Szinte az összes modul használja az \textit{Exp} és az \textit{Exps} fajtákat, viszont vannak olyanok, ahol szükségtelen az egész \textit{Exp}-hez tartozó szintaxist importálni. Ha a modulokban újra lenne deklarálva, az névütközéshez vezetne. Az \textit{EXP-SHARED} modul ezt hivatott elkerülni.
 
-Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválasztott Exp-ek sorozata a strict attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a case és az if kifejezések által is használt részkifejezések, amely a mintát és az utána lévő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
+Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválasztott \textit{Exp}-ek sorozata a \textit{strict} attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a \textit{case} és az \textit{if} kifejezések által is használt részkifejezések, amely a mintát és az utána lévő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
 
 \paragraph{operators.k}
 Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
 
 \input{\RULESFOLDER/41OPERATORS-PARSING}
 
-Az \textit{OPERATORS} modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a strict attribútumot, ezért a szabály alkalmazása várat magára egészen addig, amíg az operandusokat ki nem értékelte.
+Az \textit{OPERATORS} modulban pedig az ezekhez tartozó szemantikadefiníciók találhatóak. Mivel a szintaxis esetén megadtuk minden egyes operátornál a \textit{strict} attribútumot, ezért a szabály alkalmazása várat magára egészen addig, amíg az operandusokat ki nem értékelte.
 
 \input{\RULESFOLDER/41ARITHMETICS-EXAMPLE}
 
 Ahogy a példában látható, az aritmetikai operátorok szemantikájának definiálása esetén nagy segítséget jelent a $\mathbb{K}$ keretrendszer beépített operátorai.
 
 \paragraph{tuple.k}
-Ebben a fájlban a tuple típussal kapcsolatos szintaxis és szemantika található. A \textit{TUPLE-PARSING} modul bővíti az Exp fajtát a tuple szintaxisával.
+Ebben a fájlban a \textit{tuple} típussal kapcsolatos szintaxis és szemantika található. A \textit{TUPLE-PARSING} modul bővíti az \textit{Exp} fajtát a \textit{tuple} szintaxisával.
 
 \input{\RULESFOLDER/41TUPLE-PARSING}
 
-A \textit{TUPLE} modul az OPERATORS modul kibővítése tuple specifikus összehasonlító operátorokkal.
+A \textit{TUPLE} modul az OPERATORS modul kibővítése \textit{tuple} specifikus összehasonlító operátorokkal.
 
 \input{\RULESFOLDER/41TUPLE-EXAMPLE}
 
