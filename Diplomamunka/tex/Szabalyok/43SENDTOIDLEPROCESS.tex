@@ -5,6 +5,7 @@
 \krule{
     \newline
     \kmiddle{\PROCESS_COLOR}{process}{
+      \parbox {1000pt}{
       \kprefix{\K_COLOR}{k}{
         \reduce
           {\terminal{\$wait\_msg} \; \kra \; \terminal{receive} \variable[Match]{M}{user} \terminal{end}}
@@ -18,6 +19,7 @@
           {\dotCt{List}}
           {\terminal{ListItem}(\variable[]{V}{})}
       }
+      }
     }
     \newline
     \kmiddle{\PROCESS_COLOR}{process}{
@@ -30,23 +32,23 @@
     \kall{\PROCESSIDS_COLOR}{processIds}{
       \variable[]{Ids}{}
     }
+    \newline
     \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
       \reduce
         {\variable[]{Idles}{}}
         {\variable[]{Idles}{} [\variable[]{P}{} \leftarrow \; \terminal{undef}]}
     }
-    \newline
     \kall{\PROCESSESCHECKMAILS_COLOR}{processesCheckMails}{
       \reduce      
         {\dotCt{Set}}
         {\terminal{SetItem}(\variable[]{P}{})}
     }
+    \newline
     \kall{\TIME_COLOR}{time}{
       \reduce
         {\variable[]{T}{}}
         {\builtinIntPlus{\variable[]{T}{}}{10}}
     }
-    \newline
   }
   {\variable[]{P}{} \terminal{in} \variable[]{Ids}{}}
   {}{}{}

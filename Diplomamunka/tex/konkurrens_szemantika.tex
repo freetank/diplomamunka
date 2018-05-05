@@ -40,7 +40,7 @@ Ebben a fájlban a \textit{tuple} típussal kapcsolatos szintaxis és szemantika
 
 \input{\RULESFOLDER/41TUPLE-PARSING}
 
-A \textit{TUPLE} modul az OPERATORS modul kibővítése \textit{tuple} specifikus összehasonlító operátorokkal.
+A \textit{TUPLE} modul az \textit{OPERATORS} modul kibővítése \textit{tuple} specifikus összehasonlító operátorokkal.
 
 \input{\RULESFOLDER/41TUPLE-EXAMPLE}
 
@@ -48,11 +48,11 @@ Egy strukturális átalakítás látható, ami jó példa arra, hogyan lehet fel
 
 \paragraph{list.k}
 
-Az \textit{ERL-LIST-PARSING} modulban az erlangban használatos lista két fajta szintaxisa található.
+Az \textit{ERL-LIST-PARSING} modulban az Erlangban használatos lista két fajta szintaxisa található.
 
 \input{\RULESFOLDER/41ERL-LIST-PARSING}
 
-Az \textit{ERL-LIST} modul csak átalakítási szabályokat tartalmaz melyet a \textit{macro} attribútum jelöl. Ezeket a keretrendszer a legelső számítási lépés előtt elvégzi.
+Az \textit{ERL-LIST} modul csak átalakítási szabályokat tartalmaz, melyet a \textit{macro} attribútum jelöl. Ezeket a keretrendszer a legelső számítási lépés előtt elvégzi.
 
 \input{\RULESFOLDER/41ERL-LIST-EXAMPLE}
 
@@ -64,7 +64,7 @@ Az \textit{ERRORS} modul a futásidejű hibák fajtáit tartalmazza.
 
 \paragraph{value.k}
 
-Előző modulokban látható, hogy szintaxis esetén egyes fajtákhoz strict attribútum van rendelve. Ennek a következménye, hogy a szemantikai szabályok esetén, csakis akkor illeszkedik egy minta, ha a keretrendszer a szabály előfeltételében szereplő összes fajtát a K specifikus \textit{KResult} fajtára átalakította. A \textit{VALUE} modulban ezeket gyűjtöttük össze a \textit{Value} fajtába.
+Előző modulokban látható, hogy szintaxis esetén egyes fajtákhoz \textit{strict} attribútum van rendelve. Ennek a következménye, hogy a szemantikai szabályok esetén, csakis akkor illeszkedik egy minta, ha a keretrendszer a szabály előfeltételében szereplő összes fajtát a $\mathbb{K}$ specifikus \textit{KResult} fajtára átalakította. A \textit{VALUE} modulban ezeket gyűjtöttük össze a \textit{Value} fajtába.
 
 \input{\RULESFOLDER/41VALUE}
 
@@ -78,11 +78,11 @@ Az \textit{EXP} modul pedig az ezekhez tartozó szemantikadefiníciókat tartalm
 
 \input{\RULESFOLDER/41EXP-EXAMPLE}
 
-A kiemelt példában érdemes megfigyelni, ahogy a case szabálya környezetet vált. A régi környezetet, amit a \textit{Rho} nevű változó jelöl, átemeli a kiértékelési folyamba. Mikor a case kifejezés visszatérési értékét megkapjuk, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
+A kiemelt példában érdemes megfigyelni, ahogy a \textit{case} szabálya környezetet vált. A régit, amit a \textit{Rho} nevű változó jelöl, átemeli a számítási folyamba. Mikor a \textit{case} kifejezés visszatérési értékét megkapjuk, akkor ugyan ebből a folyamból visszaolvassa a régi környezetet.
 
 \paragraph{erl-parsing.k}
 
-Az ERL-PARSING modul egyesíti az összes -PARSING végű modult.
+Az \textit{ERL-PARSING} modul egyesíti az összes \textit{-PARSING} végű modult.
 
 \input{\RULESFOLDER/41ERL-PARSING}
 
@@ -94,7 +94,7 @@ Az \textit{ERL} modul három dologért felelős.
 
 \input{\RULESFOLDER/41ERL-EXAMPLE-KRESULT}
 
-Először is a Value alfajtája lesz a \textit{KResult} K specifikus fajtának.
+Először is a \textit{Value} alfajtája lesz a \textit{KResult} fajtának.
 
 \input{\RULESFOLDER/41ERL-EXAMPLE-PREPROCESSING}
 
@@ -102,7 +102,7 @@ Másodszor a program fájl feldolgozását definiálja. A függvénydefiníciós
 
 \input{\RULESFOLDER/41ERL-EXAMPLE-FUNCALL}
 
-Harmadszorra pedig az általunk definiált függvények hívásának szemantikáját definiálja. Itt a megszokott módon környezetet vált, és a defs állapotban megkeresi a hozzá tartozó függvénydefiníciót.
+Harmadszorra pedig az általunk definiált függvények hívásának szemantikáját definiálja. Itt a megszokott módon környezetet vált, és a \textit{defs} állapotban megkeresi a hozzá tartozó függvénydefiníciót.
 
 \paragraph{config.k}
 
@@ -122,7 +122,7 @@ env: Variable \rightarrow Value
 
 Az \textit{env} függvény pedig a változó nevéhez hozzárendeli a változóhoz kötött értéket.
 
-Ebben az alfejezetben egy rövid és tömör áttekintést kaphattunk a már meglévő szemantikadefiníciókról. Mielőtt tovább haladnánk, hogy megismerjük a konkurrens résznyelvhez tartozó szemantikadefiníciókat, érdemes egy rövid betekintést nyerni az erlang nyelv folyamatainak világába.
+Ebben az alfejezetben egy rövid és tömör áttekintést kaphattunk a már meglévő szemantikadefiníciókról. Mielőtt tovább haladnánk, hogy megismerjük a konkurrens résznyelvhez tartozó szemantikadefiníciókat, érdemes egy rövid betekintést nyerni az Erlang nyelv folyamatainak világába.
 
 \subsection{Erlang folyamatok}
 Az Erlang nyelv fő erőssége a konkurrens és az elosztott programozásban rejlik. Konkurrencia alatt a különböző szálak egy idejű kezelését értjük. Ez természetesen lehet valós párhuzamos megvalósítású több magos gépek esetén, illetve főként egy magos környezetben a szálak folyamatos cserélgetésével, így a párhuzamosság látszatát kapjuk. Ilyen szálakat Erlang nyelven könnyedén létrehozhatunk és eszközt is ad az egymás közötti kommunikációra. Erlangban ezeket a szálakat folyamatoknak hívjuk. Ez logikus megnevezés mivel a folyamatok egymással nem osztanak meg közvetlenül adatot. Az információcsere folyamatok között üzenetküldéssel történik.
@@ -135,7 +135,7 @@ A \textit{representSpawn} modul egy egyszerű példát mutat a spawn használat�
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/spawn_start.erl}
 
-Látható hogy a kiírás sorrendje ebben az esetben 8, 10, 9. Ezen a sorozaton jól látható, hogy a folyamatok egymástól függetlenül futnak, mivel a processzor úgy ütemezett, hogy a 4-es argumentummal meghívott folyamat írja ki az eredményét a legkésőbb. A zárójelben ponttal elválasztott számok a folyamatazonosító. Minden folyamathoz tartozik egy ilyen egyedi azonosító, ami a spawn függvény visszatérési értéke.
+Látható hogy a kiírás sorrendje ebben az esetben 8, 10, 9. Ezen a sorozaton jól látható, hogy a folyamatok egymástól függetlenül futnak, mivel a processzor úgy ütemezett, hogy a 4-es argumentummal meghívott folyamat írja ki az eredményét a legkésőbb. A zárójelben ponttal elválasztott számok a folyamatazonosító. Minden folyamathoz tartozik egy ilyen egyedi azonosító, ami a \textit{spawn} függvény visszatérési értéke.
 
 Mivel a folyamatok nem osztják meg közvetlenül saját adataikat, az egymással való kommunikáció üzenetküldéssel folyik. Ezt legegyszerűbben a klasszikus ping-pong példán lehet bemutatni \cite{RefMan}.
 
@@ -143,11 +143,11 @@ Mivel a folyamatok nem osztják meg közvetlenül saját adataikat, az egymássa
 
 A példában két folyamat kommunikál egymással. Az üzenet, akár egy ping pong labda, halad az egyik folyamattól a másik folyamatig. A \textit{start} függvény hozza létre a két folyamatot, amelyek kommunikálnak egymással. Az első folyamat, amit létrehoz, a \textit{pong} függvényt hívja meg, és eltárolja a folyamatazonosítóját egy változóba.
 
-A pong függvény egy \textit{receive} kifejezést tartalmaz. Ez a szerkezet felelős az üzenetek fogadásáért. Minden folyamathoz tartozik egy postaláda, amibe az üzenetek érkeznek. Ezeken a receive minden ágára, kezdve az elsővel, mintaillesztést végez a beérkezésük sorrendjében, amíg egyezést nem talál. Ha sikeres volt a mintaillesztés, akkor azt az üzenetet eldobja a postaládából, és az adott ághoz tartozó kifejezést kiértékeli. Ha nem volt egyezés, vár amíg újabb üzenet nem jön, és újra a legrégebbi üzenettől elkezdi a mintaillesztést. Jelen esetben nagy valószínűséggel a pong folyamat postaládája üres, ezért üzenetfogadására vár.
+A \textit{pong} függvény egy \textit{receive} kifejezést tartalmaz. Ez a szerkezet felelős az üzenetek fogadásáért. Minden folyamathoz tartozik egy postaláda, amibe az üzenetek érkeznek. Ezeken a \textit{receive} minden ágára, kezdve az elsővel, mintaillesztést végez a beérkezésük sorrendjében, amíg egyezést nem talál. Ha sikeres volt a mintaillesztés, akkor azt az üzenetet eldobja a postaládából, és az adott ághoz tartozó kifejezést kiértékeli. Ha nem volt egyezés, vár amíg újabb üzenet nem jön, és újra a legrégebbi üzenettől elkezdi a mintaillesztést. Jelen esetben nagy valószínűséggel a \textit{pong} folyamat postaládája üres, ezért üzenetfogadására vár.
 
-A start létrehozza a második folyamatot, ami a \textit{ping} függvényt hívja meg két paraméterrel, egy számmal és egy folyamatazonosítóval. Az első paraméter megadja, hogy az üzenet küldés hányszor menjen végbe oda-vissza, a második paraméter pedig egy folyamatazonosító, amely folyamattal kommunikálni fog. A ping függvényben az első kifejezés a ! operátor. A két aritású operátorban az első operandusban megadott folyamatazonosító által meghatározott folyamatnak elküld egy a második operandusban megadott üzenetet. Itt az üzenet egy tuple, ami egy atomot és a \textit{self} függvényt tartalmazza. A self visszaadja az adott folyamat folyamatazonosítóját.
+A \textit{start} létrehozza a második folyamatot, ami a \textit{ping} függvényt hívja meg két paraméterrel, egy számmal és egy folyamatazonosítóval. Az első paraméter megadja, hogy az üzenet küldés hányszor menjen végbe oda-vissza, a második paraméter pedig egy folyamatazonosító, amely folyamattal kommunikálni fog. A \textit{ping} függvényben az első kifejezés a ! operátor. A két aritású operátorban az első operandusban megadott folyamatazonosító által meghatározott folyamatnak elküld egy a második operandusban megadott üzenetet. Itt az üzenet egy \textit{tuple}, ami egy atomot és a \textit{self} függvényt tartalmazza. A \textit{self} visszaadja az adott folyamat folyamatazonosítóját.
 
-Ezalatt a másik várakozó folyamat üzenetet kapott a ping függvényt kiértékelő folyamattól. A második ágra illeszkedik az üzenet így kiírja hogy megérkezett, és nyomban válaszol is rá a ! operátorral. A válasz már csak egy atom, mivel a ping függvényt kiértékelő folyamat paraméterként megkapta a folyamatazonosítót. Ezután rekurzívan meghívja önmagát. Ekkor a ping vagy épp most kezdi el a receive kiértékelését, vagy már el is végzett egy mintaillesztést, és egy új üzenetre vár. A kapott üzenet illeszkedik a pong atomra így jelzi, hogy az üzenet megérkezett, és a függvény szintén rekurzívan meghívja önmagát, ám az üzenetküldés számát meghatározó paraméter értékét csökkenti eggyel. Ez egészen addig megy így, amíg ez az érték nulla nem lesz. Ekkor a ping másik paraméterezésére fognak illeszkedni a függvényhívásban megadott paraméterek. A finished atomot tartalmazó üzenetet küldi el, ami jelzi a pongnak, hogy az üzenet küldések folyamatának vége. Mind a két függvény kiírja, hogy befejeződött az üzenetküldés, és már nincs rekurzív hívás, így a függvények kiértékelődtek, a két folyamat terminál.
+Ezalatt a másik várakozó folyamat üzenetet kapott a \textit{ping} függvényt kiértékelő folyamattól. A második ágra illeszkedik az üzenet így kiírja hogy megérkezett, és nyomban válaszol is rá a ! operátorral. A válasz már csak egy atom, mivel a \textit{ping} függvényt kiértékelő folyamat paraméterként megkapta a folyamatazonosítót. Ezután rekurzívan meghívja önmagát. Ekkor a \textit{ping} vagy épp most kezdi el a \textit{receive} kiértékelését, vagy már el is végzett egy mintaillesztést, és egy új üzenetre vár. A kapott üzenet illeszkedik a \textit{pong} atomra így jelzi, hogy az üzenet megérkezett, és a függvény szintén rekurzívan meghívja önmagát, ám az üzenetküldés számát meghatározó paraméter értékét csökkenti eggyel. Ez egészen addig megy így, amíg ez az érték nulla nem lesz. Ekkor a \textit{ping} másik paraméterezésére fognak illeszkedni a függvényhívásban megadott paraméterek. A \textit{finished} atomot tartalmazó üzenetet küldi el, ami jelzi a \textit{pongnak}, hogy az üzenet küldések folyamatának vége. Mind a két függvény kiírja, hogy befejeződött az üzenetküldés, és már nincs rekurzív hívás, így a függvények kiértékelődtek, a két folyamat terminál.
 
 Lefuttatva a példa programot, feltételezve hogy a konzolra való kiíratást egyből végrehajtja, az alábbi eredményt kapjuk.
 

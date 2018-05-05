@@ -4,6 +4,30 @@
 
 \krule{
     \kmiddle{\PROCESS_COLOR}{process}{
+      \parbox{1000pt}{
+      \kprefix{\K_COLOR}{k}{
+        \reduce
+          {\terminal{\$wait\_msg}}
+          {\dotCt{}}
+      }
+      \ksuffix{\MAILBOX_COLOR}{mailbox}{
+        \reduce
+          {\dotCt{List}}
+          {\terminal{ListItem} (\{ \terminal{eXIT}, \variable[]{OwnP}{}, \variable[]{Reason}{}\})}
+      }
+      \kall{\PID_COLOR}{pid}{
+        \variable[]{P}{}
+      }
+      \kmiddle{\PROCESSFLAG_COLOR}{processFlag}{
+        {\terminal{trap\_exit}} \mapsto {\terminal{true}}
+      }
+      \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
+        \terminal{false}
+      }
+      }
+    }
+    \newline
+    \kmiddle{\PROCESS_COLOR}{process}{
       \kprefix{\K_COLOR}{k}{
         \reduce
           {\terminal{exit}:\nonTerminal{Atom}(\variable[Pid]{P}{user}, \variable[Value]{Reason}{user})}
@@ -14,8 +38,6 @@
       }
     }
     \newline
-    \kmiddle{\PROCESS_COLOR}{process}{
-    }
     \kall{\IDLEPROCESSES_COLOR}{idleProcesses}{
       \reduce
         {\variable[]{IDs}{}}
@@ -35,32 +57,6 @@
   }
   {{\variable[]{Reason}{}} \mathrel{=/=_{\scriptstyle\it K}} {\terminal{kill}}}
   {}{}{}
-
-  ahol a process
-
-\kruleWithoutRule{
-    \kprefix{\K_COLOR}{k}{
-        \reduce
-          {\terminal{\$wait\_msg}}
-          {\dotCt{}}
-      }
-      \ksuffix{\MAILBOX_COLOR}{mailbox}{
-        \reduce
-          {\dotCt{List}}
-          {\terminal{ListItem} (\{ \terminal{eXIT}, \variable[]{OwnP}{}, \variable[]{Reason}{}\})}
-      }
-      \kall{\PID_COLOR}{pid}{
-        \variable[]{P}{}
-      }
-      \newline
-      \kmiddle{\PROCESSFLAG_COLOR}{processFlag}{
-        {\terminal{trap\_exit}} \mapsto {\terminal{true}}
-      }
-      \kall{\TERMINATEDPROCESS_COLOR}{terminatedProcess}{
-        \terminal{false}
-      }
-  }
-  {}{}{}{}
          
 \end{kblock}         
          
