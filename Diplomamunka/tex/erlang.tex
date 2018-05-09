@@ -6,9 +6,9 @@ A következő alfejezetek az Erlang nyelv alapjait mutatja be, éppen annyit, am
 \subsection{Adattípusok}
 Első körben érdemes az egyszerűbb adattípusokat áttekinteni, mielőtt megismernénk más kifejezéseket.
 
-Két típusú szám literál létezik: \textit{integer} és \textit{float}. Alapértelmezetten decimális számrendszerben értendők, de a \textit{alap\#érték} formában 2-36-os számrendszerig ki tudunk fejezni számokat.
+Két típusú szám literál létezik: \textit{integer} és \textit{float}.% Alapértelmezetten decimális számrendszerben értendők, de a \textit{alap\#érték} formában 2-36-os számrendszerig ki tudunk fejezni számokat.
 
-\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/numbers.erl}
+%\lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/numbers.erl}
 
 A leggyakrabban használt literál az \textit{atom}, gyakorlatilag egy konstans. Az aposztróf nélküli atomoknak kis betűvel kell kezdődniük és alfanumerikus karaktereket, aláhúzást és @ jelet tartalmazhatnak. Az aposztróffal rendelkező atomok Latin-1 karakterkódolású karakterből állhatnak.
 
@@ -22,7 +22,7 @@ A \textit{lista} is a tuplehöz hasonlóan egy összetett típus ellenben válto
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/lists.erl}
 
-Egy érdekes adattípus, ami manapság már sok imperatív nyelvben is megtalálható, a \textit{függvény objektum}. A \textit{fun} szóval tudunk létrehozni ilyen objektumot.
+Egy érdekes adattípus, ami manapság már sok imperatív nyelvben is megtalálható, a \textit{függvény objektum}. A \textit{fun} kulcsszóval bevezetve tudunk létrehozni ilyen objektumot.
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/fun.erl}
 
