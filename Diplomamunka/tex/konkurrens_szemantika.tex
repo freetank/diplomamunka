@@ -22,7 +22,7 @@ Az \textit{EXP-SHARED} modul az \textit{EXP} modulból -- később kerül ismert
 
 Az \textit{Exp} -- a kifejezések fajtája -- deklarálása itt található. Szinte az összes modul használja az \textit{Exp} és az \textit{Exps} fajtákat, viszont vannak olyanok, ahol szükségtelen az egész \textit{Exp}-hez tartozó szintaxist importálni. Ha a modulokban újra lenne deklarálva, az névütközéshez vezetne. Az \textit{EXP-SHARED} modul ezt hivatott elkerülni.
 
-Ezenfelül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválasztott \textit{Exp}-ek sorozata a \textit{strict} attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a \textit{case} és az \textit{if} kifejezések által is használt részkifejezések, amely a mintát és az utána lévő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
+Ezen felül még definiálva lett az \textit{Exps} fajta, ami vesszővel elválasztott \textit{Exp}-ek sorozata a \textit{strict} attribútummal, mely a kötelező kiértékelést jelöli, sorrendet figyelmen kívül hagyva. A \textit{Match0} a \textit{case} és az \textit{if} kifejezések által is használt részkifejezések, amely a mintát és az utána lévő kifejezést tartalmazza, a \textit{Match} pedig ezek pontosvesszővel elválasztott sorozata. Fontos megjegyezni, hogy ezek a részkifejezések kiértékelése sorban történik. Vagyis mindig csak a mintaillesztés során a nyíl előtti rész, majd egyezés esetén pedig annak az "ágnak" a kifejezése értékelődik ki.
 
 \paragraph{operators.k}
 Az \textit{OPERATORS-PARSING} modulban bővítjük a kifejezések szintaxisát aritmetikai, összehasonlító és logikai operátorokkal.
@@ -86,7 +86,7 @@ Az \textit{ERL-PARSING} modul egyesíti az összes \textit{-PARSING} végű modu
 
 \input{\RULESFOLDER/41ERL-PARSING}
 
-Ezenfelül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva. Egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit $---$ jel választ el egymástól.
+Ezen felül meghatározza a különböző kifejezések közötti prioritásokat is. Jelenleg az Erlang modul rendszer szintaxisa még nincs kidolgozva. Egy fájl felépítése két nagy részből áll: a függvénydefiníciós rész és a program rész, amit $---$ jel választ el egymástól.
 
 \paragraph{erl.k}
 
