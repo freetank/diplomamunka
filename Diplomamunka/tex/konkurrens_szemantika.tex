@@ -1,8 +1,8 @@
-\section{Erlang nyelv konkurrens résznyelvének szemantikája $\mathbb{K}$ keretrendszerben}
-A diplomamunka lényegi része az Erlang nyelv konkurrens résznyelvének szemantikájának definiálása volt. A $\mathbb{K}$ keretrendszernek erős kifejező ereje, megkönnyítette a szemantikadefiníció megadását, még ilyen bonyolult témában is, ahol különböző folyamatok kommunikálnak egymással. A konkurrens résznyelv szemantikájának leírását nem kellett a nulláról kezdeni, már meg volt egy mag, amire lehetett építeni. Főleg az egyszerűbb kifejezéseket, függvénydefiniálások és -hívások szemantikáját tartalmazta. Az Erlang folyamatok ismertetése után megláthatjuk, hogyan épült fel erre az alapra a konkurrens résznyelv szemantikája.
+\section{Erlang nyelv konkurens résznyelvének szemantikája $\mathbb{K}$ keretrendszerben}
+Korábbi munkák eredményeként már létezett egy nyelvdefiníció, mely tartalmazta az alaptípusok egy részét, az ehhez tartozó operátorokat, a függvénydefiniálás és -hívás szemantikáját, mintaillesztést, néhány kifejezést mint például az \textit{if} és a \textit{case}, melyet részletesebben a \textit{Meglévő szemantikadefiníció} alfejezetben fejtettem ki. A meglévő nyelvdefiníció egy korábbi (3.6-os) verzióban volt meg, és szerettem volna legújabb verzió előnyeit kihasználni a diplomamunka kidolgozásakor.
 
 \subsection{Meglévő szemantikadefiníció}
-Az első lépés a meglévő szemantikadefiníciók 3.6-os verzióról 4.0-ra való átírása, és ezek modularizálása.
+A meglévő szemantikadefiníciót modularizáltam, hogy a konkurens elemekkel együtt jól áttekinthető és kezelhető legyen.
 
 \paragraph{tokens.k}
 Ebben a fájlban van az Erlang specifikus literáloknak és a változóknak a szintaxisa, mely két modult tartalmaz.
@@ -122,10 +122,10 @@ env: Variable \rightarrow Value
 
 Az \textit{env} függvény pedig a változó nevéhez hozzárendeli a változóhoz kötött értéket.
 
-Ebben az alfejezetben egy rövid és tömör áttekintést kaphattunk a már meglévő szemantikadefiníciókról. Mielőtt tovább haladnánk, hogy megismerjük a konkurrens résznyelvhez tartozó szemantikadefiníciókat, érdemes egy rövid betekintést nyerni az Erlang nyelv folyamatainak világába.
+Ebben az alfejezetben egy rövid és tömör áttekintést kaphattunk a már meglévő szemantikadefiníciókról. Mielőtt tovább haladnánk, hogy megismerjük a konkurens résznyelvhez tartozó szemantikadefiníciókat, érdemes egy rövid betekintést nyerni az Erlang nyelv folyamatainak világába.
 
 \subsection{Erlang folyamatok}
-Az Erlang nyelv fő erőssége a konkurrens és az elosztott programozásban rejlik. Konkurrencia alatt a különböző szálak egy idejű kezelését értjük. Ez természetesen lehet valós párhuzamos megvalósítású több magos gépek esetén, illetve főként egy magos környezetben a szálak folyamatos cserélgetésével, így a párhuzamosság látszatát kapjuk. Ilyen szálakat Erlang nyelven könnyedén létrehozhatunk és eszközt is ad az egymás közötti kommunikációra. Erlangban ezeket a szálakat folyamatoknak hívjuk. Ez logikus megnevezés mivel a folyamatok egymással nem osztanak meg közvetlenül adatot. Az információcsere folyamatok között üzenetküldéssel történik.
+Az Erlang nyelv fő erőssége a konkurens és az elosztott programozásban rejlik. Konkurrencia alatt a különböző szálak egy idejű kezelését értjük. Ez természetesen lehet valós párhuzamos megvalósítású több magos gépek esetén, illetve főként egy magos környezetben a szálak folyamatos cserélgetésével, így a párhuzamosság látszatát kapjuk. Ilyen szálakat Erlang nyelven könnyedén létrehozhatunk és eszközt is ad az egymás közötti kommunikációra. Erlangban ezeket a szálakat folyamatoknak hívjuk. Ez logikus megnevezés mivel a folyamatok egymással nem osztanak meg közvetlenül adatot. Az információcsere folyamatok között üzenetküldéssel történik.
 
 Egy ilyen folyamatot a \textit{spawn(Modul, Exportált\_Függvény, ArgumentLista)} hívással tudunk létrehozni.
 
@@ -153,20 +153,42 @@ Lefuttatva a példa programot, feltételezve hogy a konzolra való kiíratást e
 
 \lstinputlisting[language=Erlang]{\EXAMPLESFOLDER/pingpong_start.erl}
 
-Ezzel az áttekintővel egy kép kialakult a folyamatok működéséről és kommunikációjáról, ami minimálisan szükséges a konkurrens szemantikadefiníciók könnyebb megértéséhez. A diplomamunka nem tér ki a több gépet tartalmazó elosztott programozásra.
+Ezzel az áttekintővel egy kép kialakult a folyamatok működéséről és kommunikációjáról, ami minimálisan szükséges a konkurens szemantikadefiníciók könnyebb megértéséhez. A diplomamunka nem tér ki a több gépet tartalmazó elosztott programozásra.
 
-\subsection{Konkurrens résznyelv szemantikája}
+\subsection{Konkurens résznyelv szemantikája}
 
-Szemantikadefiniálás gyakorlatilag a manuál értelmezéséből áll, amiből aztán megfelelő módszerrel, technikával formális szemantikadefiníciót készítünk. Ebben az alfejezetben kitérünk mit ír minden egyes nyelvi elemnél, milyen kikötések, kivételek vannak, és ezek alapján hogyan jutottunk el a végleges formális definícióig. A konfiguráció is bővült.
-
+Szemantikadefiniálás gyakorlatilag a manuál értelmezéséből áll, amiből aztán megfelelő módszerrel, technikával formális szemantikadefiníciót készítünk. Ebben az alfejezetben megvizsgáljuk, hogy a nyelvi elemekhez, amihez formális szemantikát akarunk definiálni, milyen informális leírás tartozik, és ezek alapján hogyan jutunk el a formális definícióig. A konfiguráció is bővült.
 
 \input{\RULESFOLDER/43CONFIG}
 
-ahol a process
-
 \input{\RULESFOLDER/43CONFIG_PROCESS}
 
-A kezdő konfiguráció kiegészült pár állapottal. Ezek leírása és tartalma azoknál a definícióknál lesz kifejtve, ahol először megjelennek. A résznyelv egész szemantikadefiníciója megtekinthető a diplomamunka mellékletében.%TODO tényleg?
+A kezdő konfiguráció kiegészült pár állapottal:
+
+\begin{itemize}
+  \item processes: a folyamatok csoportját tároló cella
+  \begin{itemize}
+    \item process: folyamatok állapota
+    \begin{itemize}
+      \item k: a programot szekvenciákra bontott listaként tároló cella
+      \item env: a változókhoz hozzárendelt értékek az adott környezetben
+      \item pid: folyamatazonosító
+      \item mailbox: a folyamat postaládája
+      \item processFlag: folyamathoz tartozó flagek és értékei
+      \item terminatedProcess: jelzi hogy a folyamat terminált-e
+    \end{itemize}
+  \end{itemize}
+  \item processIds: a futó folyamatok azonosítói
+  \item processesCheckMails: folyamatok azonosítói, melyek mintaillesztést végeznek a postaládában lévő üzeneteikre
+  \item idleProcesses: üzenetre várakozó folyamatok azonosítói, és a hozzájuk tartozó lejárati idő
+  \item processesDuringExit: az éppen termináló folyamatok azonosítói
+  \item registeredProcesses: a regisztrált folyamatok azonosítói és a hozzátartozó nevek
+  \item linkedProcesses: egymáshoz kapcsolt folyamatok
+  \item time: az eltelt idő
+  \item defs: függvénydefiníciók
+\end{itemize}
+
+A cellák bővebb leírása és tartalma azoknál a definícióknál lesz kifejtve, ahol először megjelennek. A résznyelv egész szemantikadefiníciója megtekinthető a diplomamunka mellékletében.
 
 \subsubsection{Folyamat létrehozása}
 A folyamatok létrehozásáról az előző alfejezetben már tettem említést, ami a spawn függvénnyel lehetséges. A konfigurációban a \textit{processes} állapot tartalmazza a folyamatokat, ami gyakorlatilag egy multihalmaz (a multihalmaz jellege sose lesz kihasználva, mivel a folyamatazonosító mindig egyedi minden folyamatnak, emiatt nem létezhet két azonos elem a multihalmazban). Minden sikeres spawn híváskor egy új \textit{process} elem kerül be a konfigurációba. Ez a process tartalmazza a már említett k cellát és az env állapotot.
@@ -250,9 +272,13 @@ Minden \textit{receive} híváskor egy strukturális átalakítást végző szab
 
 Üzenetfeldolgozásért három szabály felelős, egy amely sikeres mintaillesztés esetén illeszkedik, kettő pedig mikor sikertelen. Az egyik sikertelen esetet kezelő szabályról fogok részletesebben beszélni.
 
+\newpage
+
 \input{\RULESFOLDER/43RECEIVENOTMATCHED}
 
 A feltételben lévő \textit{callMatchesToListOfValues} végzi a mintaillesztést az üzenetekre. Ebben az esetben nem volt sikeres mintaillesztés, vagyis \textit{\$error\_badmatch}-al tér vissza. A feltétel második része mondja ki, hogy csak azokra a folyamatokra illeszkedik ez a szabály, amelyeken a strukturális átalakítás lefutott, és készek rá, hogy megvizsgálják a postaládájukat. Hisz látható, hogy az előző szabályban és ebben a szabályban is a \textit{k} cella eleje azonos, így ha ez a feltétel nincs, nem determinisztikusan illeszkedhet az egyik illetve a másik szabály. Mivel ez a szabály a postaládában lévő üzenetek mintaillesztését elvégzi, ezért az átmenet kiveszi a \textit{processesCheckMails} állapotból a folyamat azonosítóját. Az átmenet a folyamatot várakoztató állapotba rakja. Ez két helyen is jelölve van. Az egyik a \textit{k} cella átmenete, ahol a számítási folyamba berakja a \textit{\$wait\_msg} konstanst, ami a későbbi szabályillesztésnél ad segítséget, illetve az \textit{idleProcesses} állapotba berakja a folyamatazonosító-lejárati idő párt. Az \textit{idleProcesses} állapot egy map, ahova a folyamatokhoz hozzárendel egy lejárati időt. Ezután a folyamat várakozik. Itt jön a képbe a hatodik szabálya a ! operátor szemantikadefiníciójának.
+
+\newpage
 
 \input{\RULESFOLDER/43SENDTOIDLEPROCESS}
 
@@ -343,13 +369,13 @@ Ezek a szabályok gyakorlatilag egy az egyben megegyeznek a két paraméteres \t
 Ha az összes hozzákapcsolt folyamatnak elküldte az exit szignált, vagyis a második aktuális paramétere üres halmaz, akkor a folyamat végleg terminálhat. Előzőleg már a \textit{processIds} állapotból ki lett véve a folyamatazonosítója, illetve minden állapotból kikerült még a terminálás bekövetkeztekor, vagy az \textit{exit} hívásakor. Tehát már csak a \textit{processesDuringExit} állapotból kell kivenni a folyamatazonosítóját, ezzel jelezve hogy befejezte az exit szignálok küldést.
 
 \paragraph{}
-Összesen 21 szabály kapcsolódik a terminálással kapcsolatos szemantikához. A konkurrens résznyelvet leíró szemantikadefiníció végül 61 szabályt és 9 szemantikus függvényt tartalmaz.
+Összesen 21 szabály kapcsolódik a terminálással kapcsolatos szemantikához. A konkurens résznyelvet leíró szemantikadefiníció végül 61 szabályt és 9 szemantikus függvényt tartalmaz.
 
 \subsection{Tesztelés}
 
-Egy bonyolult és összetett szemantikadefiníciót ismerhettünk meg az előző fejezetben. A függvények sokszor egymástól függnek, ilyen például a folyamatok közötti kapcsolatok és a terminálás. A definíció írása alatt nagyon könnyedén lehetett úgy bővíteni a szabályhalmazt és az állapotteret, hogy a már megírt szabályok nem adták vissza megfelelően a manuálban leírtakat. Emiatt a definíció írásának jól meghatározott ciklusai voltak.
+Egy bonyolult és összetett szemantikadefiníciót ismerhettünk meg az előző fejezetben. A függvények sokszor egymástól függnek, ilyen például a folyamatok közötti kapcsolatok és a terminálás. A definíció írása alatt könnyedén lehetett úgy bővíteni a szabályhalmazt és az állapotteret, hogy a már megírt szabályok nem adták vissza megfelelően a manuálban leírtakat. Emiatt a definíció írásának jól meghatározott ciklusai voltak.
 
-A ciklus első lépése a manuál értelmezése volt, a nem egyértelmű részek megvitatása, ezekre válasz keresése. Második lépésként az összegyűjtött adatok alapján apró példakódokat írni, mellyel a függvény egy-egy specifikus működését lehetett ellenőrizni. Harmadik lépés pedig maga a szabályhalmaz megírása, amit az előző fejezetben láthattunk is. Abban az esetben, ha a megírt részekhez tartozó tesztek megbuktak, negyedik lépésként össze kellett hangolni a szabályokat, esetleg a teszteket módosítani, hogy újra zöld legyen az út.
+A ciklus első lépése a manuál értelmezése volt, a nem egyértelmű részek megvitatása, ezekre válasz keresése. Erlanghoz egy széles körben elterjedt implementáció létezik \cite{ErlRefDown}, amely jó referenciát adott kérdéses esetekben. Második lépésként az összegyűjtött adatok alapján apró példakódokat írni, mellyel a függvény egy-egy specifikus működését lehetett ellenőrizni. Harmadik lépés pedig maga a szabályhalmaz megírása, amit az előző fejezetben láthattunk is. Abban az esetben, ha a megírt részekhez tartozó tesztek megbuktak, negyedik lépésként össze kellett hangolni a szabályokat, esetleg a teszteket módosítani, hogy újra zöld legyen az út.
 
 A második lépésben segítséget nyújtott a $\mathbb{K}$ keretrendszer tesztelő egysége. Ha futtatunk egy programot a \textit{krun} paranccsal, akkor a végkonfiguráció lesz az eredmény, ha terminált a program. Ebből lehet mintaillesztéssel információt nyerni.
 
@@ -371,9 +397,9 @@ Ez már könnyebben olvasható, mint a fenti teljes végkonfiguráció. Ha ezt a
 
 Azonban a rendszernek vannak hiányosságai. Például, ha egy map tartalmára vagyok kíváncsi, akkor ott számít a sorrend. Sokszor előfordult, hogy \textit{kompile} parancsot használva ugyan azt az eredményt kaptam meg, de a map sorrendje megváltozott. Ezen felül az idő ellenőrzése is sokszor bajos volt, mivel volt hogy néha kevesebb, néha kicsit több volt, főleg ha a szabályhalmaz bővítve lett. Mindezek ellenére nagyon hasznos eszköznek bizonyult munkám során.
 
-A konkurrens rész összesen 38 tesztet tartalmaz. Minden teszt esetén a mintával az éppen számunkra érdekes információt nyerjük ki a végkonfigurációból, amiből kiderülhet, hogy az adott kódrészlet helyesen futott-e le. Felmerülhet a kérdés, hogy ezek a tesztek ténylegesen a helyes működést ellenőrzik? Minden egyes teszt írásakor a manuálra építettem, ahogy a szemantikadefiniálásakor is. Azonban a diplomamunkám pont arról szól, hogy egy résznyelv informatív szemantikaleírásából, egy formális szemantikadefiníció készült. Tehát ez az én interpretálásom a definícióra is és a tesztekre is. Mindenféleképpen érdemes lenne több emberrel is konzultálni a félreérthetőségek, az emberi nyelvből való pontatlanságok elkerülése végett.
+A konkurens rész összesen 38 tesztet tartalmaz. Minden teszt esetén a mintával az éppen számunkra érdekes információt nyerjük ki a végkonfigurációból, amiből kiderülhet, hogy az adott kódrészlet helyesen futott-e le. Felmerülhet a kérdés, hogy ezek a tesztek ténylegesen a helyes működést ellenőrzik? Minden egyes teszt írásakor a manuálra és az implementációra építettem, ahogy a szemantikadefiniálásakor is.
 
 \paragraph{}
-A diplomamunka lényegi része ebben a fejezetben található. Áttekintettük a meglévő szemantikadefiníciót, bevezetést kaphattunk az Erlang folyamatok világába, ezután a konkurrens résznyelv szemantikájába ástuk be magunkat megvalósítva a $\mathbb{K}$ keretrendszer segítségével, és végül az ehhez tartozó tesztekről hallhattunk. Igyekeztem a legnagyobb precizitással és körüljárással értelmezni a függvények pontos működését, majd formális szabályok formájába önteni, melynek eredménye ez a diplomamunka lett.
+A konkurens szemantikadefiníció egy részét láthattuk ebben a fejezetben. Áttekintettük a meglévő szemantikadefiníciót, bevezetést kaphattunk az Erlang folyamatok világába, ezután a konkurens résznyelv szemantikájába ástuk be magunkat megvalósítva a $\mathbb{K}$ keretrendszer segítségével, és végül az ehhez tartozó tesztekről hallhattunk. Igyekeztem a legnagyobb precizitással és körüljárással értelmezni a függvények pontos működését, majd formális szabályok formájába önteni, melynek eredménye ez a diplomamunka lett.
 
 % Eddig ellenorizve
