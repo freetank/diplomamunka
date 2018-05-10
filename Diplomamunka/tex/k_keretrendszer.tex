@@ -26,15 +26,15 @@ Térjünk vissza a \textit{strict} attribútumhoz, hogy megértsük pontosan hog
 
 \input{tex/Szabalyok/2HEATINGCOOLING}
 
-Itt megjegyezném, hogy a $\kra$ a $\sim>$ jelnek a prezentációra szánt formája. Az első szabály kiveszi az értékadó operátor kontextusából a második operandust, és berakja a folyam elejére egy új termként. A második pedig a kivett operandust visszarakja az értékadó operátor környezetébe. A kémiai absztrakt gép alapján ezeket rendre fűtő és hűtő szabályoknak nevezzük. \textit{strict} attribútum esetén a kiértékelési sorrend nem számit.
+Itt megjegyezném, hogy a $\kra$ a $\sim>$ jelnek a prezentációra szánt formája. Az első szabály kiveszi az értékadó operátor kontextusából a második operandust, és berakja a folyam elejére egy új termként. A második pedig a kivett operandust visszarakja az értékadó operátor környezetébe. A kémiai absztrakt gép alapján ezeket rendre \textit{heating} és \textit{cooling} szabályoknak nevezzük. \textit{strict} attribútum esetén a kiértékelési sorrend nem számít.
 
 \input{tex/Szabalyok/2HEATINGCOOLINGSTRICT}
 
-Itt látható szabályok abban az esetben generálodnak, ha az összeadás operátor kiértékelési stratégiája olyan, hogy mind a két operandust ki kell értékelni az összeadásra vonatkozó szemantikus szabály alkalmazása előtt. Könnyen látható, hogy előidézhetnek nem determinisztikus futást. Ugyan ezek generálodnak a \textit{seqstrict} attribútum esetén is, de itt már számít a sorrend. Tehát az \textit{A2}-re egészen addig nem alkalmazza a fűtő/hűtő szabályokat, amíg az A1-re nem alkalmazta ezeket. Viszont a szabályok felcserélhetőek, aminek következménye, hogy a $\mathbb{K}$-ban definiált nyelv nem lesz futtatható, mivel előfordulhat hogy nem terminál. Ennek megelőzése érdekében lett bevezetve a \textit{KResult} fajta és a hozzá tartozó \textit{isKResult} szemantikus függvény, amely eldönti egy termről, hogy \textit{KResult} fajta vagy sem. Így a teljes generált szabályok értékadó operátor esetén az alábbiak:
+Itt látható szabályok abban az esetben generálódnak, ha az összeadás operátor kiértékelési stratégiája olyan, hogy mind a két operandust ki kell értékelni az összeadásra vonatkozó szemantikus szabály alkalmazása előtt. Könnyen látható, hogy előidézhetnek nem determinisztikus futást. Ugyan ezek generálódnak a \textit{seqstrict} attribútum esetén is, de itt már számít a sorrend. Tehát az \textit{A2}-re egészen addig nem alkalmazza a \textit{heating}/\textit{cooling} szabályokat, amíg az \testit{A1}-re nem alkalmazta ezeket. Viszont a szabályok felcserélhetőek, aminek következménye, hogy a $\mathbb{K}$-ban definiált nyelv nem lesz futtatható, mivel előfordulhat hogy nem terminál. Ennek megelőzése érdekében lett bevezetve a \textit{KResult} fajta és a hozzá tartozó \textit{isKResult} szemantikus függvény, amely eldönti egy termről, hogy \textit{KResult} fajta vagy sem. A definiálandó programnyelv azon fajtáit kell a \textit{KResult} altípusaként megjelölni, amiket értéknek tekintünk, és további redukciós szabályokat nem szeretnénk alkalmazni rá. Így a teljes generált szabályok értékadó operátor esetén az alábbiak:
 
 \input{tex/Szabalyok/2HEATINGCOOLINGREAL}
 
-Ilyenkor minden esetben először a fűtő szabályt alkalmazza, és egészen addig, amíg a kontextusból kiemelt term nem \textit{KResult} fajtájú, nem tudja alkalmazni rá a hűtő szabályt.
+Ilyenkor minden esetben először a \textit{heating} szabályt alkalmazza, és egészen addig, amíg a kontextusból kiemelt term nem \textit{KResult} fajtájú, nem tudja alkalmazni rá a \textit{cooling} szabályt.
 
 \subsection{Keretrendszer további eszközei}
 
