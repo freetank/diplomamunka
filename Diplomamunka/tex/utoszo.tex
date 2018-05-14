@@ -1,2 +1,10 @@
 \section{Összefoglalás}
-fdsfsdfs
+A diplomamunkában olvashattunk a keretrendszerről, mely az operációs szemantikában megfogalmazott formális definíciókra támaszkodva képes interpretert készíteni, áttekintettük a meglévő szemantikadefiníciót, bevezetést kaphattunk az Erlang folyamatok világába, ezután a konkurens résznyelv szemantikájába ástuk be magunkat megvalósítva a $\mathbb{K}$ keretrendszer segítségével, és végül az ehhez tartozó tesztekről hallhattunk.
+
+A témabejelentőben kitűzött célok nagy részét sikerült teljesítenem. Hiányzik az \textit{erlang:error} egy és két paraméterű változatának definíciója. Azonban a működésük hasonló a már definiált egy paraméterű \textit{exit} függvényhez. Az \textit{erlang:error} csupán kiegészíti a működését azzal, hogy nem csak a terminálás okát, hanem az aktuális folyamat vermét is elküldi a szignálban.
+
+A monitorozásnak maradt még ki a szemantikadefiníciója. Különbség a folyamatok közötti kapcsolatokkal, hogy ez csak egyirányú, tehát tényleg egy folyamat monitoroz egy másikat és fordítva nem. Ennek megvalósítása könnyebb, mint a folyamatok közötti kapcsolatoké, az egyirányúság miatt. Mindig üzenetet küld a monitorozó folyamatnak ha terminál, nem foglalkozik a \textit{trap\_exit} flaggel és nem terminál a megfigyelő folyamat, ha a monitorozott leáll.
+
+A cél a teljes formális nyelvdefiníció megírása, ami hosszadalmas folyamat. A jelen diplomamunka az elosztott esetekkel nem foglalkozott, amivel a \textit{CONCURRENT} modul fog  bővülni. Felmerül a kérdés, hogy a hardveres okokból eredő üzenetek késésének kezelése hogyan jelenik meg a szemantikadefinícióban. Ezenkívül külön függvények is tartoznak az elosztott programozás témájához.
+
+Időközben egy másik ágon elkészült az Erlang modulra bontás definíciója is, amit majd össze kell fésülni az én munkámmal, figyelve milyen elemek kerültek be a konfigurációba, hogy a hasonló vagy ugyanazt kifejező állapotok eliminálva legyenek. Azonban a meglévő szemantikadefinícióval is elkezdődhet kisebb programok verifikálása. Igyekeztem a legnagyobb precizitással és körüljárással értelmezni a függvények pontos működését, majd formális szabályok formájába önteni, melynek eredménye ez a diplomamunka lett.
